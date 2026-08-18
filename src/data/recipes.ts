@@ -10,12 +10,14 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Cheesecake Syrup", amount: "1–2 pumps" },
         { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, cheesecake syrup 1–2 pumps",
     },
@@ -29,12 +31,14 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Caramel Syrup", amount: "15 g" },
         { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g",
     },
@@ -48,12 +52,14 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
         { name: "Sea Salt", amount: "pinch" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, sea salt pinch",
     },
@@ -68,12 +74,14 @@ export const recipes: Recipe[] = [
         { name: "Vanilla Syrup", amount: "½ pump" },
         { name: "Caramel Syrup", amount: "15 g" },
         { name: "Patis", amount: "2 g" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Vanilla Syrup", amount: "½ pump" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g, patis 2g",
     },
@@ -105,12 +113,16 @@ export const recipes: Recipe[] = [
     name: "Spanish",
     category: "Classic",
     hot: {
-      ingredients: [{ name: "Condensed Milk", amount: "15 g" }],
+      ingredients: [
+        { name: "Condensed Milk", amount: "15 g" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
+      ],
     },
     iced: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
     },
@@ -146,12 +158,14 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
         { name: "Tibuok", amount: "3 g" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, 3g Tibuok",
     },
@@ -165,15 +179,16 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
         { name: "Ground Cinnamon", amount: "splash" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
-        { name: "Ground Cinnamon", amount: "splash" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
+      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump, ground cinnamon splash",
     },
   },
   {
@@ -186,15 +201,16 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
         { name: "Caramel Syrup", amount: "15 g" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
         { name: "Vanilla Syrup", amount: "1 pump" },
-        { name: "Sea Salt", amount: "pinch" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g",
+      note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g, sea salt pinch",
     },
   },
   {
