@@ -1,5 +1,6 @@
-import { ListOrdered, Sparkles } from "lucide-react";
-import type { Recipe } from "../types";
+import { useState } from "react";
+import { Flame, ListOrdered, Snowflake, Sparkles } from "lucide-react";
+import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
 import { QueueStrip } from "./QueueStrip";
 
@@ -27,6 +28,8 @@ export function CoffeeOfTheDay({
   onViewRecipe,
 }: CoffeeOfTheDayProps) {
   const [from, to] = CATEGORY_STYLES[recipe.category].accent;
+  const [temperature, setTemperature] = useState<Temperature>("Hot");
+  const build = temperature === "Iced" ? recipe.iced : recipe.hot;
 
   return (
     <section
@@ -53,8 +56,34 @@ export function CoffeeOfTheDay({
           </h1>
         </div>
 
+        <div
+          role="group"
+          className="mt-4 flex w-fit items-center gap-0.5 rounded-full bg-cream-50/15 p-0.5 text-[11px] font-semibold uppercase tracking-wide text-cream-50/90"
+        >
+          <button
+            type="button"
+            onClick={() => setTemperature("Hot")}
+            className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
+              temperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
+            }`}
+          >
+            <Flame className="h-3 w-3" />
+            Hot
+          </button>
+          <button
+            type="button"
+            onClick={() => setTemperature("Iced")}
+            className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
+              temperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
+            }`}
+          >
+            <Snowflake className="h-3 w-3" />
+            Iced
+          </button>
+        </div>
+
         <ul className="mt-5 flex max-w-md flex-col gap-2 text-cream-50/90">
-          {recipe.ingredients.map((ing) => (
+          {build.ingredients.map((ing) => (
             <li key={ing.name} className="flex items-baseline gap-2 text-sm">
               <span>{ing.name}</span>
               <span className="flex-1 border-b border-dotted border-cream-50/25" />
@@ -62,10 +91,10 @@ export function CoffeeOfTheDay({
             </li>
           ))}
         </ul>
-        {recipe.note && (
+        {build.note && (
           <p className="mt-3 flex items-start gap-2 text-xs text-cream-50/70">
             <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0" />
-            <span>{recipe.note}</span>
+            <span>{build.note}</span>
           </p>
         )}
 

@@ -1,4 +1,6 @@
-import type { Recipe } from "../types";
+import { useState } from "react";
+import { Snowflake, Flame } from "lucide-react";
+import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
 
 interface RecipeCardProps {
@@ -9,6 +11,8 @@ interface RecipeCardProps {
 
 export function RecipeCard({ recipe, isToday, onSelect }: RecipeCardProps) {
   const { pill } = CATEGORY_STYLES[recipe.category];
+  const [temperature, setTemperature] = useState<Temperature>("Hot");
+  const build = temperature === "Iced" ? recipe.iced : recipe.hot;
 
   return (
     <button
@@ -41,11 +45,60 @@ export function RecipeCard({ recipe, isToday, onSelect }: RecipeCardProps) {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-5 pt-3">
-        <h3 className="font-display text-lg font-semibold leading-snug text-espresso-950">
-          {recipe.name}
-        </h3>
+        <div className="flex items-center justify-between gap-2">
+          <h3 className="font-display text-lg font-semibold leading-snug text-espresso-950">
+            {recipe.name}
+          </h3>
+          <span
+            role="group"
+            className="flex shrink-0 items-center gap-0.5 rounded-full bg-espresso-900/8 p-0.5 text-[10px] font-semibold uppercase tracking-wide text-espresso-600"
+          >
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={(e) => {
+                e.stopPropagation();
+                setTemperature("Hot");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setTemperature("Hot");
+                }
+              }}
+              className={`flex items-center gap-1 rounded-full px-2 py-1 transition ${
+                temperature === "Hot" ? "bg-espresso-900 text-cream-50" : ""
+              }`}
+            >
+              <Flame className="h-3 w-3" />
+              Hot
+            </span>
+            <span
+              role="button"
+              tabIndex={0}
+              onClick={(e) => {
+                e.stopPropagation();
+                setTemperature("Iced");
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setTemperature("Iced");
+                }
+              }}
+              className={`flex items-center gap-1 rounded-full px-2 py-1 transition ${
+                temperature === "Iced" ? "bg-espresso-900 text-cream-50" : ""
+              }`}
+            >
+              <Snowflake className="h-3 w-3" />
+              Iced
+            </span>
+          </span>
+        </div>
         <ul className="space-y-1.5 text-sm text-espresso-700">
-          {recipe.ingredients.map((ing) => (
+          {build.ingredients.map((ing) => (
             <li key={ing.name} className="flex items-baseline gap-2">
               <span className="shrink-0">{ing.name}</span>
               <span className="flex-1 border-b border-dotted border-espresso-900/15" />
@@ -53,6 +106,9 @@ export function RecipeCard({ recipe, isToday, onSelect }: RecipeCardProps) {
             </li>
           ))}
         </ul>
+        {build.note && (
+          <p className="text-xs text-espresso-500">{build.note}</p>
+        )}
       </div>
     </button>
   );
