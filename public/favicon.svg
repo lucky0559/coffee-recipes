@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3d2a1c"/>
+      <stop offset="0.55" stop-color="#6b4a30"/>
+      <stop offset="1" stop-color="#d98a3d"/>
+    </linearGradient>
+    <linearGradient id="cup" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fffdf9"/>
+      <stop offset="1" stop-color="#f3e6d3"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.7" cy="0.15" r="0.65">
+      <stop offset="0" stop-color="#f2b366" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#f2b366" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+  <rect width="512" height="512" rx="112" fill="url(#glow)"/>
+
+  <!-- steam -->
+  <g stroke="#fbf4ea" stroke-width="14" stroke-linecap="round" fill="none" opacity="0.85">
+    <path d="M215 190 C195 165 235 150 218 122 C205 100 225 85 220 66">
+      <animate attributeName="d" dur="4s" repeatCount="indefinite"
+        values="M215 190 C195 165 235 150 218 122 C205 100 225 85 220 66;
+                M215 190 C200 160 232 148 222 118 C210 96 228 88 224 66;
+                M215 190 C195 165 235 150 218 122 C205 100 225 85 220 66"/>
+    </path>
+    <path d="M297 190 C277 165 317 150 300 122 C287 100 307 85 302 66" opacity="0.6">
+      <animate attributeName="d" dur="4s" begin="0.7s" repeatCount="indefinite"
+        values="M297 190 C277 165 317 150 300 122 C287 100 307 85 302 66;
+                M297 190 C282 160 314 148 304 118 C292 96 310 88 306 66;
+                M297 190 C277 165 317 150 300 122 C287 100 307 85 302 66"/>
+    </path>
+  </g>
+
+  <!-- saucer -->
+  <ellipse cx="256" cy="396" rx="118" ry="20" fill="#2a1c13" opacity="0.25"/>
+  <ellipse cx="256" cy="390" rx="116" ry="18" fill="url(#cup)"/>
+
+  <!-- handle -->
+  <path d="M354 232 C410 232 410 316 354 316" stroke="url(#cup)" stroke-width="22" fill="none" stroke-linecap="round"/>
+
+  <!-- cup body -->
+  <path d="M170 214 L342 214 L322 366 C320 380 306 390 292 390 L220 390 C206 390 192 380 190 366 Z" fill="url(#cup)"/>
+
+  <!-- rim shadow -->
+  <ellipse cx="256" cy="214" rx="86" ry="14" fill="#e9d3b3"/>
+  <ellipse cx="256" cy="211" rx="86" ry="12" fill="#fffdf9"/>
+
+  <!-- coffee surface -->
+  <ellipse cx="256" cy="230" rx="62" ry="10" fill="#3d2a1c"/>
+</svg>
