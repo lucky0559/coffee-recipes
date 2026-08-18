@@ -1,7 +1,7 @@
 import type { Recipe } from "../types";
 
 // Anchored so the rotation lands on Sea Salt on 2026-08-18, per house request.
-const ROTATION_EPOCH_UTC = Date.UTC(2023, 11, 30);
+const ROTATION_EPOCH_UTC = Date.UTC(2024, 0, 2);
 const MS_PER_DAY = 86_400_000;
 
 /**
