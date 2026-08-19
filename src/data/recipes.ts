@@ -71,7 +71,7 @@ export const recipes: Recipe[] = [
     category: "Savory",
     hot: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "½ pump" },
+        { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Caramel Syrup", amount: "15 g" },
         { name: "Patis", amount: "2 g" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
@@ -79,7 +79,7 @@ export const recipes: Recipe[] = [
     },
     iced: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "½ pump" },
+        { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
