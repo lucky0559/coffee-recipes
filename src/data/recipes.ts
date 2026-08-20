@@ -95,7 +95,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "5 g" },
         { name: "Water", amount: "50 g" },
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Honey/Blue Agave", amount: "15 g" },
       ],
     },
     iced: {
@@ -103,6 +103,7 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "5 g" },
         { name: "Water", amount: "50 g" },
         { name: "Milk", amount: "150 ml" },
+        { name: "Honey/Blue Agave", amount: "15 g" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
     },
@@ -136,7 +137,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "5 g" },
         { name: "Water", amount: "50 g" },
-        { name: "Honey", amount: "5 g" },
+        { name: "Honey/Blue Agave", amount: "5 g" },
         { name: "Spiced Biscuit Syrup", amount: "15 g" },
       ],
     },
@@ -146,7 +147,7 @@ export const recipes: Recipe[] = [
         { name: "Water", amount: "50 g" },
         { name: "Milk", amount: "150 ml" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, honey 5g, spiced biscuit syrup 15g",
+      note: "Cold foam — whipping cream 30ml, milk 10ml, honey/blue agave 5g, spiced biscuit syrup 15g",
     },
   },
   {
@@ -223,7 +224,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "5 g" },
         { name: "Water", amount: "50 g" },
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Honey/Blue Agave", amount: "15 g" },
         { name: "Espresso", amount: "2 shots" },
       ],
     },
@@ -233,6 +234,29 @@ export const recipes: Recipe[] = [
         { name: "Water", amount: "50 g" },
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso", amount: "2 shots" },
+        { name: "Honey/Blue Agave", amount: "15 g" },
+      ],
+      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
+    },
+  },
+  {
+    id: "biscoff",
+    number: "12",
+    name: "Biscoff",
+    category: "Sweet",
+    isNew: true,
+    hot: {
+      ingredients: [
+        { name: "Biscoff Spread", amount: "1 spoon" },
+        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
+      ],
+    },
+    iced: {
+      ingredients: [
+        { name: "Biscoff Spread", amount: "1 spoon" },
+        { name: "Milk", amount: "150 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
     },
