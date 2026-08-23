@@ -158,7 +158,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 g" },
-        { name: "Tibuok", amount: "3 g" },
+        { name: "Tibuok", amount: "0.3 g" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
@@ -168,7 +168,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump, 3g Tibuok",
+      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump, 0.3g Tibuok",
     },
   },
   {
