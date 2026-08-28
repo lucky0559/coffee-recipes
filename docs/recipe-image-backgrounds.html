@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brewline recipe image backgrounds</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #24170f;
+        --muted: #715b4a;
+        --line: #e5d8c8;
+        --paper: #fffdf9;
+        --wash: #f7efe4;
+        --accent: #9b512f;
+        --good: #416747;
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font: 15px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      a { color: var(--accent); }
+
+      .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+
+      header {
+        padding: 72px 0 48px;
+        background: linear-gradient(135deg, #2f4324, #b47a3e 72%, #f0bd76);
+        color: #fffdf9;
+      }
+
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        opacity: .78;
+      }
+
+      h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.1; }
+      h1 { max-width: 760px; margin: 0; font-size: clamp(38px, 7vw, 78px); letter-spacing: -.045em; }
+      h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: -.025em; }
+      h3 { margin: 0 0 10px; font-size: 20px; }
+
+      .lede { max-width: 720px; margin: 22px 0 0; font-size: 18px; color: rgba(255,253,249,.82); }
+
+      nav { padding: 14px 0; border-bottom: 1px solid var(--line); background: var(--paper); }
+      nav .shell { display: flex; flex-wrap: wrap; gap: 14px 24px; }
+      nav a { font-size: 13px; font-weight: 700; text-decoration: none; }
+
+      main { padding: 52px 0 80px; }
+      section { margin: 0 0 58px; }
+      .section-intro { max-width: 760px; margin: -4px 0 20px; color: var(--muted); }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 11px;
+        border: 1px solid #bfd0bf;
+        border-radius: 999px;
+        color: var(--good);
+        background: #eef6ee;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .status::before { content: "✓"; }
+
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .card { padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--wash); }
+      .card p { margin: 0; color: var(--muted); }
+
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+      td:first-child, th:first-child { padding-left: 0; }
+      td:last-child, th:last-child { padding-right: 0; }
+      code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      code { font-size: .9em; }
+      pre { overflow-x: auto; margin: 0; padding: 20px; border-radius: 14px; color: #f8f1e8; background: #261910; font-size: 12px; line-height: 1.65; white-space: pre-wrap; }
+
+      ul { padding-left: 20px; }
+      li + li { margin-top: 7px; }
+      .checklist { list-style: none; padding: 0; }
+      .checklist li::before { content: "✓"; display: inline-block; width: 24px; color: var(--good); font-weight: 800; }
+      .note { padding: 16px 18px; border-left: 3px solid var(--accent); background: var(--wash); color: var(--muted); }
+
+      footer { padding: 24px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+
+      .skip-link { position: absolute; left: -9999px; }
+      .skip-link:focus { left: 16px; top: 16px; z-index: 2; padding: 8px 12px; color: var(--ink); background: #fff; }
+
+      @media (max-width: 720px) {
+        .shell { width: min(100% - 28px, 1120px); }
+        header { padding: 48px 0 36px; }
+        main { padding-top: 36px; }
+        .grid { grid-template-columns: 1fr; }
+        table { display: block; overflow-x: auto; white-space: nowrap; }
+        th, td { min-width: 150px; }
+      }
+
+      @media print {
+        body { background: #fff; }
+        header { padding: 28px 0; color: #000; background: #fff; border-bottom: 2px solid #000; }
+        .lede { color: #333; }
+        nav { display: none; }
+        main { padding: 24px 0; }
+        section { break-inside: avoid; margin-bottom: 28px; }
+        a { color: #000; text-decoration: underline; }
+        .card, .note { background: #fff; }
+        pre { color: #000; background: #f3f3f3; border: 1px solid #ccc; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header>
+      <div class="shell">
+        <p class="eyebrow">Brewline · implementation record</p>
+        <h1>Recipe image backgrounds</h1>
+        <p class="lede">Twenty-six generated drink visuals now give every recipe a temperature-aware gradient-backed atmosphere across cards, the featured recipe, the queue, and the recipe modal.</p>
+        <p><span class="status" role="status">Implemented and verified · 2026-08-28</span></p>
+      </div>
+    </header>
+
+    <nav aria-label="Document sections">
+      <div class="shell">
+        <a href="#source">Sources</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#assets">Assets</a>
+        <a href="#behavior">Behavior</a>
+        <a href="#verification">Verification</a>
+      </div>
+    </nav>
+
+    <main id="content" class="shell">
+      <section id="source" aria-labelledby="source-title">
+        <h2 id="source-title">Source-of-truth reconciliation</h2>
+        <table>
+          <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><td>Authoritative product data</td><td><code>src/data/recipes.ts</code></td><td>13 recipe IDs and ingredient builds are in scope.</td></tr>
+            <tr><td>Repository-verified behavior</td><td><code>src/data/recipeImages.ts</code>, <code>RecipeBackdrop.tsx</code>, and consuming components</td><td>Every recipe maps to Hot and Iced local WebPs; cards, featured content, and the modal crossfade between matching layers. Queue previews use Iced because they have no selector.</td></tr>
+            <tr><td>Inferred requirement</td><td>Switch the image base when the drink is Hot or Iced, with a smooth transition</td><td>Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition.</td></tr>
+            <tr><td>Board / discrepancies</td><td>No task board or issue reference in the repository</td><td>No stale board state or blocker found.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="roadmap" aria-labelledby="roadmap-title">
+        <h2 id="roadmap-title">Roadmap and ownership</h2>
+        <table>
+          <thead><tr><th scope="col">Task</th><th scope="col">Surface / owner</th><th scope="col">Status</th><th scope="col">Acceptance evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 13 recipes and image-bearing surfaces identified.</td></tr>
+            <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>26 distinct square beverage visuals with gradient backdrops: 13 Hot and 13 Iced.</td></tr>
+            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is approximately 1.4 MB.</td></tr>
+            <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Both layers mount per surface; selectors drive the active layer and queue previews default to Iced.</td></tr>
+            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete</td><td>Desktop/mobile, crossfade, toggle, modal, overflow, and console checks passed.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="assets" aria-labelledby="assets-title">
+        <h2 id="assets-title">Asset matrix</h2>
+        <p class="section-intro">All assets are local, text-free, square WebP images in one premium studio-photography family. Hot assets use steam and heat-safe vessels; Iced assets use glass, ice, and condensation. The drink is placed slightly right of center to preserve space for recipe copy.</p>
+        <table>
+          <thead><tr><th scope="col">#</th><th scope="col">Recipe</th><th scope="col">Hot asset</th><th scope="col">Iced asset</th><th scope="col">Dimensions</th><th scope="col">Approx. sizes</th></tr></thead>
+          <tbody>
+            <tr><td>01</td><td>Cheesecake</td><td><a href="../public/recipes/cheesecake-hot.webp">cheesecake-hot.webp</a></td><td><a href="../public/recipes/cheesecake.webp">cheesecake.webp</a></td><td>1254×1254</td><td>48 KB / 60 KB</td></tr>
+            <tr><td>02</td><td>Caramel</td><td><a href="../public/recipes/caramel-hot.webp">caramel-hot.webp</a></td><td><a href="../public/recipes/caramel.webp">caramel.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
+            <tr><td>03</td><td>Sea Salt</td><td><a href="../public/recipes/sea-salt-hot.webp">sea-salt-hot.webp</a></td><td><a href="../public/recipes/sea-salt.webp">sea-salt.webp</a></td><td>1254×1254</td><td>36 KB / 64 KB</td></tr>
+            <tr><td>04</td><td>Caramelized Patis</td><td><a href="../public/recipes/caramelized-patis-hot.webp">caramelized-patis-hot.webp</a></td><td><a href="../public/recipes/caramelized-patis.webp">caramelized-patis.webp</a></td><td>1254×1254</td><td>44 KB / 56 KB</td></tr>
+            <tr><td>05</td><td>Matcha</td><td><a href="../public/recipes/matcha-hot.webp">matcha-hot.webp</a></td><td><a href="../public/recipes/matcha.webp">matcha.webp</a></td><td>1254×1254</td><td>44 KB / 48 KB</td></tr>
+            <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
+            <tr><td>07</td><td>Matcha Spiced</td><td><a href="../public/recipes/matcha-spiced-hot.webp">matcha-spiced-hot.webp</a></td><td><a href="../public/recipes/matcha-spiced.webp">matcha-spiced.webp</a></td><td>1254×1254</td><td>52 KB / 68 KB</td></tr>
+            <tr><td>08</td><td>Kape Tibuok</td><td><a href="../public/recipes/kape-tibuok-hot.webp">kape-tibuok-hot.webp</a></td><td><a href="../public/recipes/kape-tibuok.webp">kape-tibuok.webp</a></td><td>1254×1254</td><td>52 KB / 64 KB</td></tr>
+            <tr><td>09</td><td>Spanish Cinnamon</td><td><a href="../public/recipes/spanish-cinnamon-hot.webp">spanish-cinnamon-hot.webp</a></td><td><a href="../public/recipes/spanish-cinnamon.webp">spanish-cinnamon.webp</a></td><td>1254×1254</td><td>72 KB / 64 KB</td></tr>
+            <tr><td>10</td><td>Salted Caramel</td><td><a href="../public/recipes/salted-caramel-hot.webp">salted-caramel-hot.webp</a></td><td><a href="../public/recipes/salted-caramel.webp">salted-caramel.webp</a></td><td>1254×1254</td><td>52 KB / 72 KB</td></tr>
+            <tr><td>11</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>48 KB / 56 KB</td></tr>
+            <tr><td>12</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
+            <tr><td>13</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>48 KB / 60 KB</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="behavior" aria-labelledby="behavior-title">
+        <h2 id="behavior-title">Implementation behavior</h2>
+        <div class="grid">
+          <article class="card"><h3>Central mapping</h3><p><code>getRecipeImage(recipe.id, temperature)</code> owns the Hot/Iced mapping and falls back to <code>/coffee-icon.png</code> for an unknown ID.</p></article>
+          <article class="card"><h3>Smooth crossfade</h3><p><code>RecipeBackdrop</code> mounts both image layers and crossfades opacity over 500 ms with an ease-in-out curve; reduced-motion users get no transition.</p></article>
+          <article class="card"><h3>Cards and featured</h3><p>Recipe cards and the Coffee of the Day panel use the active temperature image with dark and category-tint overlays for legibility. Card hover lift and shadow use a 300 ms ease-out transition limited to translate and box-shadow.</p></article>
+          <article class="card"><h3>Queue and modal</h3><p>Queue previews default to Iced because they have no selector. The modal header uses both layers and follows its Hot/Iced build controls.</p></article>
+        </div>
+        <p class="note">There is no API surface for this feature: no endpoints, auth, persistence, transactions, or backend dependency. The generated files are static frontend assets.</p>
+      </section>
+
+      <section aria-labelledby="prompt-title">
+        <h2 id="prompt-title">Generation prompt set</h2>
+        <pre>Use case: product-mockup
+Asset type: recipe visual for a coffee recipe web app
+Primary request: one premium hot or iced drink visual based on the named recipe, its ingredients, and the requested temperature
+Input images: previous Matcha Caramel visual as a style reference only
+Scene/backdrop: full-frame gradient in recipe-associated colors; no table or café scene
+Composition/framing: square, hero glass slightly right of center, negative space on the left
+Style/medium: premium studio product photography; Hot uses steam and heat-safe vessels, Iced uses realistic glass, condensation, ice, milk, and foam
+Lighting/mood: soft directional light, gentle rim light, calm, warm, modern, inviting
+Constraints: no people, hands, logos, labels, packaging, typography, text, or watermark</pre>
+      </section>
+
+      <section id="verification" aria-labelledby="verification-title">
+        <h2 id="verification-title">Acceptance and verification</h2>
+        <ul class="checklist">
+          <li>13 of 13 recipes have distinct Hot and Iced generated gradient visuals.</li>
+          <li>Cards, the featured panel, queue previews, and modal use matching temperature assets; queue previews default to Iced.</li>
+          <li>Hot/Iced ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
+          <li>Card hover lift and shadow transition smoothly without animating layout properties.</li>
+          <li>Desktop and mobile layouts are readable with no horizontal overflow.</li>
+          <li><code>npm run lint</code> passed with no findings.</li>
+          <li><code>npm run build</code> passed through TypeScript and Vite; 26 recipe WebPs are included in the production output.</li>
+          <li>Focused browser QA passed: temperature-layer crossfade, toggle, modal open/close, asset mapping, responsive overflow, and zero console errors or warnings.</li>
+          <li>Card hover QA passed: the first card transitions through an intermediate translate value before settling at the 4 px lift with translate and box-shadow, 300 ms, ease-out.</li>
+          <li>No test script exists in <code>package.json</code>; a full test suite was not available to run.</li>
+        </ul>
+        <p class="note">No required work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">Related files: <a href="../src/data/recipeImages.ts"><code>src/data/recipeImages.ts</code></a> · <a href="./recipe-image-backgrounds.md"><code>recipe-image-backgrounds.md</code></a></div>
+    </footer>
+  </body>
+</html>

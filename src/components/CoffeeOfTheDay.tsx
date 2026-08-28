@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Flame, ListOrdered, Snowflake, Sparkles } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
+import { RecipeBackdrop } from "./RecipeBackdrop";
 import { QueueStrip } from "./QueueStrip";
 
 interface CoffeeOfTheDayProps {
@@ -33,15 +34,21 @@ export function CoffeeOfTheDay({
 
   return (
     <section
-      className="relative overflow-hidden rounded-[28px] px-6 py-10 text-cream-50 shadow-[0_30px_60px_-25px_rgba(28,19,13,0.55)] sm:px-10 sm:py-12"
-      style={{ backgroundImage: `linear-gradient(135deg, ${from}, ${to})` }}
+      className="relative overflow-hidden rounded-[28px] bg-espresso-950 px-6 py-10 text-cream-50 shadow-[0_30px_60px_-25px_rgba(28,19,13,0.55)] sm:px-10 sm:py-12"
     >
+      <RecipeBackdrop
+        recipeId={recipe.id}
+        temperature={temperature}
+        accent={[from, to]}
+        surface="featured"
+      />
+
       <div
-        className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full opacity-40 blur-3xl"
+        className="pointer-events-none absolute -right-24 -top-24 z-0 h-72 w-72 rounded-full opacity-40 blur-3xl"
         style={{ backgroundColor: to }}
       />
 
-      <div className="relative">
+      <div className="relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="inline-flex items-center gap-2 rounded-full bg-cream-50/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-cream-50/90">
             Coffee of the day

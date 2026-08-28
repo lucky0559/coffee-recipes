@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Flame, Snowflake, Sparkles, X } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
+import { RecipeBackdrop } from "./RecipeBackdrop";
 
 interface RecipeModalProps {
   recipe: Recipe;
@@ -39,10 +40,16 @@ export function RecipeModal({ recipe, onClose }: RecipeModalProps) {
     >
       <div className="max-h-[88vh] w-full max-w-md overflow-y-auto rounded-3xl bg-cream-50 shadow-2xl">
         <div
-          className="relative flex items-start justify-between rounded-t-3xl p-6 text-cream-50"
-          style={{ backgroundImage: `linear-gradient(135deg, ${from}, ${to})` }}
+          className="relative flex items-start justify-between overflow-hidden rounded-t-3xl bg-espresso-950 p-6 text-cream-50"
         >
-          <div>
+          <RecipeBackdrop
+            recipeId={recipe.id}
+            temperature={temperature}
+            accent={[from, to]}
+            surface="modal"
+          />
+
+          <div className="relative z-10">
             <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.14em] text-cream-50/80">
               <span>{recipe.number}</span>
               <span>·</span>
@@ -57,7 +64,7 @@ export function RecipeModal({ recipe, onClose }: RecipeModalProps) {
             type="button"
             onClick={onClose}
             aria-label="Close recipe"
-            className="shrink-0 rounded-full bg-cream-50/15 p-2 transition hover:bg-cream-50/25"
+            className="relative z-10 shrink-0 rounded-full bg-cream-50/15 p-2 transition hover:bg-cream-50/25"
           >
             <X className="h-5 w-5" />
           </button>

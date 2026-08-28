@@ -37,3 +37,12 @@ body {
   background-color: var(--color-amber-glow-soft);
   color: var(--color-espresso-950);
 }
+
+.queue-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.queue-scroll::-webkit-scrollbar {
+  display: none;
+}
