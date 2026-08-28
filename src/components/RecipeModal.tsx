@@ -6,14 +6,19 @@ import { RecipeBackdrop } from "./RecipeBackdrop";
 
 interface RecipeModalProps {
   recipe: Recipe;
+  initialTemperature: Temperature;
   onClose: () => void;
 }
 
-export function RecipeModal({ recipe, onClose }: RecipeModalProps) {
+export function RecipeModal({ recipe, initialTemperature, onClose }: RecipeModalProps) {
   const closeRef = useRef<HTMLButtonElement>(null);
   const [from, to] = CATEGORY_STYLES[recipe.category].accent;
-  const [temperature, setTemperature] = useState<Temperature>("Hot");
+  const [temperature, setTemperature] = useState<Temperature>(initialTemperature);
   const build = temperature === "Iced" ? recipe.iced : recipe.hot;
+
+  useEffect(() => {
+    setTemperature(initialTemperature);
+  }, [initialTemperature, recipe.id]);
 
   useEffect(() => {
     closeRef.current?.focus();

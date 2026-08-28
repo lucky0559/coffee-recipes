@@ -1,7 +1,7 @@
 # Brewline recipe image backgrounds
 
-Status: Implemented and verified  
-Last verified: 2026-08-28  
+Status: Implemented; prior image QA verified; current rotation recheck unavailable
+Last verified: 2026-08-28
 Scope: Two generated gradient-background drink visuals for every recipe in the Brewline rotation—one Hot and one Iced—used as the visual background wherever that recipe appears.
 
 ## Source-of-truth reconciliation
@@ -9,10 +9,10 @@ Scope: Two generated gradient-background drink visuals for every recipe in the B
 | Classification | Evidence | Result |
 | --- | --- | --- |
 | Authoritative product data | `src/data/recipes.ts` | 13 recipe IDs and ingredient builds are in scope. |
-| Repository-verified behavior | `src/data/recipeImages.ts`, `RecipeBackdrop.tsx`, and the four consuming components | Every recipe ID maps to Hot and Iced local WebPs; the card, featured section, and modal crossfade between the matching layers. Queue previews intentionally use the Iced layer because they have no temperature selector. |
+| Repository-verified behavior | `src/data/recipeImages.ts`, `RecipeBackdrop.tsx`, and the consuming components | Every recipe ID maps to Hot and Iced local WebPs; cards, featured content, the queue, and the modal use the matching temperature layer. Queue previews follow the scheduled build for each future day. |
 | Inferred requirement | User request to switch the image base when the drink is Hot or Iced, with a smooth transition | Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition. |
 | Task-board state | No task board or external issue reference is present in the repository. | No stale board state or board/repository discrepancy to reconcile. |
-| Blockers / discrepancies | Current worktree, build, lint, and browser QA | None found. |
+| Blockers / discrepancies | Latest worktree browser discovery | The current scheduled queue-temperature recheck could not run because no browser was available; no code blocker was found. |
 
 ## Roadmap and ownership
 
@@ -21,8 +21,8 @@ Scope: Two generated gradient-background drink visuals for every recipe in the B
 | Inspect recipe data and UI surfaces | `src/data/recipes.ts`, `src/components/` / implementation | Complete | All 13 recipes and image-bearing surfaces identified. |
 | Generate Hot and Iced image variants | `public/recipes/*.webp` / ImageGen skill | Complete | 26 distinct square beverage visuals with gradient backdrops: 13 Hot and 13 Iced. |
 | Optimize generated assets | `public/recipes/*.webp` / implementation | Complete | WebP derivatives are 1254×1254 and approximately 36–72 KB each; total asset folder is about 1.4 MB. |
-| Wire temperature-aware images into the UI | `src/data/recipeImages.ts`, `RecipeBackdrop`, `RecipeCard`, `CoffeeOfTheDay`, `QueueStrip`, `RecipeModal` | Complete | Both layers mount per surface; Hot/Iced selectors drive the active layer and the queue defaults to Iced. |
-| Verify responsive and interactive behavior | Local Vite app / implementation | Complete | Desktop and mobile visual QA, image-layer crossfade, Hot/Iced build toggle, modal open/close, overflow, and console checks passed. |
+| Wire temperature-aware images into the UI | `src/data/recipeImages.ts`, `RecipeBackdrop`, `RecipeCard`, `CoffeeOfTheDay`, `QueueStrip`, `RecipeModal` | Complete | Both layers mount per surface; Hot/Iced selectors drive the active layer and queue previews use each day’s scheduled build. |
+| Verify responsive and interactive behavior | Local Vite app / implementation | Complete for image feature; rotation recheck unavailable | Prior desktop and mobile visual QA, image-layer crossfade, Hot/Iced build toggle, modal open/close, overflow, and console checks passed; the latest scheduled queue-temperature behavior was not browser-rechecked. |
 | Publish implementation record | This Markdown file and `recipe-image-backgrounds.html` | Complete | Both artifacts are self-contained and synchronized with the final worktree. |
 
 ## Asset matrix
@@ -51,7 +51,7 @@ All assets are local, text-free, square WebP images generated in the same produc
 - `RecipeBackdrop` mounts both the Hot and Iced background layers and crossfades their opacity over 500 ms with an ease-in-out curve. `motion-reduce:transition-none` respects reduced-motion preferences.
 - Recipe cards use the active generated image as their full background, with dark vertical and horizontal overlays for ingredient legibility. Their hover lift and shadow use a 300 ms ease-out transition limited to `translate` and `box-shadow`; reduced-motion users get no lift transition.
 - The Coffee of the Day panel and recipe modal use the active image, a readable dark overlay, and a translucent category gradient so the generated image remains visible.
-- Queue items use Iced image-backed previews because the queue has no Hot/Iced selector.
+- Queue items use the scheduled Hot/Iced image for their future day because the queue has no Hot/Iced selector.
 - Hot/Iced controls change both the displayed ingredient build and the image base for cards, the featured panel, and the modal.
 - The UI contains no image text, logos, packaging, people, or watermark content.
 
@@ -84,7 +84,7 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 - [x] Every one of the 13 repository recipes has distinct Hot and Iced generated drink visuals.
 - [x] Every visual has a gradient background and no baked-in text.
 - [x] Every recipe card uses its matching image as a background.
-- [x] The featured recipe, queue previews, and modal header use the selected recipe’s matching temperature image; queue previews default to Iced.
+- [x] The featured recipe, queue previews, and modal header use the selected recipe’s matching temperature image; queue previews follow the scheduled build for each future day.
 - [x] Ingredient and Hot/Iced behavior remains functional, with a smooth image crossfade on selectable surfaces.
 - [x] Card hover lift and shadow transition smoothly without animating layout properties.
 - [x] Desktop and mobile layouts remain readable with no horizontal overflow.
@@ -99,9 +99,10 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 - Mobile browser QA — PASS at a 390×844 viewport; no horizontal overflow, image switching remains usable, and the queue scrollbar is visually suppressed.
 - Interaction QA — PASS: card and featured Iced controls change both ingredients and image layer without opening the modal; opening Biscoff opens a visible modal with both temperature layers; close control works.
 - Browser console QA — PASS: zero error or warning logs during the focused run.
+- Current rotation browser recheck — Not available: browser discovery returned “No browser is available” after the local Vite server was started.
 - Full test suite — Not available; `package.json` defines lint, build, dev, and preview scripts but no test script.
 - Known unrelated failures or environment warnings — None observed.
 
 ## Remaining work
 
-No required work remains for this request. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under `public/recipes/`.
+No image-background code work remains. A browser recheck of scheduled queue temperatures is the only unexecuted verification item for the latest rotation behavior. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under `public/recipes/`.

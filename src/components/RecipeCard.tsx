@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Snowflake, Flame } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
@@ -7,18 +7,23 @@ import { RecipeBackdrop } from "./RecipeBackdrop";
 interface RecipeCardProps {
   recipe: Recipe;
   isToday: boolean;
-  onSelect: (recipe: Recipe) => void;
+  defaultTemperature: Temperature;
+  onSelect: (recipe: Recipe, temperature?: Temperature) => void;
 }
 
-export function RecipeCard({ recipe, isToday, onSelect }: RecipeCardProps) {
+export function RecipeCard({ recipe, isToday, defaultTemperature, onSelect }: RecipeCardProps) {
   const { pill } = CATEGORY_STYLES[recipe.category];
-  const [temperature, setTemperature] = useState<Temperature>("Hot");
+  const [temperature, setTemperature] = useState<Temperature>(defaultTemperature);
   const build = temperature === "Iced" ? recipe.iced : recipe.hot;
+
+  useEffect(() => {
+    setTemperature(defaultTemperature);
+  }, [defaultTemperature]);
 
   return (
     <button
       type="button"
-      onClick={() => onSelect(recipe)}
+      onClick={() => onSelect(recipe, temperature)}
       className="group relative flex min-h-[350px] flex-col overflow-hidden rounded-2xl border border-cream-50/20 bg-espresso-950 text-left shadow-sm transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
       <RecipeBackdrop recipeId={recipe.id} temperature={temperature} surface="card" />

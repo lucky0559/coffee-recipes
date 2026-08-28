@@ -129,7 +129,7 @@
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Recipe image backgrounds</h1>
         <p class="lede">Twenty-six generated drink visuals now give every recipe a temperature-aware gradient-backed atmosphere across cards, the featured recipe, the queue, and the recipe modal.</p>
-        <p><span class="status" role="status">Implemented and verified · 2026-08-28</span></p>
+        <p><span class="status" role="status">Implemented · prior image QA verified · rotation recheck unavailable</span></p>
       </div>
     </header>
 
@@ -150,9 +150,9 @@
           <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
           <tbody>
             <tr><td>Authoritative product data</td><td><code>src/data/recipes.ts</code></td><td>13 recipe IDs and ingredient builds are in scope.</td></tr>
-            <tr><td>Repository-verified behavior</td><td><code>src/data/recipeImages.ts</code>, <code>RecipeBackdrop.tsx</code>, and consuming components</td><td>Every recipe maps to Hot and Iced local WebPs; cards, featured content, and the modal crossfade between matching layers. Queue previews use Iced because they have no selector.</td></tr>
+            <tr><td>Repository-verified behavior</td><td><code>src/data/recipeImages.ts</code>, <code>RecipeBackdrop.tsx</code>, and consuming components</td><td>Every recipe maps to Hot and Iced local WebPs; cards, featured content, the queue, and modal use matching temperature layers. Queue previews follow the scheduled build for each future day.</td></tr>
             <tr><td>Inferred requirement</td><td>Switch the image base when the drink is Hot or Iced, with a smooth transition</td><td>Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition.</td></tr>
-            <tr><td>Board / discrepancies</td><td>No task board or issue reference in the repository</td><td>No stale board state or blocker found.</td></tr>
+            <tr><td>Board / discrepancies</td><td>Latest worktree browser discovery</td><td>The current scheduled queue-temperature recheck could not run because no browser was available; no code blocker was found.</td></tr>
           </tbody>
         </table>
       </section>
@@ -165,8 +165,8 @@
             <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 13 recipes and image-bearing surfaces identified.</td></tr>
             <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>26 distinct square beverage visuals with gradient backdrops: 13 Hot and 13 Iced.</td></tr>
             <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is approximately 1.4 MB.</td></tr>
-            <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Both layers mount per surface; selectors drive the active layer and queue previews default to Iced.</td></tr>
-            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete</td><td>Desktop/mobile, crossfade, toggle, modal, overflow, and console checks passed.</td></tr>
+            <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Both layers mount per surface; selectors drive the active layer and queue previews use each day’s scheduled build.</td></tr>
+            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; rotation recheck unavailable</td><td>Prior desktop/mobile, crossfade, toggle, modal, overflow, and console checks passed; latest scheduled queue-temperature behavior was not browser-rechecked.</td></tr>
           </tbody>
         </table>
       </section>
@@ -200,7 +200,7 @@
           <article class="card"><h3>Central mapping</h3><p><code>getRecipeImage(recipe.id, temperature)</code> owns the Hot/Iced mapping and falls back to <code>/coffee-icon.png</code> for an unknown ID.</p></article>
           <article class="card"><h3>Smooth crossfade</h3><p><code>RecipeBackdrop</code> mounts both image layers and crossfades opacity over 500 ms with an ease-in-out curve; reduced-motion users get no transition.</p></article>
           <article class="card"><h3>Cards and featured</h3><p>Recipe cards and the Coffee of the Day panel use the active temperature image with dark and category-tint overlays for legibility. Card hover lift and shadow use a 300 ms ease-out transition limited to translate and box-shadow.</p></article>
-          <article class="card"><h3>Queue and modal</h3><p>Queue previews default to Iced because they have no selector. The modal header uses both layers and follows its Hot/Iced build controls.</p></article>
+          <article class="card"><h3>Queue and modal</h3><p>Queue previews use the scheduled Hot/Iced layer for each future day because they have no selector. The modal header uses both layers and follows its Hot/Iced build controls.</p></article>
         </div>
         <p class="note">There is no API surface for this feature: no endpoints, auth, persistence, transactions, or backend dependency. The generated files are static frontend assets.</p>
       </section>
@@ -222,17 +222,18 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, or wa
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
           <li>13 of 13 recipes have distinct Hot and Iced generated gradient visuals.</li>
-          <li>Cards, the featured panel, queue previews, and modal use matching temperature assets; queue previews default to Iced.</li>
+          <li>Cards, the featured panel, queue previews, and modal use matching temperature assets; queue previews follow each future day’s scheduled build.</li>
           <li>Hot/Iced ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
           <li>Card hover lift and shadow transition smoothly without animating layout properties.</li>
           <li>Desktop and mobile layouts are readable with no horizontal overflow.</li>
           <li><code>npm run lint</code> passed with no findings.</li>
           <li><code>npm run build</code> passed through TypeScript and Vite; 26 recipe WebPs are included in the production output.</li>
           <li>Focused browser QA passed: temperature-layer crossfade, toggle, modal open/close, asset mapping, responsive overflow, and zero console errors or warnings.</li>
+          <li>Current rotation browser recheck was unavailable: browser discovery returned “No browser is available” after the local Vite server started.</li>
           <li>Card hover QA passed: the first card transitions through an intermediate translate value before settling at the 4 px lift with translate and box-shadow, 300 ms, ease-out.</li>
           <li>No test script exists in <code>package.json</code>; a full test suite was not available to run.</li>
         </ul>
-        <p class="note">No required work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>.</p>
+        <p class="note">No image-background code work remains. A browser recheck of scheduled queue temperatures is the only unexecuted verification item for the latest rotation behavior. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>.</p>
       </section>
     </main>
 

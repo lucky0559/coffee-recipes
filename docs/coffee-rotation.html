@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Brewline coffee rotation defaults</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #24170f;
+        --muted: #715b4a;
+        --line: #e5d8c8;
+        --paper: #fffdf9;
+        --wash: #f7efe4;
+        --accent: #9b512f;
+        --good: #416747;
+        --warn: #8b5c22;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font: 15px/1.6 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      a { color: var(--accent); }
+      .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+      header {
+        padding: 72px 0 48px;
+        color: #fffdf9;
+        background: linear-gradient(135deg, #2f4324, #8c5c31 72%, #dca461);
+      }
+      .eyebrow {
+        margin: 0 0 12px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        opacity: .78;
+      }
+      h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; line-height: 1.1; }
+      h1 { max-width: 800px; margin: 0; font-size: clamp(38px, 7vw, 78px); letter-spacing: -.045em; }
+      h2 { margin: 0 0 18px; font-size: 30px; letter-spacing: -.025em; }
+      h3 { margin: 0 0 10px; font-size: 20px; }
+      .lede { max-width: 760px; margin: 22px 0 0; font-size: 18px; color: rgba(255,253,249,.84); }
+      nav { padding: 14px 0; border-bottom: 1px solid var(--line); background: var(--paper); }
+      nav .shell { display: flex; flex-wrap: wrap; gap: 14px 24px; }
+      nav a { font-size: 13px; font-weight: 700; text-decoration: none; }
+      main { padding: 52px 0 80px; }
+      section { margin: 0 0 58px; }
+      .section-intro { max-width: 780px; margin: -4px 0 20px; color: var(--muted); }
+      .status {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 11px;
+        border: 1px solid #d8bf96;
+        border-radius: 999px;
+        color: var(--warn);
+        background: #fff8e9;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .status::before { content: "•"; }
+      table { width: 100%; border-collapse: collapse; font-size: 13px; }
+      th, td { padding: 11px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+      th { color: var(--muted); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+      td:first-child, th:first-child { padding-left: 0; }
+      td:last-child, th:last-child { padding-right: 0; }
+      code, pre { font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace; }
+      code { font-size: .9em; }
+      pre { overflow-x: auto; margin: 0; padding: 20px; border-radius: 14px; color: #f8f1e8; background: #261910; font-size: 12px; line-height: 1.65; white-space: pre-wrap; }
+      .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+      .card { padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--wash); }
+      .card p { margin: 0; color: var(--muted); }
+      ul { padding-left: 20px; }
+      li + li { margin-top: 7px; }
+      .checklist { list-style: none; padding: 0; }
+      .checklist li::before { content: "✓"; display: inline-block; width: 24px; color: var(--good); font-weight: 800; }
+      .note { padding: 16px 18px; border-left: 3px solid var(--accent); background: var(--wash); color: var(--muted); }
+      footer { padding: 24px 0 48px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+      .skip-link { position: absolute; left: -9999px; }
+      .skip-link:focus { left: 16px; top: 16px; z-index: 2; padding: 8px 12px; color: var(--ink); background: #fff; }
+
+      @media (max-width: 720px) {
+        .shell { width: min(100% - 28px, 1120px); }
+        header { padding: 48px 0 36px; }
+        main { padding-top: 36px; }
+        .grid { grid-template-columns: 1fr; }
+        table { display: block; overflow-x: auto; white-space: nowrap; }
+        th, td { min-width: 150px; }
+      }
+
+      @media print {
+        body { background: #fff; }
+        header { padding: 28px 0; color: #000; background: #fff; border-bottom: 2px solid #000; }
+        .lede { color: #333; }
+        nav { display: none; }
+        main { padding: 24px 0; }
+        section { break-inside: avoid; margin-bottom: 28px; }
+        a { color: #000; text-decoration: underline; }
+        .card, .note { background: #fff; }
+        pre { color: #000; background: #f3f3f3; border: 1px solid #ccc; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#content">Skip to content</a>
+    <header>
+      <div class="shell">
+        <p class="eyebrow">Brewline · implementation record</p>
+        <h1>Coffee rotation defaults</h1>
+        <p class="lede">The Coffee of the Day and recipe list now alternate Hot and Iced through the recipe line, carry the active build into the full recipe, and reset with the requested phase.</p>
+        <p><span class="status" role="status">Code checks passed · browser unavailable</span></p>
+      </div>
+    </header>
+
+    <nav aria-label="Document sections">
+      <div class="shell">
+        <a href="#source">Sources</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#contract">Contract</a>
+        <a href="#verification">Verification</a>
+      </div>
+    </nav>
+
+    <main id="content" class="shell">
+      <section id="source" aria-labelledby="source-title">
+        <h2 id="source-title">Source-of-truth reconciliation</h2>
+        <table>
+          <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
+          <tbody>
+            <tr><td>Authoritative data</td><td><code>src/data/recipes.ts</code></td><td>13 recipes are in the fixed line order.</td></tr>
+            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Recipe identity advances by local calendar date and wraps at the count.</td></tr>
+            <tr><td>Verified UI</td><td><code>src/App.tsx</code>, recipe lists, featured panel, modal</td><td>Hot/Iced controls are local stateful views; lists and featured state are now schedule-aware.</td></tr>
+            <tr><td>Explicit interpretation</td><td>User request</td><td>First cycle starts Hot, items alternate, and a reset starts Iced when requested—including an even line ending Iced.</td></tr>
+            <tr><td>Board discrepancy</td><td>No board or issue reference in the repository</td><td>No stale external state was available.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="roadmap" aria-labelledby="roadmap-title">
+        <h2 id="roadmap-title">Roadmap and ownership</h2>
+        <table>
+          <thead><tr><th scope="col">Task</th><th scope="col">Surface</th><th scope="col">Status</th><th scope="col">Evidence</th></tr></thead>
+          <tbody>
+            <tr><td>Inspect queue and build state</td><td><code>src/lib</code>, <code>src/components</code></td><td>Complete</td><td>Existing date queue and Hot/Iced consumers mapped.</td></tr>
+            <tr><td>Add scheduled build helper</td><td><code>defaultTemperatureForDate</code></td><td>Complete</td><td>Cycle index plus in-cycle position determines Hot/Iced.</td></tr>
+            <tr><td>Wire featured and modal defaults</td><td><code>App.tsx</code>, featured panel, modal</td><td>Complete</td><td>Featured resets on date/recipe changes; modal carries the active build.</td></tr>
+            <tr><td>Wire recipe-list defaults</td><td><code>RecipeGrid.tsx</code>, <code>RecipeCard.tsx</code></td><td>Complete</td><td>Cards follow the current rotation phase and preserve their active build when opened.</td></tr>
+            <tr><td>Wire upcoming-queue defaults</td><td><code>QueueStrip.tsx</code></td><td>Complete</td><td>Preview images and queue selections follow each future day, including a reset boundary.</td></tr>
+            <tr><td>Refresh at local midnight</td><td><code>useCurrentDate</code></td><td>Complete</td><td>Open tabs recalculate without a reload.</td></tr>
+            <tr><td>Final verification and record</td><td>Checks and this document</td><td>Complete with browser limitation</td><td>Direct checks, lint, and build pass; browser discovery reported no available browser.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="contract" aria-labelledby="contract-title">
+        <h2 id="contract-title">Rotation contract</h2>
+        <p class="section-intro">Recipe identity continues to use <code>daysSinceEpoch</code> and <code>queueIndexForDate</code>. The featured panel and every recipe card use the rotation index and the position inside that rotation, so the phase is deterministic from the date and current recipe count.</p>
+        <pre>rotationIndex = floor(elapsedDays / recipeCount)
+positionInRotation = elapsedDays - rotationIndex * recipeCount
+alternatingPosition = rotationIndex + positionInRotation
+even → Hot · odd → Iced</pre>
+        <div class="grid" style="margin-top: 16px">
+          <article class="card"><h3>13 recipes</h3><p>First cycle: Hot, Iced, Hot … Hot. The next cycle begins Iced.</p></article>
+          <article class="card"><h3>12 recipes</h3><p>First cycle ends Iced. The requested reset begins Iced.</p></article>
+        </div>
+        <p class="note" style="margin-top: 16px">Empty or non-positive counts return Hot as a safe fallback. No API, persistence, transaction, locking, idempotency, or rollback behavior is involved.</p>
+      </section>
+
+      <section aria-labelledby="behavior-title">
+        <h2 id="behavior-title">User-facing behavior</h2>
+        <ul class="checklist">
+          <li>The featured recipe and every list card start with their scheduled Hot/Iced build.</li>
+          <li>Manual Hot/Iced changes remain available and last for the current view.</li>
+          <li>At local midnight, recipe, queue, position, date label, and default build update together.</li>
+          <li>Upcoming queue previews and selections use the scheduled build for their future day.</li>
+          <li>Opening a recipe carries the active card or featured build into the modal.</li>
+        </ul>
+      </section>
+
+      <section id="verification" aria-labelledby="verification-title">
+        <h2 id="verification-title">Acceptance and verification</h2>
+        <ul class="checklist">
+          <li>13-recipe alternating sequence and reset boundary assertion passed.</li>
+          <li>Recipe-list position defaults follow the same cycle phase.</li>
+          <li>12-recipe last-Iced reset, later even-cycle phase, and empty-count fallback assertions passed.</li>
+          <li><code>npm run lint</code> passed with no findings.</li>
+          <li><code>npm run build</code> passed through TypeScript and Vite.</li>
+          <li>Browser QA was unavailable: browser discovery returned “No browser is available” after the local Vite server started, so desktop/mobile layout, selector state, modal carry-over, and console output could not be checked.</li>
+          <li>No full test suite is defined in <code>package.json</code>.</li>
+        </ul>
+        <p class="note">This feature has no endpoints, authentication, authorization, request/response contracts, persistence changes, or backend dependencies.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">Related files: <a href="../src/lib/coffeeOfTheDay.ts"><code>src/lib/coffeeOfTheDay.ts</code></a> · <a href="./coffee-rotation.md"><code>coffee-rotation.md</code></a></div>
+    </footer>
+  </body>
+</html>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Flame, ListOrdered, Snowflake, Sparkles } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
@@ -7,30 +7,37 @@ import { QueueStrip } from "./QueueStrip";
 
 interface CoffeeOfTheDayProps {
   recipe: Recipe;
+  date: Date;
   queue: Recipe[];
   position: number;
   total: number;
+  defaultTemperature: Temperature;
   onSelect: (recipe: Recipe) => void;
-  onViewRecipe: () => void;
+  onViewRecipe: (temperature: Temperature) => void;
 }
-
-const todayLabel = new Intl.DateTimeFormat(undefined, {
-  weekday: "long",
-  month: "long",
-  day: "numeric",
-}).format(new Date());
 
 export function CoffeeOfTheDay({
   recipe,
+  date,
   queue,
   position,
   total,
+  defaultTemperature,
   onSelect,
   onViewRecipe,
 }: CoffeeOfTheDayProps) {
   const [from, to] = CATEGORY_STYLES[recipe.category].accent;
-  const [temperature, setTemperature] = useState<Temperature>("Hot");
+  const [temperature, setTemperature] = useState<Temperature>(defaultTemperature);
+  const todayLabel = new Intl.DateTimeFormat(undefined, {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  }).format(date);
   const build = temperature === "Iced" ? recipe.iced : recipe.hot;
+
+  useEffect(() => {
+    setTemperature(defaultTemperature);
+  }, [defaultTemperature, recipe.id]);
 
   return (
     <section
@@ -114,13 +121,13 @@ export function CoffeeOfTheDay({
 
         <button
           type="button"
-          onClick={onViewRecipe}
+          onClick={() => onViewRecipe(temperature)}
           className="mt-6 inline-flex items-center rounded-full bg-cream-50 px-6 py-3 text-sm font-semibold text-espresso-950 shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0"
         >
           View full recipe
         </button>
 
-        <QueueStrip queue={queue} onSelect={onSelect} />
+        <QueueStrip queue={queue} date={date} onSelect={onSelect} />
       </div>
     </section>
   );

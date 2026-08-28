@@ -1,13 +1,15 @@
-import type { Recipe } from "../types";
+import type { Recipe, Temperature } from "../types";
+import { defaultTemperatureForRecipePosition } from "../lib/coffeeOfTheDay";
 import { RecipeCard } from "./RecipeCard";
 
 interface RecipeGridProps {
   recipes: Recipe[];
+  date: Date;
   todayId: string;
-  onSelect: (recipe: Recipe) => void;
+  onSelect: (recipe: Recipe, temperature?: Temperature) => void;
 }
 
-export function RecipeGrid({ recipes, todayId, onSelect }: RecipeGridProps) {
+export function RecipeGrid({ recipes, date, todayId, onSelect }: RecipeGridProps) {
   return (
     <section id="recipes" className="mt-14 scroll-mt-24">
       <div className="mb-6 flex items-end justify-between">
@@ -21,11 +23,12 @@ export function RecipeGrid({ recipes, todayId, onSelect }: RecipeGridProps) {
         </div>
       </div>
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        {recipes.map((recipe) => (
+        {recipes.map((recipe, position) => (
           <RecipeCard
             key={recipe.id}
             recipe={recipe}
             isToday={recipe.id === todayId}
+            defaultTemperature={defaultTemperatureForRecipePosition(recipes.length, position, date)}
             onSelect={onSelect}
           />
         ))}
