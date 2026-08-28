@@ -15,11 +15,11 @@ export const recipes: Recipe[] = [
     },
     iced: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Cheesecake Syrup", amount: "1½ pumps" },
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 15ml, cheesecake syrup 1½ pumps",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
     },
   },
   {
@@ -267,7 +267,6 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water", amount: "40 ml" },
-        { name: "Honey/Blue Agave", amount: "15 g" },
         { name: "Caramel Syrup", amount: "15 g" },
       ],
     },
@@ -276,7 +275,6 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water", amount: "40 ml" },
         { name: "Milk", amount: "150 ml" },
-        { name: "Honey/Blue Agave", amount: "15 g" },
         { name: "Caramel Syrup", amount: "15 g" },
       ],
       note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
