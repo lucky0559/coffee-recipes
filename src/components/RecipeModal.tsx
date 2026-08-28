@@ -47,11 +47,6 @@ export function RecipeModal({ recipe, onClose }: RecipeModalProps) {
               <span>{recipe.number}</span>
               <span>·</span>
               <span>{recipe.category}</span>
-              {recipe.isNew && (
-                <span className="rounded-full bg-cream-50/20 px-2 py-0.5 text-cream-50">
-                  New
-                </span>
-              )}
             </div>
             <h2 id="recipe-modal-title" className="font-display mt-2 text-2xl font-semibold">
               {recipe.name}

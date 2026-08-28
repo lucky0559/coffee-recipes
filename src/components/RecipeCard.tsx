@@ -31,11 +31,6 @@ export function RecipeCard({ recipe, isToday, onSelect }: RecipeCardProps) {
           >
             {recipe.category}
           </span>
-          {recipe.isNew && (
-            <span className="rounded-full bg-espresso-950 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-cream-50">
-              New
-            </span>
-          )}
         </div>
         {isToday && (
           <span className="rounded-full bg-cream-200 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-espresso-800">

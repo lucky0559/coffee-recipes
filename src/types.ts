@@ -17,7 +17,6 @@ export interface Recipe {
   number: string;
   name: string;
   category: Category;
-  isNew?: boolean;
   hot: RecipeBuild;
   iced: RecipeBuild;
 }

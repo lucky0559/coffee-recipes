@@ -8,7 +8,7 @@ export const recipes: Recipe[] = [
     category: "Sweet",
     hot: {
       ingredients: [
-        { name: "Cheesecake Syrup", amount: "1–2 pumps" },
+        { name: "Cheesecake Syrup", amount: "1½ pumps" },
         { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
@@ -19,7 +19,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, cheesecake syrup 1–2 pumps",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, cheesecake syrup 1½ pumps",
     },
   },
   {
@@ -40,7 +40,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, caramel syrup 15g",
     },
   },
   {
@@ -61,7 +61,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, sea salt pinch",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, sea salt pinch",
     },
   },
   {
@@ -83,7 +83,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g, patis 2g",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, caramel syrup 15g, patis 2g",
     },
   },
   {
@@ -93,19 +93,19 @@ export const recipes: Recipe[] = [
     category: "Matcha",
     hot: {
       ingredients: [
-        { name: "Matcha Powder", amount: "5 g" },
-        { name: "Water", amount: "50 g" },
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
         { name: "Honey/Blue Agave", amount: "15 g" },
       ],
     },
     iced: {
       ingredients: [
-        { name: "Matcha Powder", amount: "5 g" },
-        { name: "Water", amount: "50 g" },
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
         { name: "Milk", amount: "150 ml" },
         { name: "Honey/Blue Agave", amount: "15 g" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
     },
   },
   {
@@ -125,7 +125,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
     },
   },
   {
@@ -135,19 +135,19 @@ export const recipes: Recipe[] = [
     category: "Matcha",
     hot: {
       ingredients: [
-        { name: "Matcha Powder", amount: "5 g" },
-        { name: "Water", amount: "50 g" },
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
         { name: "Honey/Blue Agave", amount: "5 g" },
         { name: "Spiced Biscuit Syrup", amount: "15 g" },
       ],
     },
     iced: {
       ingredients: [
-        { name: "Matcha Powder", amount: "5 g" },
-        { name: "Water", amount: "50 g" },
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
         { name: "Milk", amount: "150 ml" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, honey/blue agave 5g, spiced biscuit syrup 15g",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, honey/blue agave 5g, spiced biscuit syrup 15g",
     },
   },
   {
@@ -168,7 +168,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump, 0.3g Tibuok",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump, 0.3g Tibuok",
     },
   },
   {
@@ -189,7 +189,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump, ground cinnamon splash",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump, ground cinnamon splash",
     },
   },
   {
@@ -197,7 +197,6 @@ export const recipes: Recipe[] = [
     number: "10",
     name: "Salted Caramel",
     category: "Sweet",
-    isNew: true,
     hot: {
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
@@ -211,7 +210,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, caramel syrup 15g, sea salt pinch",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, caramel syrup 15g, sea salt pinch",
     },
   },
   {
@@ -219,24 +218,23 @@ export const recipes: Recipe[] = [
     number: "11",
     name: "Dirty Matcha",
     category: "Matcha",
-    isNew: true,
     hot: {
       ingredients: [
-        { name: "Matcha Powder", amount: "5 g" },
-        { name: "Water", amount: "50 g" },
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
         { name: "Honey/Blue Agave", amount: "15 g" },
         { name: "Espresso", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
-        { name: "Matcha Powder", amount: "5 g" },
-        { name: "Water", amount: "50 g" },
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso", amount: "2 shots" },
         { name: "Honey/Blue Agave", amount: "15 g" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
     },
   },
   {
@@ -244,7 +242,6 @@ export const recipes: Recipe[] = [
     number: "12",
     name: "Biscoff",
     category: "Sweet",
-    isNew: true,
     hot: {
       ingredients: [
         { name: "Biscoff Spread", amount: "1 spoon" },
@@ -258,7 +255,31 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "150 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30ml, milk 10ml, vanilla syrup 1 pump",
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
+    },
+  },
+  {
+    id: "matcha-caramel",
+    number: "13",
+    name: "Matcha Caramel",
+    category: "Matcha",
+    hot: {
+      ingredients: [
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
+        { name: "Honey/Blue Agave", amount: "15 g" },
+        { name: "Caramel Syrup", amount: "15 g" },
+      ],
+    },
+    iced: {
+      ingredients: [
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water", amount: "40 ml" },
+        { name: "Milk", amount: "150 ml" },
+        { name: "Honey/Blue Agave", amount: "15 g" },
+        { name: "Caramel Syrup", amount: "15 g" },
+      ],
+      note: "Cold foam — whipping cream 30ml, milk 15ml, vanilla syrup 1 pump",
     },
   },
 ];
