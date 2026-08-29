@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Brewline recipe ingredient unit audit and implementation record." />
+    <title>Brewline recipe ingredient units</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #211711;
+        --muted: #75665b;
+        --paper: #fbf8f2;
+        --surface: #fffdf9;
+        --line: #e7ded2;
+        --accent: #9a5c32;
+        --accent-soft: #f3e5d6;
+        --success: #2e6949;
+        --warning: #8b5d25;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 16px/1.6 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      a { color: var(--accent); }
+      a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visible {
+        outline: 3px solid #dca66f;
+        outline-offset: 3px;
+      }
+      .shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+      .skip-link {
+        position: absolute;
+        left: 12px;
+        top: -48px;
+        padding: 8px 12px;
+        background: var(--ink);
+        color: white;
+        border-radius: 6px;
+        z-index: 10;
+      }
+      .skip-link:focus { top: 12px; }
+      header { padding: 64px 0 36px; border-bottom: 1px solid var(--line); }
+      .eyebrow { margin: 0 0 12px; color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+      h1, h2, h3 { line-height: 1.15; letter-spacing: -.025em; }
+      h1 { max-width: 760px; margin: 0; font-size: clamp(2.5rem, 7vw, 5.5rem); }
+      h2 { margin: 0 0 18px; font-size: clamp(1.65rem, 3vw, 2.5rem); }
+      h3 { margin: 0 0 8px; font-size: 1.1rem; }
+      .lede { max-width: 720px; margin: 20px 0 0; color: var(--muted); font-size: 1.1rem; }
+      .meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .pill { display: inline-flex; align-items: center; gap: 7px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font-size: .82rem; }
+      .pill strong { color: var(--ink); }
+      main { padding: 42px 0 72px; }
+      section { margin-top: 58px; }
+      section:first-child { margin-top: 0; }
+      .section-intro { max-width: 760px; color: var(--muted); }
+      .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      .card { padding: 20px; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+      .card p { margin: 0; color: var(--muted); }
+      .card strong { color: var(--ink); }
+      .card.accent { border-color: #dcb28e; background: var(--accent-soft); }
+      .table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); }
+      table { width: 100%; border-collapse: collapse; min-width: 760px; }
+      caption { padding: 16px 18px 4px; text-align: left; color: var(--muted); font-size: .9rem; }
+      th, td { padding: 13px 16px; border-bottom: 1px solid var(--line); vertical-align: top; text-align: left; }
+      th { background: #f7f0e8; font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; }
+      tr:last-child td { border-bottom: 0; }
+      td:first-child { color: var(--accent); font-weight: 800; }
+      .status { white-space: nowrap; color: var(--success); font-weight: 700; }
+      .status.pending { color: var(--warning); }
+      .audit-tools { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin: 22px 0 12px; }
+      label { display: block; color: var(--muted); font-size: .85rem; font-weight: 700; }
+      input[type="search"] { width: min(340px, 100%); margin-top: 5px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--ink); font: inherit; }
+      .count { margin: 0; color: var(--muted); font-size: .9rem; }
+      details { border-top: 1px solid var(--line); }
+      details:last-child { border-bottom: 1px solid var(--line); }
+      summary { cursor: pointer; padding: 16px 0; font-weight: 750; }
+      details p, details ul { margin: 0 0 18px; color: var(--muted); }
+      ul { padding-left: 22px; }
+      code { padding: .12em .35em; border-radius: 5px; background: #f1ebe3; font: .92em ui-monospace, SFMono-Regular, Menlo, monospace; }
+      .checklist { display: grid; gap: 9px; padding: 0; list-style: none; }
+      .checklist li::before { display: inline-block; width: 1.5em; color: var(--success); content: "✓"; font-weight: 900; }
+      .checklist li.pending::before { color: var(--warning); content: "○"; }
+      footer { padding: 22px 0 32px; border-top: 1px solid var(--line); color: var(--muted); font-size: .86rem; }
+      footer a { margin-left: 10px; }
+      @media (max-width: 760px) {
+        .shell { width: min(100% - 28px, 1120px); }
+        header { padding: 42px 0 28px; }
+        main { padding-top: 28px; }
+        section { margin-top: 42px; }
+        .grid { grid-template-columns: 1fr; }
+        .audit-tools { display: block; }
+        .count { margin-top: 10px; }
+      }
+      @media print {
+        body { background: white; }
+        header { padding: 24px 0; }
+        main { padding: 24px 0; }
+        section { margin-top: 28px; break-inside: avoid; }
+        .audit-tools, footer { display: none; }
+        .table-wrap { overflow: visible; }
+        table { min-width: 0; font-size: 10pt; }
+        th, td { padding: 7px 8px; }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header>
+      <div class="shell">
+        <p class="eyebrow">Brewline · implementation record</p>
+        <h1>Recipe ingredient units</h1>
+        <p class="lede">A complete audit of the 13-recipe line, with Honey/Blue Agave corrected to the requested values and liquid-versus-dry units made consistent across recipe builds and notes.</p>
+        <div class="meta" aria-label="Document metadata">
+          <span class="pill"><strong>Status</strong> Implemented · source and production checks passed</span>
+          <span class="pill"><strong>Updated</strong> 2026-08-30</span>
+          <span class="pill"><strong>Coverage</strong> 13 recipes · 26 builds</span>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="shell">
+      <section aria-labelledby="outcome-title">
+        <h2 id="outcome-title">Outcome</h2>
+        <div class="grid">
+          <article class="card accent">
+            <h3>Honey / Blue Agave</h3>
+            <p><strong>7 ml</strong> everywhere, except Matcha Spiced, which stays at <strong>3 ml</strong> in the hot build and cold-foam note.</p>
+          </article>
+          <article class="card">
+            <h3>Liquid ingredients</h3>
+            <p>Water, milk, syrups, condensed milk, patis, honey/agave, and cold-foam liquids use <strong>ml</strong>.</p>
+          </article>
+          <article class="card">
+            <h3>Dry ingredients</h3>
+            <p>Matcha Powder remains <strong>4 g</strong>; Tibuok remains <strong>0.3 g</strong>.</p>
+          </article>
+        </div>
+      </section>
+
+      <section aria-labelledby="reconciliation-title">
+        <h2 id="reconciliation-title">Source-of-truth reconciliation</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Authoritative requirements are separated from repository evidence and implementation inferences.</caption>
+            <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
+            <tbody>
+              <tr><td>Authoritative user requirement</td><td>Honey/Blue Agave is 7 ml everywhere, with Matcha Spiced clarified as 3 ml.</td><td>All six visible Honey/Blue Agave references follow that rule.</td></tr>
+              <tr><td>Repository-verified data</td><td><code>src/data/recipes.ts</code> contains 13 recipes, each with Hot and Iced builds.</td><td>All 26 builds and cold-foam notes were reviewed.</td></tr>
+              <tr><td>Inferred unit rule</td><td>No canonical measurement guide is stored in the repository.</td><td>Liquids use ml, dry powders use g, and operational measures remain unchanged.</td></tr>
+              <tr><td>Discrepancy / plan gap</td><td>No ingredient densities or external kitchen source sheet are present.</td><td>Liquid g→ml changes are display-unit normalization, not density-accurate mass conversions.</td></tr>
+              <tr><td>Task-board state</td><td>No task board or issue reference exists in the repository.</td><td>No stale board state was available to override.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="policy-title">
+        <h2 id="policy-title">Unit policy</h2>
+        <details open>
+          <summary>Use ml for liquid or pourable ingredients</summary>
+          <p>Water 40 ml, Milk 120 ml, Honey/Blue Agave 7 ml by default or 3 ml for Matcha Spiced, Caramel Syrup 15 ml, Spiced Biscuit Syrup 15 ml, Condensed Milk 15 ml, Patis 2 ml, whipping cream 30 ml, and cold-foam milk 15 ml.</p>
+        </details>
+        <details>
+          <summary>Use g for dry numeric ingredients</summary>
+          <p>Matcha Powder remains 4 g and Tibuok remains 0.3 g.</p>
+        </details>
+        <details>
+          <summary>Retain operational measures where no conversion was supplied</summary>
+          <p>Syrup pumps, espresso shots, one spoon of Biscoff Spread, a pinch of Sea Salt, and a splash of Ground Cinnamon remain as written. No numeric quantity was invented for these measures.</p>
+        </details>
+      </section>
+
+      <section aria-labelledby="audit-title">
+        <h2 id="audit-title">Complete recipe audit</h2>
+        <p class="section-intro">Use the filter to scan any recipe. The table records the final unit decision and the surfaces covered by the update.</p>
+        <div class="audit-tools">
+          <div>
+            <label for="recipe-filter">Filter recipes</label>
+            <input id="recipe-filter" type="search" placeholder="Search by number or name" autocomplete="off" />
+          </div>
+          <p id="recipe-count" class="count" role="status">Showing 13 of 13 recipes</p>
+        </div>
+        <div class="table-wrap">
+          <table id="audit-table">
+            <caption>All 13 recipes and both temperature builds are included.</caption>
+            <thead><tr><th scope="col">#</th><th scope="col">Recipe</th><th scope="col">Final unit decision</th><th scope="col">Build / note coverage</th></tr></thead>
+            <tbody>
+              <tr data-recipe="01 cheesecake"><td>01</td><td>Cheesecake</td><td>No numeric ingredient-unit change; cold-foam spacing standardized.</td><td>Pumps, shots, milk, and cold-foam liquids are consistent.</td></tr>
+              <tr data-recipe="02 caramel"><td>02</td><td>Caramel</td><td>Caramel Syrup is 15 ml.</td><td>Hot ingredient and cold-foam note match.</td></tr>
+              <tr data-recipe="03 sea salt"><td>03</td><td>Sea Salt</td><td>Condensed Milk is 15 ml.</td><td>Both builds and the cold-foam note are consistent.</td></tr>
+              <tr data-recipe="04 caramelized patis"><td>04</td><td>Caramelized Patis</td><td>Caramel Syrup is 15 ml; Patis is 2 ml.</td><td>Hot ingredients and cold-foam note match.</td></tr>
+              <tr data-recipe="05 matcha"><td>05</td><td>Matcha</td><td>Honey/Blue Agave is 7 ml in both builds.</td><td>Matcha remains 4 g; water remains 40 ml.</td></tr>
+              <tr data-recipe="06 spanish"><td>06</td><td>Spanish</td><td>Condensed Milk is 15 ml.</td><td>Both builds are consistent.</td></tr>
+              <tr data-recipe="07 matcha spiced"><td>07</td><td>Matcha Spiced</td><td>Honey/Blue Agave is 3 ml; Spiced Biscuit Syrup is 15 ml.</td><td>The iced cold-foam note mirrors 3 ml and 15 ml.</td></tr>
+              <tr data-recipe="08 kape tibuok"><td>08</td><td>Kape Tibuok</td><td>Condensed Milk is 15 ml; Tibuok remains 0.3 g.</td><td>The cold-foam note uses 0.3 g with consistent spacing.</td></tr>
+              <tr data-recipe="09 spanish cinnamon"><td>09</td><td>Spanish Cinnamon</td><td>Condensed Milk is 15 ml.</td><td>Ground Cinnamon remains the operational “splash” measure.</td></tr>
+              <tr data-recipe="10 salted caramel"><td>10</td><td>Salted Caramel</td><td>Caramel Syrup is 15 ml.</td><td>The cold-foam note matches.</td></tr>
+              <tr data-recipe="11 dirty matcha"><td>11</td><td>Dirty Matcha</td><td>Honey/Blue Agave is 7 ml in both builds.</td><td>Matcha remains 4 g; water remains 40 ml.</td></tr>
+              <tr data-recipe="12 biscoff"><td>12</td><td>Biscoff</td><td>No numeric ingredient-unit change.</td><td>Biscoff remains 1 spoon; cold-foam liquids are consistently formatted.</td></tr>
+              <tr data-recipe="13 matcha caramel"><td>13</td><td>Matcha Caramel</td><td>Caramel Syrup is 15 ml in both builds.</td><td>Matcha remains 4 g; water remains 40 ml.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section aria-labelledby="roadmap-title">
+        <h2 id="roadmap-title">Roadmap and verification</h2>
+        <div class="table-wrap">
+          <table>
+            <caption>Implementation ownership and acceptance evidence.</caption>
+            <thead><tr><th scope="col">Task</th><th scope="col">Surface</th><th scope="col">Status</th><th scope="col">Evidence</th></tr></thead>
+            <tbody>
+              <tr><td>Inventory recipe builds and notes</td><td><code>src/data/recipes.ts</code></td><td class="status">Complete</td><td>13 recipes, 26 builds, and all notes reviewed.</td></tr>
+              <tr><td>Apply Honey/Blue Agave values</td><td><code>src/data/recipes.ts</code></td><td class="status">Complete</td><td>7 ml by default; Matcha Spiced 3 ml.</td></tr>
+              <tr><td>Normalize liquid and dry units</td><td><code>src/data/recipes.ts</code></td><td class="status">Complete</td><td>Liquid values use ml; dry numeric values use g.</td></tr>
+              <tr><td>Publish implementation record</td><td><code>docs/</code></td><td class="status">Complete</td><td>Markdown and responsive HTML artifacts are included.</td></tr>
+              <tr><td>Run source and production checks</td><td>Audit, lint, build</td><td class="status">Complete</td><td>Source audit, lint, build, diff, and static artifact checks pass; browser unavailable.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="checklist" aria-label="Acceptance criteria">
+          <li>All Honey/Blue Agave values are 7 ml except Matcha Spiced at 3 ml.</li>
+          <li>Liquid ingredients use ml; dry numeric ingredients use g.</li>
+          <li>Operational measures retain their source wording.</li>
+          <li>All recipe builds and notes are covered.</li>
+          <li>Source invariant audit, lint, build, diff, and static artifact checks pass; browser QA was unavailable.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="api-title">
+        <h2 id="api-title">API surface and dependencies</h2>
+        <p class="section-intro">This is a static content update. There are no API endpoints, authentication rules, request or response schemas, persistence changes, backend routes, transactions, locks, idempotency keys, or rollback workflows. The existing <code>Ingredient.amount: string</code> contract and all consuming UI surfaces remain unchanged.</p>
+      </section>
+    </main>
+
+    <footer>
+      <div class="shell">
+        Source: <a href="../src/data/recipes.ts">src/data/recipes.ts</a>
+        · Specification: <a href="./recipe-ingredient-units.md">recipe-ingredient-units.md</a>
+      </div>
+    </footer>
+
+    <script>
+      const filter = document.querySelector("#recipe-filter");
+      const rows = [...document.querySelectorAll("#audit-table tbody tr")];
+      const count = document.querySelector("#recipe-count");
+      function updateAudit() {
+        const query = filter.value.trim().toLowerCase();
+        let visible = 0;
+        rows.forEach((row) => {
+          const matches = !query || row.dataset.recipe.includes(query);
+          row.hidden = !matches;
+          if (matches) visible += 1;
+        });
+        count.textContent = `Showing ${visible} of ${rows.length} recipes`;
+      }
+      filter.addEventListener("input", updateAudit);
+    </script>
+  </body>
+</html>
