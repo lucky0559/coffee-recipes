@@ -71,7 +71,6 @@ export const recipes: Recipe[] = [
     category: "Savory",
     hot: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Caramel Syrup", amount: "15 ml" },
         { name: "Patis", amount: "2 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
@@ -101,11 +100,11 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
+        { name: "Milk (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Honey/Blue Agave", amount: "7 ml" },
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      note: "Matcha powder mixture — combine the matcha powder with 40 ml milk before adding 120 ml milk and honey. Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
     },
   },
   {
