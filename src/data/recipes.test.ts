@@ -48,6 +48,16 @@ describe("recipe data", () => {
     });
   });
 
+  it("keeps Matcha Spiced syrup in the iced drink build", () => {
+    const matchaSpiced = recipes.find((recipe) => recipe.id === "matcha-spiced");
+
+    expect(matchaSpiced?.iced.ingredients).toContainEqual({
+      name: "Spiced Biscuit Syrup",
+      amount: "15 ml",
+    });
+    expect(matchaSpiced?.iced.note).not.toContain("spiced biscuit syrup");
+  });
+
   it("maps every recipe to a Hot and Iced local image", () => {
     recipes.forEach((recipe) => {
       expect(getRecipeImage(recipe.id, "Hot")).toBe(`/recipes/${recipe.id}-hot.webp`);
