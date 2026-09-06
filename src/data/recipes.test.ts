@@ -85,8 +85,9 @@ describe("recipe data", () => {
       amount: "drizzle",
     });
     expect(saltedCaramel?.iced.note).toBe(
-      "Cold foam — whipping cream 30 ml, milk 15 ml, caramel sauce 10 ml, vanilla syrup 10 ml, sea salt pinch",
+      "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
     );
+    expect(saltedCaramel?.iced.note).not.toContain("caramel sauce");
     expect(saltedCaramel?.iced.note).not.toContain("caramel syrup");
   });
 
