@@ -200,17 +200,18 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
-        { name: "Caramel Syrup", amount: "15 ml" },
+        { name: "Caramel Sauce", amount: "10 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
     },
     iced: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Caramel Syrup", amount: "20 ml" },
+        { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, caramel syrup 15 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 15 ml, caramel sauce 10 ml, vanilla syrup 10 ml, sea salt pinch",
     },
   },
   {

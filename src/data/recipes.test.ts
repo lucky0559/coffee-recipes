@@ -58,6 +58,38 @@ describe("recipe data", () => {
     expect(matchaSpiced?.iced.note).not.toContain("spiced biscuit syrup");
   });
 
+  it("keeps syrup out of Hot Salted Caramel and uses 10 ml caramel sauce", () => {
+    const saltedCaramel = recipes.find((recipe) => recipe.id === "salted-caramel");
+
+    expect(
+      saltedCaramel?.hot.ingredients.some(({ name }) => name === "Caramel Syrup"),
+    ).toBe(false);
+    expect(saltedCaramel?.hot.ingredients).toContainEqual({
+      name: "Caramel Sauce",
+      amount: "10 ml",
+    });
+  });
+
+  it("keeps Iced Salted Caramel flavors in their intended drink and foam builds", () => {
+    const saltedCaramel = recipes.find((recipe) => recipe.id === "salted-caramel");
+
+    expect(
+      saltedCaramel?.iced.ingredients.some(({ name }) => name === "Vanilla Syrup"),
+    ).toBe(false);
+    expect(saltedCaramel?.iced.ingredients).toContainEqual({
+      name: "Caramel Syrup",
+      amount: "20 ml",
+    });
+    expect(saltedCaramel?.iced.ingredients).toContainEqual({
+      name: "Caramel Sauce",
+      amount: "drizzle",
+    });
+    expect(saltedCaramel?.iced.note).toBe(
+      "Cold foam — whipping cream 30 ml, milk 15 ml, caramel sauce 10 ml, vanilla syrup 10 ml, sea salt pinch",
+    );
+    expect(saltedCaramel?.iced.note).not.toContain("caramel syrup");
+  });
+
   it("maps every recipe to a Hot and Iced local image", () => {
     recipes.forEach((recipe) => {
       expect(getRecipeImage(recipe.id, "Hot")).toBe(`/recipes/${recipe.id}-hot.webp`);
