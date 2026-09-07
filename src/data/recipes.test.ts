@@ -91,6 +91,25 @@ describe("recipe data", () => {
     expect(saltedCaramel?.iced.note).not.toContain("caramel syrup");
   });
 
+  it("keeps Iced Dirty Matcha mixture milk separate from the main milk", () => {
+    const dirtyMatcha = recipes.find((recipe) => recipe.id === "dirty-matcha");
+
+    expect(dirtyMatcha?.iced.ingredients).toContainEqual({
+      name: "Milk (for matcha powder mixture)",
+      amount: "60 ml",
+    });
+    expect(dirtyMatcha?.iced.ingredients).toContainEqual({
+      name: "Milk",
+      amount: "100 ml",
+    });
+    expect(
+      dirtyMatcha?.iced.ingredients.some(({ name }) => name === "Water"),
+    ).toBe(false);
+    expect(dirtyMatcha?.iced.note).toContain(
+      "combine the matcha powder with 60 ml milk before adding 100 ml milk and honey",
+    );
+  });
+
   it("maps every recipe to a Hot and Iced local image", () => {
     recipes.forEach((recipe) => {
       expect(getRecipeImage(recipe.id, "Hot")).toBe(`/recipes/${recipe.id}-hot.webp`);

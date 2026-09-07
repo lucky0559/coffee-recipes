@@ -230,12 +230,12 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        { name: "Milk (for matcha powder mixture)", amount: "60 ml" },
+        { name: "Milk", amount: "100 ml" },
         { name: "Espresso", amount: "2 shots" },
         { name: "Honey/Blue Agave", amount: "7 ml" },
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      note: "Matcha powder mixture — combine the matcha powder with 60 ml milk before adding 100 ml milk and honey. Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
     },
   },
   {
