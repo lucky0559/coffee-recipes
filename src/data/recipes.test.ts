@@ -102,6 +102,10 @@ describe("recipe data", () => {
       name: "Milk",
       amount: "100 ml",
     });
+    expect(dirtyMatcha?.iced.ingredients).toContainEqual({
+      name: "Honey/Blue Agave",
+      amount: "15 ml",
+    });
     expect(
       dirtyMatcha?.iced.ingredients.some(({ name }) => name === "Water"),
     ).toBe(false);
