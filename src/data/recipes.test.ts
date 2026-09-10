@@ -44,6 +44,13 @@ describe("recipe data", () => {
         if (build.note !== undefined) {
           expect(build.note.trim()).not.toBe("");
         }
+
+        expect(build.allergens).toBeInstanceOf(Array);
+        expect(build.substitutions).toBeInstanceOf(Array);
+        build.substitutions.forEach(({ ingredient, alternatives }) => {
+          expect(ingredient.trim()).not.toBe("");
+          expect(alternatives.length).toBeGreaterThan(0);
+        });
       });
     });
   });
@@ -56,6 +63,19 @@ describe("recipe data", () => {
       amount: "15 ml",
     });
     expect(matchaSpiced?.iced.note).not.toContain("spiced biscuit syrup");
+  });
+
+  it("uses 20 ml caramel syrup and a caramel sauce drizzle in Iced Matcha Caramel", () => {
+    const matchaCaramel = recipes.find((recipe) => recipe.id === "matcha-caramel");
+
+    expect(matchaCaramel?.iced.ingredients).toContainEqual({
+      name: "Caramel Syrup",
+      amount: "20 ml",
+    });
+    expect(matchaCaramel?.iced.ingredients).toContainEqual({
+      name: "Caramel Sauce",
+      amount: "drizzle",
+    });
   });
 
   it("keeps syrup out of Hot Salted Caramel and uses 10 ml caramel sauce", () => {

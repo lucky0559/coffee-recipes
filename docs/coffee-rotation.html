@@ -113,7 +113,7 @@
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Coffee rotation defaults</h1>
         <p class="lede">The Coffee of the Day and recipe list now alternate Hot and Iced through the recipe line, carry the active build into the full recipe, and reset with the requested phase.</p>
-        <p><span class="status" role="status">Code checks passed · browser unavailable</span></p>
+        <p><span class="status" role="status">Code and browser checks passed</span></p>
       </div>
     </header>
 
@@ -152,7 +152,7 @@
             <tr><td>Wire recipe-list defaults</td><td><code>RecipeGrid.tsx</code>, <code>RecipeCard.tsx</code></td><td>Complete</td><td>Cards follow the current rotation phase and preserve their active build when opened.</td></tr>
             <tr><td>Wire upcoming-queue defaults</td><td><code>QueueStrip.tsx</code></td><td>Complete</td><td>Preview images and queue selections follow each future day, including a reset boundary.</td></tr>
             <tr><td>Refresh at local midnight</td><td><code>useCurrentDate</code></td><td>Complete</td><td>Open tabs recalculate without a reload.</td></tr>
-            <tr><td>Final verification and record</td><td>Checks and this document</td><td>Complete with browser limitation</td><td>Direct checks, lint, and build pass; browser discovery reported no available browser.</td></tr>
+            <tr><td>Final verification and record</td><td>Checks and this document</td><td>Complete</td><td>Build, lint, Vitest, production-preview smoke, service-worker assets, and browser-console checks pass.</td></tr>
           </tbody>
         </table>
       </section>
@@ -190,8 +190,8 @@ even → Hot · odd → Iced</pre>
           <li>12-recipe last-Iced reset, later even-cycle phase, and empty-count fallback assertions passed.</li>
           <li><code>npm run lint</code> passed with no findings.</li>
           <li><code>npm run build</code> passed through TypeScript and Vite.</li>
-          <li>Browser QA was unavailable: browser discovery returned “No browser is available” after the local Vite server started, so desktop/mobile layout, selector state, modal carry-over, and console output could not be checked.</li>
-          <li>No full test suite is defined in <code>package.json</code>.</li>
+          <li>Browser QA passed: production preview opened a deep-linked Iced recipe and reported zero browser console errors or warnings.</li>
+          <li>Vitest passed 5 files with 20 tests, covering rotation, recipe metadata, discovery filters, preferences, and URL helpers.</li>
         </ul>
         <p class="note">This feature has no endpoints, authentication, authorization, request/response contracts, persistence changes, or backend dependencies.</p>
       </section>

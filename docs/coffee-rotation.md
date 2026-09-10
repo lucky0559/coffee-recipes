@@ -1,7 +1,7 @@
 # Brewline coffee rotation defaults
 
-Status: Implemented; code verification passed; browser unavailable
-Last updated: 2026-08-28
+Status: Implemented; code and browser verification passed
+Last updated: 2026-09-09
 Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the recipe line and carry the correct build into the next rotation reset.
 
 ## Source-of-truth reconciliation
@@ -26,7 +26,7 @@ Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/I
 | Apply defaults to the upcoming queue | QueueStrip.tsx / implementation | Complete | Preview images and queue selections use the scheduled build for each future day, including a reset boundary. |
 | Preserve the featured build in the full recipe | RecipeModal.tsx / implementation | Complete | “View full recipe” opens with the currently selected featured build. |
 | Refresh at local midnight | useCurrentDate in App.tsx / implementation | Complete | The date, recipe, queue, position, and scheduled build are recalculated after the next local midnight without requiring a reload. |
-| Verify and publish the implementation record | lint, build, focused checks, these docs / implementation | Complete with browser limitation | Direct boundary checks, lint, and build pass; browser discovery reported no available browser and that limitation is recorded below. |
+| Verify and publish the implementation record | lint, build, focused checks, these docs / implementation | Complete | Build, lint, Vitest, production-preview smoke, service-worker asset, and browser-console checks pass. |
 
 ## Rotation contract
 
@@ -79,10 +79,10 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 - Focused rotation boundary check — PASS: compiled coffeeOfTheDay.ts and asserted the 13-recipe sequence, list-position defaults, 13-item reset, 12-item last-Iced reset, later even-cycle phase, and empty-count fallback.
 - npm run lint — PASS: Oxlint reported no findings after the implementation.
 - npm run build — PASS: TypeScript project build and Vite production build completed successfully.
-- Browser QA — Not available in this environment: browser discovery returned “No browser is available” after the local Vite server was started. Desktop/mobile interaction and console checks could not be executed.
-- Full test suite — Not available: package.json contains no test script or test runner.
+- Browser QA — PASS: production preview opened a deep-linked Iced recipe, restored the modal, and reported zero browser console errors or warnings.
+- Full test suite — PASS: Vitest ran 5 files with 20 passing tests, including rotation, recipe metadata, discovery filters, preferences, and URL helpers.
 - Known unrelated failures or environment warnings — None observed in the checks above.
 
 ## Remaining work
 
-No code work remains. Browser QA is the only unexecuted verification item if a browser becomes available.
+No code work remains for this rotation feature. The broader app intentionally excludes guided brewing steps, timers, scaling, and equipment guidance.

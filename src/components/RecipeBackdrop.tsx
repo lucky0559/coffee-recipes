@@ -39,7 +39,7 @@ export function RecipeBackdrop({
   accent = DEFAULT_ACCENT,
 }: RecipeBackdropProps) {
   const overlay = getOverlay(surface, accent);
-  const temperatures: Temperature[] = ["Hot", "Iced"];
+  const imageLoading = surface === "featured" || surface === "modal" ? "eager" : "lazy";
 
   return (
     <div
@@ -47,22 +47,19 @@ export function RecipeBackdrop({
       className="pointer-events-none absolute inset-0 z-0"
       data-recipe-backdrop={surface}
     >
-      {temperatures.map((layerTemperature) => {
-        const style: CSSProperties = {
-          backgroundImage: `${overlay}, url(${getRecipeImage(recipeId, layerTemperature)})`,
-        };
-
-        return (
-          <div
-            key={layerTemperature}
-            className={`recipe-backdrop-layer absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${
-              temperature === layerTemperature ? "opacity-100" : "opacity-0"
-            }`}
-            data-temperature={layerTemperature}
-            style={style}
-          />
-        );
-      })}
+      <img
+        key={`${recipeId}-${temperature}`}
+        src={getRecipeImage(recipeId, temperature)}
+        alt=""
+        loading={imageLoading}
+        decoding="async"
+        className="recipe-backdrop-image absolute inset-0 h-full w-full object-cover object-center"
+        data-temperature={temperature}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ backgroundImage: overlay } as CSSProperties}
+      />
     </div>
   );
 }

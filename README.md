@@ -1,17 +1,21 @@
 # Brewline — Coffee Recipes
 
-Brewline is a static coffee recipe browser built with React, TypeScript, Vite, and Tailwind CSS. It presents a fixed recipe line, highlights one coffee of the day, and lets people switch between Hot and Iced builds before opening the full recipe.
+Brewline is a static coffee recipe browser built with React, TypeScript, Vite, and Tailwind CSS. It presents a fixed recipe line, highlights one coffee of the day, supports search and saved recipes, and lets people switch between Hot and Iced builds before opening a shareable recipe detail.
 
 ## What is included
 
 - A categorized grid of 13 coffee and matcha recipes.
 - A deterministic Coffee of the Day queue that advances one recipe per local calendar day.
 - Hot/Iced ingredient controls on the featured recipe and recipe cards.
-- A recipe-detail modal that carries the selected temperature into the full build.
+- Search, category, saved-recipe, and allergen-aware discovery filters.
+- Device-local favorites, recently opened recipes, and a preferred build temperature.
+- A recipe-detail modal that carries the selected temperature into the build, labels known allergens, and lists possible substitutions.
+- Shareable recipe URLs with native sharing when available and a clipboard fallback.
 - Local temperature-specific WebP backgrounds for cards, the featured panel, the queue, and the modal.
 - Favicon, Apple touch icon, and web-manifest assets for the Brewline identity.
+- A service worker that precaches the recipe library for offline reading.
 
-The app is client-only. There is no backend, database, authentication, external runtime API, user account, or persistence layer.
+The app is client-only. There is no backend, database, authentication, external runtime API, or user account. Device-local preferences use `localStorage`; the service worker caches the static app shell and recipe images.
 
 ## Stack
 
@@ -48,18 +52,22 @@ npm run build    # tsc -b, then vite build; writes dist/
 npm run preview  # serves the existing dist/ build locally
 ```
 
-`npm test` runs the unit suite for the daily rotation and recipe-data invariants. `npm run build` is also the repository's type-checking check because it runs `tsc -b` before the Vite build.
+`npm test` runs the unit suite for rotation, recipe-data metadata, discovery filters, local preferences, and deep-link helpers. `npm run build` is also the repository's type-checking check because it runs `tsc -b` before the Vite build.
 
 ## Repository map
 
 | Path | Responsibility |
 | --- | --- |
 | `src/App.tsx` | Owns the current local date, daily selection, queue, modal selection, and midnight refresh. |
-| `src/types.ts` | Defines `Recipe`, `RecipeBuild`, `Ingredient`, `Category`, and `Temperature`. |
+| `src/types.ts` | Defines `Recipe`, `RecipeBuild`, `Ingredient`, `Substitution`, `Allergen`, `Category`, and `Temperature`. |
 | `src/data/recipes.ts` | Authoritative ordered recipe data and ingredient display strings. |
 | `src/data/categories.ts` | Category accent and pill colors. |
 | `src/data/recipeImages.ts` | Recipe ID to Hot/Iced public-image mapping. |
 | `src/lib/coffeeOfTheDay.ts` | Pure date, queue, and scheduled-temperature helpers. |
+| `src/lib/recipeFilters.ts` | Search, category, favorites, and allergen-aware discovery helpers. |
+| `src/lib/recipeLinks.ts` | Deep-link parsing and share URL generation. |
+| `src/lib/recipePreferences.ts` | Safe preference serialization and favorite/recent-history updates. |
+| `src/lib/useRecipePreferences.ts` | React persistence hook for device-local recipe preferences. |
 | `src/components/` | Header, featured recipe, queue, cards, backdrops, grid, and modal UI. |
 | `public/recipes/` | Local Hot/Iced recipe images. |
 | `public/` | Favicons, app icons, and `site.webmanifest`. |
@@ -95,10 +103,16 @@ Each recipe has this shape:
   number: "01",
   name: "Display name",
   category: "Sweet",
-  hot: { ingredients: [{ name: "Ingredient", amount: "15 ml" }] },
+  hot: {
+    ingredients: [{ name: "Ingredient", amount: "15 ml" }],
+    allergens: [],
+    substitutions: [],
+  },
   iced: {
     ingredients: [{ name: "Ingredient", amount: "120 ml" }],
     note: "Optional cold-foam or serving detail",
+    allergens: ["Dairy"],
+    substitutions: [{ ingredient: "Milk", alternatives: ["Oat milk"] }],
   },
 }
 ```
@@ -139,7 +153,7 @@ getRecipeImage("sea-salt", "Hot")  // /recipes/sea-salt-hot.webp
 getRecipeImage("sea-salt", "Iced") // /recipes/sea-salt.webp
 ```
 
-`getRecipeImage` defaults to Iced when no temperature is supplied and falls back to `/coffee-icon.png` for an unknown recipe ID. `RecipeBackdrop` mounts both temperature layers and crossfades the active one over 500 ms; its reduced-motion class removes that transition for users who request reduced motion.
+`getRecipeImage` defaults to Iced when no temperature is supplied and falls back to `/coffee-icon.png` for an unknown recipe ID. `RecipeBackdrop` renders only the active temperature image, uses lazy asynchronous loading for cards and queue items, and respects reduced-motion preferences.
 
 When an image is added or renamed, verify the complete chain: recipe ID → `RECIPE_IMAGES` entry → file under `public/recipes/` → production path in `dist/`.
 
@@ -182,7 +196,19 @@ With the current 13-recipe line, the anchored cycle starts Hot and alternates th
 
 Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation always uses the 13-item array.
 
-The app schedules a refresh at the next local midnight while open. Manual Hot/Iced changes affect the current view only; they are not persisted and do not modify the schedule.
+The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
+
+## Discovery and local preferences
+
+The recipe section supports case-insensitive search across recipe names, ingredients, notes, and substitution names. Category, saved-only, and allergen-free-build filters can be combined. The build control chooses the scheduled, Hot, or Iced presentation across the collection.
+
+Favorites, recently opened recipes, and the preferred build are stored under the `brewline.recipe-preferences` local-storage key. Invalid or unavailable storage is handled in memory so the read-only recipe library remains usable.
+
+## Sharing and offline support
+
+Opening a recipe updates the URL with `recipe` and `temperature` query parameters. A shared URL opens the matching detail view directly; browser back and Escape/close remove the transient selection. The Share recipe action uses the clipboard when available, then the native share sheet, then a synchronous copy fallback.
+
+The production build registers `/sw.js`. Its versioned cache precaches the app shell, icons, manifest, and current recipe image set, serves navigations from the cached `index.html` when offline, and caches same-origin runtime assets as they are requested. Bump `CACHE_NAME` when changing the cache contract.
 
 ## Deployment
 
@@ -213,6 +239,6 @@ These records contain the detailed implementation scope, acceptance criteria, an
 ## Current limitations
 
 - Recipe data is bundled at build time; content changes require a new build and deployment.
-- No automated end-to-end or browser test suite is declared; use unit tests, lint, build, and focused manual/browser checks.
-- No favorites, history, accounts, server-side data, or offline cache/service worker is implemented.
+- Tests cover rotation, recipe-data metadata, discovery filters, preferences, and deep-link helpers; focused browser smoke checks cover saved state, filters, modal behavior, sharing, and deep links.
+- Curated recipe data remains bundled at build time, while preferences stay local to the current device; there is no account, sync service, or remote editor.
 - Deployment provider settings and production hosting status are intentionally not inferred from this repository.

@@ -5,6 +5,7 @@ import { RecipeBackdrop } from "./RecipeBackdrop";
 interface QueueStripProps {
   queue: Recipe[];
   date: Date;
+  preferredTemperature: Temperature | null;
   onSelect: (recipe: Recipe, temperature?: Temperature) => void;
 }
 
@@ -14,7 +15,7 @@ const dayLabel = (offset: number) => {
   return `In ${offset} days`;
 };
 
-export function QueueStrip({ queue, date, onSelect }: QueueStripProps) {
+export function QueueStrip({ queue, date, preferredTemperature, onSelect }: QueueStripProps) {
   const preview = queue.slice(0, 6);
 
   return (
@@ -26,13 +27,15 @@ export function QueueStrip({ queue, date, onSelect }: QueueStripProps) {
         {preview.map((recipe, i) => {
           const previewDate = new Date(date);
           previewDate.setDate(previewDate.getDate() + i);
-          const temperature = defaultTemperatureForDate(queue.length, previewDate);
+          const temperature =
+            preferredTemperature ?? defaultTemperatureForDate(queue.length, previewDate);
 
           return (
             <button
-              key={recipe.id}
-              type="button"
-              onClick={() => onSelect(recipe, temperature)}
+            key={recipe.id}
+            type="button"
+            onClick={() => onSelect(recipe, temperature)}
+            aria-label={`${recipe.name}, ${temperature}, ${dayLabel(i)}`}
               className={`group relative flex min-w-[132px] flex-col gap-2 overflow-hidden rounded-2xl border px-4 py-3 text-left transition ${
                 i === 0
                   ? "border-cream-50/40 bg-cream-50/15"

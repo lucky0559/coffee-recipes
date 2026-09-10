@@ -12,6 +12,8 @@ export const recipes: Recipe[] = [
         { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
@@ -20,6 +22,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -33,6 +40,8 @@ export const recipes: Recipe[] = [
         { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
@@ -41,6 +50,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, caramel syrup 15 ml",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -54,6 +68,10 @@ export const recipes: Recipe[] = [
         { name: "Sea Salt", amount: "pinch" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Condensed Milk", alternatives: ["Sweetened condensed oat milk"] },
+      ],
     },
     iced: {
       ingredients: [
@@ -62,6 +80,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -75,6 +98,10 @@ export const recipes: Recipe[] = [
         { name: "Patis", amount: "2 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: ["Fish"],
+      substitutions: [
+        { ingredient: "Patis", alternatives: ["Vegan fish sauce"] },
+      ],
     },
     iced: {
       ingredients: [
@@ -83,6 +110,12 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, caramel syrup 15 ml, patis 2 ml",
+      allergens: ["Dairy", "Fish"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+        { ingredient: "Patis", alternatives: ["Vegan fish sauce"] },
+      ],
     },
   },
   {
@@ -96,6 +129,8 @@ export const recipes: Recipe[] = [
         { name: "Water", amount: "40 ml" },
         { name: "Honey/Blue Agave", amount: "7 ml" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
@@ -105,6 +140,11 @@ export const recipes: Recipe[] = [
         { name: "Honey/Blue Agave", amount: "7 ml" },
       ],
       note: "Matcha powder mixture — combine the matcha powder with 60 ml milk before adding 100 ml milk and honey. Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -117,6 +157,10 @@ export const recipes: Recipe[] = [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Condensed Milk", alternatives: ["Sweetened condensed oat milk"] },
+      ],
     },
     iced: {
       ingredients: [
@@ -125,6 +169,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -139,6 +188,8 @@ export const recipes: Recipe[] = [
         { name: "Honey/Blue Agave", amount: "3 ml" },
         { name: "Spiced Biscuit Syrup", amount: "15 ml" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
@@ -148,6 +199,11 @@ export const recipes: Recipe[] = [
         { name: "Spiced Biscuit Syrup", amount: "15 ml" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, honey/blue agave 3 ml",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -161,6 +217,10 @@ export const recipes: Recipe[] = [
         { name: "Tibuok", amount: "0.3 g" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Condensed Milk", alternatives: ["Sweetened condensed oat milk"] },
+      ],
     },
     iced: {
       ingredients: [
@@ -169,6 +229,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, 0.3 g Tibuok",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -182,6 +247,10 @@ export const recipes: Recipe[] = [
         { name: "Ground Cinnamon", amount: "splash" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Condensed Milk", alternatives: ["Sweetened condensed oat milk"] },
+      ],
     },
     iced: {
       ingredients: [
@@ -190,6 +259,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, ground cinnamon splash",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -203,6 +277,8 @@ export const recipes: Recipe[] = [
         { name: "Caramel Sauce", amount: "10 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
@@ -212,6 +288,11 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -226,6 +307,8 @@ export const recipes: Recipe[] = [
         { name: "Honey/Blue Agave", amount: "7 ml" },
         { name: "Espresso", amount: "2 shots" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
@@ -236,6 +319,11 @@ export const recipes: Recipe[] = [
         { name: "Honey/Blue Agave", amount: "15 ml" },
       ],
       note: "Matcha powder mixture — combine the matcha powder with 60 ml milk before adding 100 ml milk and honey. Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
   {
@@ -249,6 +337,10 @@ export const recipes: Recipe[] = [
         { name: "Vanilla Syrup", amount: "1 pump" },
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
+      allergens: ["Gluten"],
+      substitutions: [
+        { ingredient: "Biscoff Spread", alternatives: ["Gluten-free cookie butter"] },
+      ],
     },
     iced: {
       ingredients: [
@@ -257,6 +349,12 @@ export const recipes: Recipe[] = [
         { name: "Espresso/Ristretto", amount: "2 shots" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      allergens: ["Dairy", "Gluten"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+        { ingredient: "Biscoff Spread", alternatives: ["Gluten-free cookie butter"] },
+      ],
     },
   },
   {
@@ -270,15 +368,23 @@ export const recipes: Recipe[] = [
         { name: "Water", amount: "40 ml" },
         { name: "Caramel Syrup", amount: "15 ml" },
       ],
+      allergens: [],
+      substitutions: [],
     },
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Caramel Syrup", amount: "15 ml" },
+        { name: "Caramel Syrup", amount: "20 ml" },
+        { name: "Caramel Sauce", amount: "drizzle" },
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+      ],
     },
   },
 ];

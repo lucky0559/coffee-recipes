@@ -8,5 +8,7 @@
   ],
   "theme_color": "#3d2a1c",
   "background_color": "#fffdf9",
-  "display": "standalone"
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/"
 }

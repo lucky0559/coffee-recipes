@@ -24,6 +24,7 @@
 
 html {
   color-scheme: light;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -45,4 +46,29 @@ body {
 
 .queue-scroll::-webkit-scrollbar {
   display: none;
+}
+
+.recipe-backdrop-image {
+  animation: recipe-backdrop-in 320ms ease-out both;
+}
+
+@keyframes recipe-backdrop-in {
+  from {
+    opacity: 0;
+    transform: scale(1.02);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .recipe-backdrop-image {
+    animation: none;
+  }
 }

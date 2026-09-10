@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { Flame, ListOrdered, Snowflake, Sparkles } from "lucide-react";
+import { useState } from "react";
+import { Flame, Heart, ListOrdered, Snowflake, Sparkles } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
 import { RecipeBackdrop } from "./RecipeBackdrop";
@@ -12,8 +12,11 @@ interface CoffeeOfTheDayProps {
   position: number;
   total: number;
   defaultTemperature: Temperature;
+  preferredTemperature: Temperature | null;
+  isFavorite: boolean;
   onSelect: (recipe: Recipe) => void;
   onViewRecipe: (temperature: Temperature) => void;
+  onToggleFavorite: (recipeId: string) => void;
 }
 
 export function CoffeeOfTheDay({
@@ -23,8 +26,11 @@ export function CoffeeOfTheDay({
   position,
   total,
   defaultTemperature,
+  preferredTemperature,
+  isFavorite,
   onSelect,
   onViewRecipe,
+  onToggleFavorite,
 }: CoffeeOfTheDayProps) {
   const [from, to] = CATEGORY_STYLES[recipe.category].accent;
   const [temperature, setTemperature] = useState<Temperature>(defaultTemperature);
@@ -34,10 +40,6 @@ export function CoffeeOfTheDay({
     day: "numeric",
   }).format(date);
   const build = temperature === "Iced" ? recipe.iced : recipe.hot;
-
-  useEffect(() => {
-    setTemperature(defaultTemperature);
-  }, [defaultTemperature, recipe.id]);
 
   return (
     <section
@@ -63,11 +65,23 @@ export function CoffeeOfTheDay({
           <span className="text-xs font-medium text-cream-50/70">{todayLabel}</span>
         </div>
 
-        <div className="mt-5 flex items-center gap-3">
-          <span className="font-display text-sm text-cream-50/60">{recipe.number}</span>
-          <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-            {recipe.name}
-          </h1>
+        <div className="mt-5 flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="font-display text-sm text-cream-50/60">{recipe.number}</span>
+            <h1 className="font-display text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
+              {recipe.name}
+            </h1>
+          </div>
+          <button
+            type="button"
+            onClick={() => onToggleFavorite(recipe.id)}
+            aria-pressed={isFavorite}
+            aria-label={isFavorite ? `Remove ${recipe.name} from saved recipes` : `Save ${recipe.name}`}
+            className="inline-flex shrink-0 items-center gap-2 rounded-full border border-cream-50/25 bg-cream-50/10 px-3 py-2 text-xs font-semibold text-cream-50 transition hover:bg-cream-50/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 focus-visible:ring-offset-2 focus-visible:ring-offset-espresso-950"
+          >
+            <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
+            <span className="hidden sm:inline">{isFavorite ? "Saved" : "Save"}</span>
+          </button>
         </div>
 
         <div
@@ -77,6 +91,7 @@ export function CoffeeOfTheDay({
           <button
             type="button"
             onClick={() => setTemperature("Hot")}
+            aria-pressed={temperature === "Hot"}
             className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
               temperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
             }`}
@@ -87,6 +102,7 @@ export function CoffeeOfTheDay({
           <button
             type="button"
             onClick={() => setTemperature("Iced")}
+            aria-pressed={temperature === "Iced"}
             className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
               temperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
             }`}
@@ -127,7 +143,12 @@ export function CoffeeOfTheDay({
           View full recipe
         </button>
 
-        <QueueStrip queue={queue} date={date} onSelect={onSelect} />
+        <QueueStrip
+          queue={queue}
+          date={date}
+          preferredTemperature={preferredTemperature}
+          onSelect={onSelect}
+        />
       </div>
     </section>
   );
