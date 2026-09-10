@@ -35,8 +35,8 @@ export const recipes: Recipe[] = [
     category: "Sweet",
     hot: {
       ingredients: [
-        { name: "Caramel Syrup", amount: "15 ml" },
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Caramel Sauce", amount: "20 ml" },
+        { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       allergens: [],
@@ -44,11 +44,12 @@ export const recipes: Recipe[] = [
     },
     iced: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Caramel Syrup", amount: "20 ml" },
+        { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 10 ml, caramel syrup 15 ml",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -77,7 +78,7 @@ export const recipes: Recipe[] = [
     },
     iced: {
       ingredients: [
-        { name: "Condensed Milk", amount: "15 ml" },
+        { name: "Condensed Milk", amount: "20 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
@@ -96,8 +97,9 @@ export const recipes: Recipe[] = [
     category: "Savory",
     hot: {
       ingredients: [
-        { name: "Caramel Syrup", amount: "15 ml" },
-        { name: "Patis", amount: "2 ml" },
+        { name: "Caramel Sauce", amount: "10 ml" },
+        { name: "Caramel Sauce", amount: "drizzle on top" },
+        { name: "Patis", amount: "3 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       allergens: ["Fish"],
@@ -107,11 +109,12 @@ export const recipes: Recipe[] = [
     },
     iced: {
       ingredients: [
-        { name: "Vanilla Syrup", amount: "1 pump" },
+        { name: "Caramel Syrup", amount: "20 ml" },
+        { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 10 ml, caramel syrup 15 ml, patis 2 ml",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml, patis 2 ml",
       allergens: ["Dairy", "Fish"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -128,7 +131,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Honey/Blue Agave", amount: "7 ml" }
       ],
       allergens: [],
@@ -137,11 +140,11 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Milk (for matcha powder mixture)", amount: "60 ml" },
-        { name: "Milk", amount: "100 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Honey/Blue Agave", amount: "7 ml" }
       ],
-      note: "Matcha powder mixture — combine the matcha powder with 60 ml milk before adding 100 ml milk and honey. Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump",
+      note: "Matcha powder mixture — combine the matcha powder with 40 ml water before adding 120 ml milk and honey. Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -189,7 +192,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Honey/Blue Agave", amount: "3 ml" },
         { name: "Spiced Biscuit Syrup", amount: "15 ml" }
       ],
@@ -199,7 +202,7 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Spiced Biscuit Syrup", amount: "15 ml" }
       ],
@@ -286,6 +289,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
         { name: "Caramel Sauce", amount: "10 ml" },
+        { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       allergens: [],
@@ -314,8 +318,8 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
-        { name: "Honey/Blue Agave", amount: "7 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Honey/Blue Agave", amount: "10 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
       allergens: [],
@@ -324,12 +328,12 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Milk (for matcha powder mixture)", amount: "60 ml" },
-        { name: "Milk", amount: "100 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" },
         { name: "Honey/Blue Agave", amount: "15 ml" }
       ],
-      note: "Matcha powder mixture — combine the matcha powder with 60 ml milk before adding 100 ml milk and honey. Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump",
+      note: "Matcha powder mixture — combine the matcha powder with 40 ml water before adding 120 ml milk and honey. Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -382,8 +386,9 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
-        { name: "Caramel Syrup", amount: "15 ml" }
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Caramel Sauce", amount: "10 ml" },
+        { name: "Caramel Sauce", amount: "drizzle on top" }
       ],
       allergens: [],
       substitutions: []
@@ -391,7 +396,7 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water", amount: "40 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Caramel Syrup", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
