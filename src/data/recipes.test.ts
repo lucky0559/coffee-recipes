@@ -90,6 +90,15 @@ describe("recipe data", () => {
     });
   });
 
+  it("uses 10 ml milk in every cold-foam note", () => {
+    recipes.forEach(({ iced }) => {
+      if (iced.note?.includes("Cold foam")) {
+        expect(iced.note).toContain("milk 10 ml");
+        expect(iced.note).not.toContain("milk 15 ml");
+      }
+    });
+  });
+
   it("keeps Iced Salted Caramel flavors in their intended drink and foam builds", () => {
     const saltedCaramel = recipes.find((recipe) => recipe.id === "salted-caramel");
 
@@ -105,7 +114,7 @@ describe("recipe data", () => {
       amount: "drizzle",
     });
     expect(saltedCaramel?.iced.note).toBe(
-      "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
+      "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
     );
     expect(saltedCaramel?.iced.note).not.toContain("caramel sauce");
     expect(saltedCaramel?.iced.note).not.toContain("caramel syrup");
