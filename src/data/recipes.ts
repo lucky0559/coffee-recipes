@@ -8,7 +8,7 @@ export const recipes: Recipe[] = [
     category: "Sweet",
     hot: {
       ingredients: [
-        { name: "Cheesecake Syrup", amount: "20 ml" },
+        { name: "Cheesecake Syrup", amount: "15 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       allergens: [],
