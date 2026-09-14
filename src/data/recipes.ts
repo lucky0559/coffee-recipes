@@ -152,6 +152,7 @@ export const recipes: Recipe[] = [
       ]
     }
   },
+  // TODO: To remove this recipe
   {
     id: "spanish",
     number: "06",
