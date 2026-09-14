@@ -109,7 +109,7 @@ export const recipes: Recipe[] = [
     },
     iced: {
       ingredients: [
-        { name: "Caramel Syrup", amount: "20 ml" },
+        { name: "Caramel Syrup", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
