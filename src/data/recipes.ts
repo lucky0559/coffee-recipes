@@ -142,9 +142,9 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Honey/Blue Agave", amount: "7 ml" }
+        { name: "Palm Syrup/Blue Agave", amount: "7 ml" }
       ],
-      note: "Matcha powder mixture — combine the matcha powder with 40 ml water before adding 120 ml milk and honey. Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump",
+      note: "Matcha powder mixture — combine the matcha powder with 40 ml water before adding 120 ml milk and palm syrup/blue agave.",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
