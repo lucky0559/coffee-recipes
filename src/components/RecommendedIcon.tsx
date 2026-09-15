@@ -29,7 +29,7 @@ export function RecommendedIcon({ className }: RecommendedIconProps) {
         strokeWidth="1.7"
       />
       <path
-        d="m9.15 10.35 2.05 2.05 3.65-3.65"
+        d="m9.15 8.75 2.05 2.05 3.65-3.65"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
