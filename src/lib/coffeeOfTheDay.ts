@@ -1,7 +1,7 @@
 import type { Recipe, Temperature } from "../types";
 
-// Anchored so the rotation lands on Matcha on 2026-08-20, per house request.
-const ROTATION_EPOCH_UTC = Date.UTC(2026, 7, 16);
+// Anchored so today's rotation lands on Matcha on 2026-09-15, per house request.
+const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
 const MS_PER_DAY = 86_400_000;
 
 /**

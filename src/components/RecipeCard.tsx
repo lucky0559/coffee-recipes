@@ -1,7 +1,8 @@
-import { Flame, Heart, Snowflake, Star } from "lucide-react";
+import { Flame, Heart, Snowflake } from "lucide-react";
 import { useState } from "react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
+import { RecommendedIcon } from "./RecommendedIcon";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 
 interface RecipeCardProps {
@@ -45,10 +46,9 @@ export function RecipeCard({
             <span
               role="img"
               aria-label="Recommended bestseller"
-              className="inline-flex items-center gap-1 rounded-full bg-cream-50/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-espresso-950"
+              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cream-50/90 text-espresso-950 shadow-sm"
             >
-              <Star aria-hidden="true" className="h-3 w-3 fill-current" />
-              <span aria-hidden="true">Bestseller</span>
+              <RecommendedIcon className="h-4 w-4" />
             </span>
           ) : null}
         </div>

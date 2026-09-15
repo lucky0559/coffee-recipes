@@ -2,16 +2,16 @@
 
 Status: Implemented; code and browser verification passed
 Last updated: 2026-09-15
-Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the recipe line and carry the correct build into the next rotation reset.
+Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the recipe line, start today on Matcha, and carry the correct build into the next rotation reset.
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
 | Authoritative recipe data | src/data/recipes.ts | The current line contains 12 recipes in a fixed order. |
-| Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The recipe index advances by local calendar date from the anchored epoch and wraps at the recipe count. |
+| Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The recipe index advances by local calendar date from the 2026-09-11 anchor and wraps at the recipe count; 2026-09-15 resolves to Matcha. |
 | Repository-verified UI behavior | src/App.tsx, RecipeGrid.tsx, RecipeCard.tsx, CoffeeOfTheDay.tsx, QueueStrip.tsx, RecipeModal.tsx | The featured panel, recipe lists, and full-recipe modal are stateful Hot/Iced surfaces. |
-| User requirement | The requested Hot → Iced → Hot pattern and reset behavior | The first cycle starts Hot; each recipe alternates; each new cycle flips its starting build. |
+| User requirement | Start today on Matcha while preserving the Hot → Iced → Hot pattern and reset behavior | 2026-09-15 resolves to Matcha; the first cycle starts Hot by build, each recipe alternates, and each new cycle flips its starting build. |
 | Explicit even-count interpretation | User specifically requested Iced on reset when an even-length line ends Iced | For an even count whose first cycle ends Iced, the next cycle starts Iced, producing a repeated Iced boundary as requested. |
 | Task-board state | No task board or issue reference exists in the repository | No stale board state was available to override the implementation. |
 
@@ -37,7 +37,7 @@ The recipe queue still uses daysSinceEpoch(date) and queueIndexForDate(recipeCou
 3. Alternate the build using rotationIndex + positionInRotation.
 4. Even values are Hot; odd values are Iced.
 
-This starts the anchored rotation Hot and flips the next rotation’s starting build. With the current 12 recipes, the first line is Hot → Iced → Hot → … → Iced, and the next line also starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
+The current anchor is 2026-09-11, so 2026-09-15 lands on queue index 4, Matcha. The anchored rotation starts Hot by build and flips the next rotation’s starting build. With the current 12 recipes, the first line is Hot → Iced → Hot → … → Iced, and the next line also starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
 
 | Recipe count | First item | Last item in first rotation | First item after reset |
 | ---: | --- | --- | --- |
@@ -64,6 +64,7 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 ## Acceptance criteria
 
 - [x] The first recipe rotation defaults Hot.
+- [x] On 2026-09-15, the Coffee of the Day starts on Matcha.
 - [x] Consecutive recipes alternate Hot, Iced, Hot through the line.
 - [x] The recipe list cards use the same alternating defaults for their positions in the line.
 - [x] Upcoming queue previews and queue selections use the scheduled build for each future day.
@@ -76,7 +77,7 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 
 ## Verification evidence
 
-- Focused rotation boundary check — PASS: compiled coffeeOfTheDay.ts and asserted the 13-recipe sequence, list-position defaults, 13-item reset, 12-item last-Iced reset, later even-cycle phase, and empty-count fallback.
+- Focused rotation boundary check — PASS: compiled coffeeOfTheDay.ts and asserted the 2026-09-15 Matcha start, 13-recipe sequence, list-position defaults, 13-item reset, 12-item last-Iced reset, later even-cycle phase, and empty-count fallback.
 - npm run lint — PASS: Oxlint reported no findings after the implementation.
 - npm run build — PASS: TypeScript project build and Vite production build completed successfully.
 - Browser QA — PASS: production preview opened a deep-linked Iced recipe, restored the modal, and reported zero browser console errors or warnings.

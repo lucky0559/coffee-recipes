@@ -112,7 +112,7 @@
       <div class="shell">
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Coffee rotation defaults</h1>
-        <p class="lede">The Coffee of the Day and recipe list now alternate Hot and Iced through the recipe line, carry the active build into the full recipe, and reset with the requested phase.</p>
+        <p class="lede">The Coffee of the Day and recipe list now alternate Hot and Iced through the recipe line, start today on Matcha, carry the active build into the full recipe, and reset with the requested phase.</p>
         <p><span class="status" role="status">Code and browser checks passed</span></p>
       </div>
     </header>
@@ -133,9 +133,9 @@
           <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
           <tbody>
             <tr><td>Authoritative data</td><td><code>src/data/recipes.ts</code></td><td>12 recipes are in the fixed line order.</td></tr>
-            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Recipe identity advances by local calendar date and wraps at the count.</td></tr>
+            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Recipe identity advances by local calendar date from the 2026-09-11 anchor; 2026-09-15 resolves to Matcha.</td></tr>
             <tr><td>Verified UI</td><td><code>src/App.tsx</code>, recipe lists, featured panel, modal</td><td>Hot/Iced controls are local stateful views; lists and featured state are now schedule-aware.</td></tr>
-            <tr><td>Explicit interpretation</td><td>User request</td><td>First cycle starts Hot, items alternate, and a reset starts Iced when requested—including an even line ending Iced.</td></tr>
+            <tr><td>Explicit interpretation</td><td>User request</td><td>Today starts on Matcha; the first cycle starts Hot by build, items alternate, and a reset starts Iced when requested—including an even line ending Iced.</td></tr>
             <tr><td>Board discrepancy</td><td>No board or issue reference in the repository</td><td>No stale external state was available.</td></tr>
           </tbody>
         </table>
@@ -159,7 +159,7 @@
 
       <section id="contract" aria-labelledby="contract-title">
         <h2 id="contract-title">Rotation contract</h2>
-        <p class="section-intro">Recipe identity continues to use <code>daysSinceEpoch</code> and <code>queueIndexForDate</code>. The featured panel and every recipe card use the rotation index and the position inside that rotation, so the phase is deterministic from the date and current recipe count.</p>
+        <p class="section-intro">Recipe identity continues to use <code>daysSinceEpoch</code> and <code>queueIndexForDate</code>. The current 2026-09-11 anchor puts Matcha first on 2026-09-15. The featured panel and every recipe card use the rotation index and the position inside that rotation, so the phase is deterministic from the date and current recipe count.</p>
         <pre>rotationIndex = floor(elapsedDays / recipeCount)
 positionInRotation = elapsedDays - rotationIndex * recipeCount
 alternatingPosition = rotationIndex + positionInRotation
@@ -174,7 +174,7 @@ even → Hot · odd → Iced</pre>
       <section aria-labelledby="behavior-title">
         <h2 id="behavior-title">User-facing behavior</h2>
         <ul class="checklist">
-          <li>The featured recipe and every list card start with their scheduled Hot/Iced build.</li>
+          <li>The featured recipe starts on Matcha today, and every list card starts with its scheduled Hot/Iced build.</li>
           <li>Manual Hot/Iced changes remain available and last for the current view.</li>
           <li>At local midnight, recipe, queue, position, date label, and default build update together.</li>
           <li>Upcoming queue previews and selections use the scheduled build for their future day.</li>
@@ -185,13 +185,13 @@ even → Hot · odd → Iced</pre>
       <section id="verification" aria-labelledby="verification-title">
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
-          <li>Odd-count 13-recipe alternating sequence and reset boundary assertion passed.</li>
+          <li>2026-09-15 Matcha start, odd-count 13-recipe alternating sequence, and reset boundary assertions passed.</li>
           <li>Recipe-list position defaults follow the same cycle phase.</li>
           <li>Current 12-recipe last-Iced reset, later even-cycle phase, and empty-count fallback assertions passed.</li>
           <li><code>npm run lint</code> passed with no findings.</li>
           <li><code>npm run build</code> passed through TypeScript and Vite.</li>
           <li>Browser QA passed: production preview opened a deep-linked Iced recipe and reported zero browser console errors or warnings.</li>
-          <li>Vitest ran 5 files with 22 tests: 21 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this recipe-line change.</li>
+          <li>Vitest ran 5 files with 23 tests: 22 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this recipe-line change.</li>
         </ul>
         <p class="note">This feature has no endpoints, authentication, authorization, request/response contracts, persistence changes, or backend dependencies.</p>
       </section>
