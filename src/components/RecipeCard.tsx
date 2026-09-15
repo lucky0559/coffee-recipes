@@ -1,4 +1,4 @@
-import { Heart, Snowflake, Flame } from "lucide-react";
+import { Flame, Heart, Snowflake, Star } from "lucide-react";
 import { useState } from "react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
@@ -24,13 +24,14 @@ export function RecipeCard({
   const { pill } = CATEGORY_STYLES[recipe.category];
   const [temperature, setTemperature] = useState<Temperature>(defaultTemperature);
   const build = temperature === "Iced" ? recipe.iced : recipe.hot;
+  const isIcedBestseller = recipe.id === "matcha-caramel" && temperature === "Iced";
 
   return (
     <article className="group relative flex min-h-[350px] flex-col overflow-hidden rounded-2xl border border-cream-50/20 bg-espresso-950 text-left shadow-sm transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
       <RecipeBackdrop recipeId={recipe.id} temperature={temperature} surface="card" />
 
       <div className="relative z-10 flex items-start justify-between gap-3 p-5 pb-0">
-        <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2.5">
           <span className="font-display text-xs font-medium text-cream-50/75">
             {recipe.number}
           </span>
@@ -40,6 +41,16 @@ export function RecipeCard({
           >
             {recipe.category}
           </span>
+          {isIcedBestseller ? (
+            <span
+              role="img"
+              aria-label="Recommended bestseller"
+              className="inline-flex items-center gap-1 rounded-full bg-cream-50/90 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-espresso-950"
+            >
+              <Star aria-hidden="true" className="h-3 w-3 fill-current" />
+              <span aria-hidden="true">Bestseller</span>
+            </span>
+          ) : null}
         </div>
         <div className="flex items-center gap-2">
           {isToday ? (
