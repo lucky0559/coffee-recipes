@@ -4,7 +4,7 @@ Brewline is a static coffee recipe browser built with React, TypeScript, Vite, a
 
 ## What is included
 
-- A categorized grid of 13 coffee and matcha recipes.
+- A categorized grid of 12 coffee and matcha recipes.
 - A deterministic Coffee of the Day queue that advances one recipe per local calendar day.
 - Hot/Iced ingredient controls on the featured recipe and recipe cards.
 - Search, category, saved-recipe, and allergen-aware discovery filters.
@@ -89,11 +89,10 @@ The current line is:
 | 06 | `spanish` | Spanish | Classic |
 | 07 | `matcha-spiced` | Matcha Spiced | Matcha |
 | 08 | `kape-tibuok` | Kape Tibuok | Classic |
-| 09 | `spanish-cinnamon` | Spanish Cinnamon | Classic |
-| 10 | `salted-caramel` | Salted Caramel | Sweet |
-| 11 | `dirty-matcha` | Dirty Matcha | Matcha |
-| 12 | `biscoff` | Biscoff | Sweet |
-| 13 | `matcha-caramel` | Matcha Caramel | Matcha |
+| 09 | `salted-caramel` | Salted Caramel | Sweet |
+| 10 | `dirty-matcha` | Dirty Matcha | Matcha |
+| 11 | `biscoff` | Biscoff | Sweet |
+| 12 | `matcha-caramel` | Matcha Caramel | Matcha |
 
 Each recipe has this shape:
 
@@ -144,7 +143,7 @@ public/recipes/<recipe-id>-hot.webp   # Hot build
 public/recipes/<recipe-id>.webp       # Iced build
 ```
 
-The current asset set contains 26 recipe WebPs—one Hot/Iced pair for each recipe—and occupies about 1.4 MB. Keep images text-free and use the existing square product-visual style so the overlays remain readable.
+The current asset set contains 24 recipe WebPs—one Hot/Iced pair for each recipe—and occupies about 1.3 MB. Keep images text-free and use the existing square product-visual style so the overlays remain readable.
 
 `src/data/recipeImages.ts` is the only mapping consumed by the UI:
 
@@ -184,7 +183,7 @@ even alternatingPosition → Hot
 odd alternatingPosition  → Iced
 ```
 
-With the current 13-recipe line, the anchored cycle starts Hot and alternates through the line, ending Hot. The next cycle starts Iced:
+With the current 12-recipe line, the anchored cycle starts Hot and alternates through the line, ending Iced. The next cycle also starts Iced:
 
 | Local date | Queue item | Scheduled build |
 | --- | --- | --- |
@@ -194,7 +193,7 @@ With the current 13-recipe line, the anchored cycle starts Hot and alternates th
 | 2026-08-28 | Matcha Caramel | Hot |
 | 2026-08-29 | Cheesecake, after reset | Iced |
 
-Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation always uses the 13-item array.
+Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation always uses the 12-item array.
 
 The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
 

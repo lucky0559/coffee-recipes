@@ -1,4 +1,4 @@
-const CACHE_NAME = "brewline-shell-v1";
+const CACHE_NAME = "brewline-shell-v2";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -26,8 +26,6 @@ const APP_SHELL = [
   "/recipes/matcha-spiced.webp",
   "/recipes/kape-tibuok-hot.webp",
   "/recipes/kape-tibuok.webp",
-  "/recipes/spanish-cinnamon-hot.webp",
-  "/recipes/spanish-cinnamon.webp",
   "/recipes/salted-caramel-hot.webp",
   "/recipes/salted-caramel.webp",
   "/recipes/dirty-matcha-hot.webp",

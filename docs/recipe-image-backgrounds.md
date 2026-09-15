@@ -1,14 +1,14 @@
 # Brewline recipe image backgrounds
 
 Status: Implemented; prior image QA verified; current rotation recheck unavailable
-Last verified: 2026-08-28
+Last verified: 2026-09-15
 Scope: Two generated gradient-background drink visuals for every recipe in the Brewline rotation—one Hot and one Iced—used as the visual background wherever that recipe appears.
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
-| Authoritative product data | `src/data/recipes.ts` | 13 recipe IDs and ingredient builds are in scope. |
+| Authoritative product data | `src/data/recipes.ts` | 12 recipe IDs and ingredient builds are in scope. |
 | Repository-verified behavior | `src/data/recipeImages.ts`, `RecipeBackdrop.tsx`, and the consuming components | Every recipe ID maps to Hot and Iced local WebPs; cards, featured content, the queue, and the modal use the matching temperature layer. Queue previews follow the scheduled build for each future day. |
 | Inferred requirement | User request to switch the image base when the drink is Hot or Iced, with a smooth transition | Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition. |
 | Task-board state | No task board or external issue reference is present in the repository. | No stale board state or board/repository discrepancy to reconcile. |
@@ -18,9 +18,9 @@ Scope: Two generated gradient-background drink visuals for every recipe in the B
 
 | Task | Surface / owner | Status | Acceptance evidence |
 | --- | --- | --- | --- |
-| Inspect recipe data and UI surfaces | `src/data/recipes.ts`, `src/components/` / implementation | Complete | All 13 recipes and image-bearing surfaces identified. |
-| Generate Hot and Iced image variants | `public/recipes/*.webp` / ImageGen skill | Complete | 26 distinct square beverage visuals with gradient backdrops: 13 Hot and 13 Iced. |
-| Optimize generated assets | `public/recipes/*.webp` / implementation | Complete | WebP derivatives are 1254×1254 and approximately 36–72 KB each; total asset folder is about 1.4 MB. |
+| Inspect recipe data and UI surfaces | `src/data/recipes.ts`, `src/components/` / implementation | Complete | All 12 recipes and image-bearing surfaces identified. |
+| Generate Hot and Iced image variants | `public/recipes/*.webp` / ImageGen skill | Complete | 24 distinct square beverage visuals with gradient backdrops: 12 Hot and 12 Iced. |
+| Optimize generated assets | `public/recipes/*.webp` / implementation | Complete | WebP derivatives are 1254×1254 and approximately 36–72 KB each; total asset folder is about 1.3 MB. |
 | Wire temperature-aware images into the UI | `src/data/recipeImages.ts`, `RecipeBackdrop`, `RecipeCard`, `CoffeeOfTheDay`, `QueueStrip`, `RecipeModal` | Complete | Both layers mount per surface; Hot/Iced selectors drive the active layer and queue previews use each day’s scheduled build. |
 | Verify responsive and interactive behavior | Local Vite app / implementation | Complete for image feature; rotation recheck unavailable | Prior desktop and mobile visual QA, image-layer crossfade, Hot/Iced build toggle, modal open/close, overflow, and console checks passed; the latest scheduled queue-temperature behavior was not browser-rechecked. |
 | Publish implementation record | This Markdown file and `recipe-image-backgrounds.html` | Complete | Both artifacts are self-contained and synchronized with the final worktree. |
@@ -39,11 +39,10 @@ All assets are local, text-free, square WebP images generated in the same produc
 | 06 | Spanish | `public/recipes/spanish-hot.webp` | `public/recipes/spanish.webp` | 1254×1254 | 48 KB / 64 KB |
 | 07 | Matcha Spiced | `public/recipes/matcha-spiced-hot.webp` | `public/recipes/matcha-spiced.webp` | 1254×1254 | 52 KB / 68 KB |
 | 08 | Kape Tibuok | `public/recipes/kape-tibuok-hot.webp` | `public/recipes/kape-tibuok.webp` | 1254×1254 | 52 KB / 64 KB |
-| 09 | Spanish Cinnamon | `public/recipes/spanish-cinnamon-hot.webp` | `public/recipes/spanish-cinnamon.webp` | 1254×1254 | 72 KB / 64 KB |
-| 10 | Salted Caramel | `public/recipes/salted-caramel-hot.webp` | `public/recipes/salted-caramel.webp` | 1254×1254 | 52 KB / 72 KB |
-| 11 | Dirty Matcha | `public/recipes/dirty-matcha-hot.webp` | `public/recipes/dirty-matcha.webp` | 1254×1254 | 48 KB / 56 KB |
-| 12 | Biscoff | `public/recipes/biscoff-hot.webp` | `public/recipes/biscoff.webp` | 1254×1254 | 48 KB / 64 KB |
-| 13 | Matcha Caramel | `public/recipes/matcha-caramel-hot.webp` | `public/recipes/matcha-caramel.webp` | 1254×1254 | 48 KB / 60 KB |
+| 09 | Salted Caramel | `public/recipes/salted-caramel-hot.webp` | `public/recipes/salted-caramel.webp` | 1254×1254 | 52 KB / 72 KB |
+| 10 | Dirty Matcha | `public/recipes/dirty-matcha-hot.webp` | `public/recipes/dirty-matcha.webp` | 1254×1254 | 48 KB / 56 KB |
+| 11 | Biscoff | `public/recipes/biscoff-hot.webp` | `public/recipes/biscoff.webp` | 1254×1254 | 48 KB / 64 KB |
+| 12 | Matcha Caramel | `public/recipes/matcha-caramel-hot.webp` | `public/recipes/matcha-caramel.webp` | 1254×1254 | 48 KB / 60 KB |
 
 ## Implementation behavior
 
@@ -81,7 +80,7 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 
 ## Acceptance criteria
 
-- [x] Every one of the 13 repository recipes has distinct Hot and Iced generated drink visuals.
+- [x] Every one of the 12 repository recipes has distinct Hot and Iced generated drink visuals.
 - [x] Every visual has a gradient background and no baked-in text.
 - [x] Every recipe card uses its matching image as a background.
 - [x] The featured recipe, queue previews, and modal header use the selected recipe’s matching temperature image; queue previews follow the scheduled build for each future day.
@@ -93,15 +92,15 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 ## Verification evidence
 
 - `npm run lint` — PASS (`oxlint`, no findings).
-- `npm run build` — PASS (`tsc -b` and Vite production build completed successfully; 26 recipe WebPs are included in the production output).
-- Desktop browser QA — PASS at a 1440×1000 viewport; all 13 cards and the featured panel render both temperature layers, and the first card’s Iced selector changes the active layer with the configured transition.
+- `npm run build` — PASS (`tsc -b` and Vite production build completed successfully; 24 recipe WebPs are included in the production output).
+- Desktop browser QA — PASS at a 1440×1000 viewport; all 12 cards and the featured panel render both temperature layers, and the first card’s Iced selector changes the active layer with the configured transition.
 - Card hover QA — PASS: the first card transitions through an intermediate `translate` value before settling at the 4 px lift, using `translate, box-shadow`, 300 ms, and ease-out.
 - Mobile browser QA — PASS at a 390×844 viewport; no horizontal overflow, image switching remains usable, and the queue scrollbar is visually suppressed.
 - Interaction QA — PASS: card and featured Iced controls change both ingredients and image layer without opening the modal; opening Biscoff opens a visible modal with both temperature layers; close control works.
 - Browser console QA — PASS: zero error or warning logs during the focused run.
 - Current rotation browser recheck — Not available: browser discovery returned “No browser is available” after the local Vite server was started.
-- Full test suite — Not available; `package.json` defines lint, build, dev, and preview scripts but no test script.
-- Known unrelated failures or environment warnings — None observed.
+- Full test suite — PARTIAL: Vitest ran 5 files with 22 tests; 21 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this image/data reconciliation.
+- Known unrelated failures or environment warnings — `src/data/recipes.test.ts` still expects Iced Dirty Matcha to contain 60 ml of mixture milk, while the current source contains 40 ml Water; this failure is unchanged by the present task.
 
 ## Remaining work
 

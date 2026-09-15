@@ -152,7 +152,6 @@ export const recipes: Recipe[] = [
       ]
     }
   },
-  // TODO: To remove this recipe
   {
     id: "spanish",
     number: "06",
@@ -161,6 +160,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
+        { name: "Ground Cinnamon", amount: "splash" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       allergens: ["Dairy"],
@@ -249,41 +249,8 @@ export const recipes: Recipe[] = [
     }
   },
   {
-    id: "spanish-cinnamon",
-    number: "09",
-    name: "Spanish Cinnamon",
-    category: "Classic",
-    hot: {
-      ingredients: [
-        { name: "Condensed Milk", amount: "15 ml" },
-        { name: "Ground Cinnamon", amount: "splash" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
-      ],
-      allergens: ["Dairy"],
-      substitutions: [
-        {
-          ingredient: "Condensed Milk",
-          alternatives: ["Sweetened condensed oat milk"]
-        }
-      ]
-    },
-    iced: {
-      ingredients: [
-        { name: "Condensed Milk", amount: "15 ml" },
-        { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
-      ],
-      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, ground cinnamon splash",
-      allergens: ["Dairy"],
-      substitutions: [
-        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
-        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
-      ]
-    }
-  },
-  {
     id: "salted-caramel",
-    number: "10",
+    number: "09",
     name: "Salted Caramel",
     category: "Sweet",
     hot: {
@@ -313,7 +280,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "dirty-matcha",
-    number: "11",
+    number: "10",
     name: "Dirty Matcha",
     category: "Matcha",
     hot: {
@@ -344,7 +311,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "biscoff",
-    number: "12",
+    number: "11",
     name: "Biscoff",
     category: "Sweet",
     hot: {
@@ -381,7 +348,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-caramel",
-    number: "13",
+    number: "12",
     name: "Matcha Caramel",
     category: "Matcha",
     hot: {

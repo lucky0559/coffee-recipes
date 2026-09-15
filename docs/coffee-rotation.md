@@ -1,14 +1,14 @@
 # Brewline coffee rotation defaults
 
 Status: Implemented; code and browser verification passed
-Last updated: 2026-09-09
+Last updated: 2026-09-15
 Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the recipe line and carry the correct build into the next rotation reset.
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
-| Authoritative recipe data | src/data/recipes.ts | The current line contains 13 recipes in a fixed order. |
+| Authoritative recipe data | src/data/recipes.ts | The current line contains 12 recipes in a fixed order. |
 | Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The recipe index advances by local calendar date from the anchored epoch and wraps at the recipe count. |
 | Repository-verified UI behavior | src/App.tsx, RecipeGrid.tsx, RecipeCard.tsx, CoffeeOfTheDay.tsx, QueueStrip.tsx, RecipeModal.tsx | The featured panel, recipe lists, and full-recipe modal are stateful Hot/Iced surfaces. |
 | User requirement | The requested Hot → Iced → Hot pattern and reset behavior | The first cycle starts Hot; each recipe alternates; each new cycle flips its starting build. |
@@ -37,7 +37,7 @@ The recipe queue still uses daysSinceEpoch(date) and queueIndexForDate(recipeCou
 3. Alternate the build using rotationIndex + positionInRotation.
 4. Even values are Hot; odd values are Iced.
 
-This starts the anchored rotation Hot and flips the next rotation’s starting build. With the current 13 recipes, the first line is Hot → Iced → Hot → … → Hot, and the next line starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
+This starts the anchored rotation Hot and flips the next rotation’s starting build. With the current 12 recipes, the first line is Hot → Iced → Hot → … → Iced, and the next line also starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
 
 | Recipe count | First item | Last item in first rotation | First item after reset |
 | ---: | --- | --- | --- |
@@ -67,7 +67,7 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 - [x] Consecutive recipes alternate Hot, Iced, Hot through the line.
 - [x] The recipe list cards use the same alternating defaults for their positions in the line.
 - [x] Upcoming queue previews and queue selections use the scheduled build for each future day.
-- [x] With the current odd count of 13, the first recipe after the reset defaults Iced.
+- [x] With the current even count of 12, the first recipe after the reset defaults Iced.
 - [x] With an even count whose first rotation ends Iced, the first recipe after reset defaults Iced.
 - [x] A user can still override the featured default with the Hot/Iced controls.
 - [x] The full-recipe modal preserves the featured recipe’s current build when opened from “View full recipe.”
@@ -80,8 +80,8 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 - npm run lint — PASS: Oxlint reported no findings after the implementation.
 - npm run build — PASS: TypeScript project build and Vite production build completed successfully.
 - Browser QA — PASS: production preview opened a deep-linked Iced recipe, restored the modal, and reported zero browser console errors or warnings.
-- Full test suite — PASS: Vitest ran 5 files with 20 passing tests, including rotation, recipe metadata, discovery filters, preferences, and URL helpers.
-- Known unrelated failures or environment warnings — None observed in the checks above.
+- Full test suite — PARTIAL: Vitest ran 5 files with 22 tests; 21 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this recipe-line change.
+- Known unrelated failures or environment warnings — `src/data/recipes.test.ts` still expects Iced Dirty Matcha to contain 60 ml of mixture milk, while the current source contains 40 ml Water; this failure is unchanged by the present task.
 
 ## Remaining work
 

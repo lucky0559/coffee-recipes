@@ -12,7 +12,6 @@ const expectedRecipeLine = [
   { id: "spanish", category: "Classic" },
   { id: "matcha-spiced", category: "Matcha" },
   { id: "kape-tibuok", category: "Classic" },
-  { id: "spanish-cinnamon", category: "Classic" },
   { id: "salted-caramel", category: "Sweet" },
   { id: "dirty-matcha", category: "Matcha" },
   { id: "biscoff", category: "Sweet" },
@@ -20,8 +19,8 @@ const expectedRecipeLine = [
 ] as const;
 
 describe("recipe data", () => {
-  it("keeps the 13-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(13);
+  it("keeps the 12-item serving line ordered and uniquely numbered", () => {
+    expect(recipes).toHaveLength(12);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -63,6 +62,15 @@ describe("recipe data", () => {
       amount: "15 ml",
     });
     expect(matchaSpiced?.iced.note).not.toContain("spiced biscuit syrup");
+  });
+
+  it("adds a ground cinnamon splash to Hot Spanish", () => {
+    const spanish = recipes.find((recipe) => recipe.id === "spanish");
+
+    expect(spanish?.hot.ingredients).toContainEqual({
+      name: "Ground Cinnamon",
+      amount: "splash",
+    });
   });
 
   it("uses 20 ml caramel syrup and a caramel sauce drizzle in Iced Matcha Caramel", () => {

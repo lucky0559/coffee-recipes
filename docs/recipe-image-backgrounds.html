@@ -149,7 +149,7 @@
         <table>
           <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><td>Authoritative product data</td><td><code>src/data/recipes.ts</code></td><td>13 recipe IDs and ingredient builds are in scope.</td></tr>
+            <tr><td>Authoritative product data</td><td><code>src/data/recipes.ts</code></td><td>12 recipe IDs and ingredient builds are in scope.</td></tr>
             <tr><td>Repository-verified behavior</td><td><code>src/data/recipeImages.ts</code>, <code>RecipeBackdrop.tsx</code>, and consuming components</td><td>Every recipe maps to Hot and Iced local WebPs; cards, featured content, the queue, and modal use matching temperature layers. Queue previews follow the scheduled build for each future day.</td></tr>
             <tr><td>Inferred requirement</td><td>Switch the image base when the drink is Hot or Iced, with a smooth transition</td><td>Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition.</td></tr>
             <tr><td>Board / discrepancies</td><td>Latest worktree browser discovery</td><td>The current scheduled queue-temperature recheck could not run because no browser was available; no code blocker was found.</td></tr>
@@ -162,9 +162,9 @@
         <table>
           <thead><tr><th scope="col">Task</th><th scope="col">Surface / owner</th><th scope="col">Status</th><th scope="col">Acceptance evidence</th></tr></thead>
           <tbody>
-            <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 13 recipes and image-bearing surfaces identified.</td></tr>
-            <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>26 distinct square beverage visuals with gradient backdrops: 13 Hot and 13 Iced.</td></tr>
-            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is approximately 1.4 MB.</td></tr>
+            <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 12 recipes and image-bearing surfaces identified.</td></tr>
+            <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>24 distinct square beverage visuals with gradient backdrops: 12 Hot and 12 Iced.</td></tr>
+            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is approximately 1.3 MB.</td></tr>
             <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Both layers mount per surface; selectors drive the active layer and queue previews use each day’s scheduled build.</td></tr>
             <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; rotation recheck unavailable</td><td>Prior desktop/mobile, crossfade, toggle, modal, overflow, and console checks passed; latest scheduled queue-temperature behavior was not browser-rechecked.</td></tr>
           </tbody>
@@ -185,11 +185,10 @@
             <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
             <tr><td>07</td><td>Matcha Spiced</td><td><a href="../public/recipes/matcha-spiced-hot.webp">matcha-spiced-hot.webp</a></td><td><a href="../public/recipes/matcha-spiced.webp">matcha-spiced.webp</a></td><td>1254×1254</td><td>52 KB / 68 KB</td></tr>
             <tr><td>08</td><td>Kape Tibuok</td><td><a href="../public/recipes/kape-tibuok-hot.webp">kape-tibuok-hot.webp</a></td><td><a href="../public/recipes/kape-tibuok.webp">kape-tibuok.webp</a></td><td>1254×1254</td><td>52 KB / 64 KB</td></tr>
-            <tr><td>09</td><td>Spanish Cinnamon</td><td><a href="../public/recipes/spanish-cinnamon-hot.webp">spanish-cinnamon-hot.webp</a></td><td><a href="../public/recipes/spanish-cinnamon.webp">spanish-cinnamon.webp</a></td><td>1254×1254</td><td>72 KB / 64 KB</td></tr>
-            <tr><td>10</td><td>Salted Caramel</td><td><a href="../public/recipes/salted-caramel-hot.webp">salted-caramel-hot.webp</a></td><td><a href="../public/recipes/salted-caramel.webp">salted-caramel.webp</a></td><td>1254×1254</td><td>52 KB / 72 KB</td></tr>
-            <tr><td>11</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>48 KB / 56 KB</td></tr>
-            <tr><td>12</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
-            <tr><td>13</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>48 KB / 60 KB</td></tr>
+            <tr><td>09</td><td>Salted Caramel</td><td><a href="../public/recipes/salted-caramel-hot.webp">salted-caramel-hot.webp</a></td><td><a href="../public/recipes/salted-caramel.webp">salted-caramel.webp</a></td><td>1254×1254</td><td>52 KB / 72 KB</td></tr>
+            <tr><td>10</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>48 KB / 56 KB</td></tr>
+            <tr><td>11</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
+            <tr><td>12</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>48 KB / 60 KB</td></tr>
           </tbody>
         </table>
       </section>
@@ -221,17 +220,17 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, or wa
       <section id="verification" aria-labelledby="verification-title">
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
-          <li>13 of 13 recipes have distinct Hot and Iced generated gradient visuals.</li>
+          <li>12 of 12 recipes have distinct Hot and Iced generated gradient visuals.</li>
           <li>Cards, the featured panel, queue previews, and modal use matching temperature assets; queue previews follow each future day’s scheduled build.</li>
           <li>Hot/Iced ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
           <li>Card hover lift and shadow transition smoothly without animating layout properties.</li>
           <li>Desktop and mobile layouts are readable with no horizontal overflow.</li>
           <li><code>npm run lint</code> passed with no findings.</li>
-          <li><code>npm run build</code> passed through TypeScript and Vite; 26 recipe WebPs are included in the production output.</li>
+          <li><code>npm run build</code> passed through TypeScript and Vite; 24 recipe WebPs are included in the production output.</li>
           <li>Focused browser QA passed: temperature-layer crossfade, toggle, modal open/close, asset mapping, responsive overflow, and zero console errors or warnings.</li>
           <li>Current rotation browser recheck was unavailable: browser discovery returned “No browser is available” after the local Vite server started.</li>
           <li>Card hover QA passed: the first card transitions through an intermediate translate value before settling at the 4 px lift with translate and box-shadow, 300 ms, ease-out.</li>
-          <li>No test script exists in <code>package.json</code>; a full test suite was not available to run.</li>
+          <li>Vitest ran 5 files with 22 tests: 21 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this image/data reconciliation.</li>
         </ul>
         <p class="note">No image-background code work remains. A browser recheck of scheduled queue temperatures is the only unexecuted verification item for the latest rotation behavior. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>.</p>
       </section>

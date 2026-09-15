@@ -29,7 +29,7 @@ export function queueIndexForDate(recipeCount: number, date: Date): number {
  * The default build alternates within each recipe rotation. The first
  * rotation starts Hot; each new rotation flips its starting build so a
  * reset can begin Iced when the current rotation ends on Iced (including
- * the current 13-recipe rotation).
+ * the current 12-recipe rotation).
  */
 export function defaultTemperatureForRecipePosition(
   recipeCount: number,

@@ -20,10 +20,6 @@ const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
     Hot: "/recipes/kape-tibuok-hot.webp",
     Iced: "/recipes/kape-tibuok.webp",
   },
-  "spanish-cinnamon": {
-    Hot: "/recipes/spanish-cinnamon-hot.webp",
-    Iced: "/recipes/spanish-cinnamon.webp",
-  },
   "salted-caramel": {
     Hot: "/recipes/salted-caramel-hot.webp",
     Iced: "/recipes/salted-caramel.webp",
