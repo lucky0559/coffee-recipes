@@ -2,7 +2,7 @@ interface RecommendedIconProps {
   className?: string;
 }
 
-/** A small shield-and-ribbon mark for recipes the collection recommends. */
+/** A small rosette-and-ribbon mark for recipes the collection recommends. */
 export function RecommendedIcon({ className }: RecommendedIconProps) {
   return (
     <svg
@@ -14,14 +14,14 @@ export function RecommendedIcon({ className }: RecommendedIconProps) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8.75 15.8 7.6 21l4.4-2.35L16.4 21l-1.15-5.2"
+        d="m8.3 15.45-1.15 5.4L12 18.4l4.85 2.45-1.15-5.4"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth="1.7"
       />
       <path
-        d="M12 3.15 18.25 6v5.05c0 4.02-2.47 7.58-6.25 9.68-3.78-2.1-6.25-5.66-6.25-9.68V6L12 3.15Z"
+        d="M12 3.8c.8 0 1.15.8 1.75 1.05.62.25 1.35-.2 1.82.27.47.47.02 1.2.27 1.82.25.6 1.05.95 1.05 1.75s-.8 1.15-1.05 1.75c-.25.62.2 1.35-.27 1.82-.47.47-1.2.02-1.82.27-.6.25-.95 1.05-1.75 1.05s-1.15-.8-1.75-1.05c-.62-.25-1.35.2-1.82-.27-.47-.47-.02-1.2-.27-1.82-.25-.6-1.05-.95-1.05-1.75s.8-1.15 1.05-1.75c.25-.62-.2-1.35.27-1.82.47-.47 1.2-.02 1.82-.27C10.85 4.6 11.2 3.8 12 3.8Z"
         fill="currentColor"
         fillOpacity="0.14"
         stroke="currentColor"
@@ -29,7 +29,7 @@ export function RecommendedIcon({ className }: RecommendedIconProps) {
         strokeWidth="1.7"
       />
       <path
-        d="m8.7 12.15 2.15 2.15 4.5-4.5"
+        d="m9.15 10.35 2.05 2.05 3.65-3.65"
         stroke="currentColor"
         strokeLinecap="round"
         strokeLinejoin="round"
