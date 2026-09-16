@@ -113,8 +113,8 @@ export function CoffeeOfTheDay({
         </div>
 
         <ul className="mt-5 flex max-w-md flex-col gap-2 text-cream-50/90">
-          {build.ingredients.map((ing) => (
-            <li key={ing.name} className="flex items-baseline gap-2 text-sm">
+          {build.ingredients.map((ing, index) => (
+            <li key={`${ing.name}-${ing.amount}-${index}`} className="flex items-baseline gap-2 text-sm">
               <span>{ing.name}</span>
               <span className="flex-1 border-b border-dotted border-cream-50/25" />
               <span className="font-medium text-cream-50">{ing.amount}</span>

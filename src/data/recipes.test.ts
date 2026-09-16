@@ -54,6 +54,16 @@ describe("recipe data", () => {
     });
   });
 
+  it("keeps ingredient rows uniquely identifiable in every temperature build", () => {
+    recipes.forEach(({ hot, iced }) => {
+      [hot, iced].forEach((build) => {
+        const rowKeys = build.ingredients.map(({ name, amount }) => `${name}::${amount}`);
+
+        expect(new Set(rowKeys).size).toBe(rowKeys.length);
+      });
+    });
+  });
+
   it("keeps Matcha Spiced syrup in the iced drink build", () => {
     const matchaSpiced = recipes.find((recipe) => recipe.id === "matcha-spiced");
 

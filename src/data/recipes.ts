@@ -369,7 +369,6 @@ export const recipes: Recipe[] = [
         { name: "Caramel Syrup", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },

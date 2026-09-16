@@ -128,8 +128,8 @@
       <div class="shell">
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Recipe image backgrounds</h1>
-        <p class="lede">Twenty-six generated drink visuals now give every recipe a temperature-aware gradient-backed atmosphere across cards, the featured recipe, the queue, and the recipe modal.</p>
-        <p><span class="status" role="status">Implemented · prior image QA verified · rotation recheck unavailable</span></p>
+        <p class="lede">Twenty-four varied natural editorial café photographs now give every recipe a temperature-aware visual across cards, the featured recipe, the queue, and the recipe modal.</p>
+        <p><span class="status" role="status">Implemented · asset and switch regression verified · browser recheck unavailable</span></p>
       </div>
     </header>
 
@@ -163,32 +163,32 @@
           <thead><tr><th scope="col">Task</th><th scope="col">Surface / owner</th><th scope="col">Status</th><th scope="col">Acceptance evidence</th></tr></thead>
           <tbody>
             <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 12 recipes and image-bearing surfaces identified.</td></tr>
-            <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>24 distinct square beverage visuals with gradient backdrops: 12 Hot and 12 Iced.</td></tr>
-            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is approximately 1.3 MB.</td></tr>
+            <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>23 refreshed square beverage visuals plus the preserved recent Iced Matcha Caramel asset: 12 Hot and 12 Iced final assets.</td></tr>
+            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is 3,503,650 bytes.</td></tr>
             <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Both layers mount per surface; selectors drive the active layer and queue previews use each day’s scheduled build.</td></tr>
-            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; rotation recheck unavailable</td><td>Prior desktop/mobile, crossfade, toggle, modal, overflow, and console checks passed; latest scheduled queue-temperature behavior was not browser-rechecked.</td></tr>
+            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; browser recheck unavailable</td><td>Existing desktop/mobile interaction QA remains valid; the current build served the root page and all 24 recipe image URLs with HTTP 200.</td></tr>
           </tbody>
         </table>
       </section>
 
       <section id="assets" aria-labelledby="assets-title">
         <h2 id="assets-title">Asset matrix</h2>
-        <p class="section-intro">All assets are local, text-free, square WebP images in one premium studio-photography family. Hot assets use steam and heat-safe vessels; Iced assets use glass, ice, and condensation. The drink is placed slightly right of center to preserve space for recipe copy.</p>
+        <p class="section-intro">All assets are local, text-free, square WebP images in one natural editorial café-photography family. The set combines 23 newly generated images with the preserved recent Iced Matcha Caramel image; the refreshed assets vary angle, crop, surface, vessel, props, and background arrangement so no recipe pair copies a full scene.</p>
         <table>
           <thead><tr><th scope="col">#</th><th scope="col">Recipe</th><th scope="col">Hot asset</th><th scope="col">Iced asset</th><th scope="col">Dimensions</th><th scope="col">Approx. sizes</th></tr></thead>
           <tbody>
-            <tr><td>01</td><td>Cheesecake</td><td><a href="../public/recipes/cheesecake-hot.webp">cheesecake-hot.webp</a></td><td><a href="../public/recipes/cheesecake.webp">cheesecake.webp</a></td><td>1254×1254</td><td>48 KB / 60 KB</td></tr>
-            <tr><td>02</td><td>Caramel</td><td><a href="../public/recipes/caramel-hot.webp">caramel-hot.webp</a></td><td><a href="../public/recipes/caramel.webp">caramel.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
-            <tr><td>03</td><td>Sea Salt</td><td><a href="../public/recipes/sea-salt-hot.webp">sea-salt-hot.webp</a></td><td><a href="../public/recipes/sea-salt.webp">sea-salt.webp</a></td><td>1254×1254</td><td>36 KB / 64 KB</td></tr>
-            <tr><td>04</td><td>Caramelized Patis</td><td><a href="../public/recipes/caramelized-patis-hot.webp">caramelized-patis-hot.webp</a></td><td><a href="../public/recipes/caramelized-patis.webp">caramelized-patis.webp</a></td><td>1254×1254</td><td>44 KB / 56 KB</td></tr>
-            <tr><td>05</td><td>Matcha</td><td><a href="../public/recipes/matcha-hot.webp">matcha-hot.webp</a></td><td><a href="../public/recipes/matcha.webp">matcha.webp</a></td><td>1254×1254</td><td>44 KB / 48 KB</td></tr>
-            <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
-            <tr><td>07</td><td>Matcha Spiced</td><td><a href="../public/recipes/matcha-spiced-hot.webp">matcha-spiced-hot.webp</a></td><td><a href="../public/recipes/matcha-spiced.webp">matcha-spiced.webp</a></td><td>1254×1254</td><td>52 KB / 68 KB</td></tr>
-            <tr><td>08</td><td>Kape Tibuok</td><td><a href="../public/recipes/kape-tibuok-hot.webp">kape-tibuok-hot.webp</a></td><td><a href="../public/recipes/kape-tibuok.webp">kape-tibuok.webp</a></td><td>1254×1254</td><td>52 KB / 64 KB</td></tr>
-            <tr><td>09</td><td>Salted Caramel</td><td><a href="../public/recipes/salted-caramel-hot.webp">salted-caramel-hot.webp</a></td><td><a href="../public/recipes/salted-caramel.webp">salted-caramel.webp</a></td><td>1254×1254</td><td>52 KB / 72 KB</td></tr>
-            <tr><td>10</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>48 KB / 56 KB</td></tr>
-            <tr><td>11</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>48 KB / 64 KB</td></tr>
-            <tr><td>12</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>48 KB / 60 KB</td></tr>
+            <tr><td>01</td><td>Cheesecake</td><td><a href="../public/recipes/cheesecake-hot.webp">cheesecake-hot.webp</a></td><td><a href="../public/recipes/cheesecake.webp">cheesecake.webp</a></td><td>1254×1254</td><td>82 KB / 148 KB</td></tr>
+            <tr><td>02</td><td>Caramel</td><td><a href="../public/recipes/caramel-hot.webp">caramel-hot.webp</a></td><td><a href="../public/recipes/caramel.webp">caramel.webp</a></td><td>1254×1254</td><td>129 KB / 185 KB</td></tr>
+            <tr><td>03</td><td>Sea Salt</td><td><a href="../public/recipes/sea-salt-hot.webp">sea-salt-hot.webp</a></td><td><a href="../public/recipes/sea-salt.webp">sea-salt.webp</a></td><td>1254×1254</td><td>117 KB / 100 KB</td></tr>
+            <tr><td>04</td><td>Caramelized Patis</td><td><a href="../public/recipes/caramelized-patis-hot.webp">caramelized-patis-hot.webp</a></td><td><a href="../public/recipes/caramelized-patis.webp">caramelized-patis.webp</a></td><td>1254×1254</td><td>124 KB / 113 KB</td></tr>
+            <tr><td>05</td><td>Matcha</td><td><a href="../public/recipes/matcha-hot.webp">matcha-hot.webp</a></td><td><a href="../public/recipes/matcha.webp">matcha.webp</a></td><td>1254×1254</td><td>154 KB / 138 KB</td></tr>
+            <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>104 KB / 187 KB</td></tr>
+            <tr><td>07</td><td>Matcha Spiced</td><td><a href="../public/recipes/matcha-spiced-hot.webp">matcha-spiced-hot.webp</a></td><td><a href="../public/recipes/matcha-spiced.webp">matcha-spiced.webp</a></td><td>1254×1254</td><td>174 KB / 155 KB</td></tr>
+            <tr><td>08</td><td>Kape Tibuok</td><td><a href="../public/recipes/kape-tibuok-hot.webp">kape-tibuok-hot.webp</a></td><td><a href="../public/recipes/kape-tibuok.webp">kape-tibuok.webp</a></td><td>1254×1254</td><td>146 KB / 159 KB</td></tr>
+            <tr><td>09</td><td>Salted Caramel</td><td><a href="../public/recipes/salted-caramel-hot.webp">salted-caramel-hot.webp</a></td><td><a href="../public/recipes/salted-caramel.webp">salted-caramel.webp</a></td><td>1254×1254</td><td>114 KB / 212 KB</td></tr>
+            <tr><td>10</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>121 KB / 131 KB</td></tr>
+            <tr><td>11</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>159 KB / 248 KB</td></tr>
+            <tr><td>12</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>114 KB / 107 KB</td></tr>
           </tbody>
         </table>
       </section>
@@ -206,33 +206,36 @@
 
       <section aria-labelledby="prompt-title">
         <h2 id="prompt-title">Generation prompt set</h2>
-        <pre>Use case: product-mockup
-Asset type: recipe visual for a coffee recipe web app
-Primary request: one premium hot or iced drink visual based on the named recipe, its ingredients, and the requested temperature
-Input images: previous Matcha Caramel visual as a style reference only
-Scene/backdrop: full-frame gradient in recipe-associated colors; no table or café scene
-Composition/framing: square, hero glass slightly right of center, negative space on the left
-Style/medium: premium studio product photography; Hot uses steam and heat-safe vessels, Iced uses realistic glass, condensation, ice, milk, and foam
-Lighting/mood: soft directional light, gentle rim light, calm, warm, modern, inviting
-Constraints: no people, hands, logos, labels, packaging, typography, text, or watermark</pre>
+        <pre>The built-in ImageGen tool was used for the 23 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass.
+
+Use case: photorealistic-natural
+Asset type: natural editorial recipe photograph for a coffee recipe web app
+Primary request: one believable hot or iced drink photograph based on the named recipe and requested temperature
+Scene/backdrop: ordinary independent café counter or worn stone/wood table beside a window; no studio sweep or artificial gradient
+Composition/framing: square, vary the angle, crop, surface, and prop arrangement for every recipe and temperature; do not repeat a full background or center every drink
+Style/medium: documentary café food photography, real 50mm lens perspective, subtle film grain, honest texture, restrained natural color grading
+Lighting/mood: soft side daylight, gentle shadows, warm and grounded
+Temperature cues: Hot uses ceramic cups and warm drink texture; Iced uses clear tumblers, real ice, and condensation
+Constraints: no people, hands, logos, labels, packaging, typography, text, watermark, floating objects, surreal garnish, glossy CGI, or hyper-saturation</pre>
       </section>
 
       <section id="verification" aria-labelledby="verification-title">
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
-          <li>12 of 12 recipes have distinct Hot and Iced generated gradient visuals.</li>
+          <li>12 of 12 recipes have distinct Hot and Iced natural editorial visuals.</li>
           <li>Cards, the featured panel, queue previews, and modal use matching temperature assets; queue previews follow each future day’s scheduled build.</li>
           <li>Hot/Iced ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
           <li>Card hover lift and shadow transition smoothly without animating layout properties.</li>
           <li>Desktop and mobile layouts are readable with no horizontal overflow.</li>
           <li><code>npm run lint</code> passed with no findings.</li>
           <li><code>npm run build</code> passed through TypeScript and Vite; 24 recipe WebPs are included in the production output.</li>
-          <li>Focused browser QA passed: temperature-layer crossfade, toggle, modal open/close, asset mapping, responsive overflow, and zero console errors or warnings.</li>
-          <li>Current rotation browser recheck was unavailable: browser discovery returned “No browser is available” after the local Vite server started.</li>
-          <li>Card hover QA passed: the first card transitions through an intermediate translate value before settling at the 4 px lift with translate and box-shadow, 300 ms, ease-out.</li>
-          <li>Vitest ran 5 files with 22 tests: 21 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this image/data reconciliation.</li>
+          <li>Ingredient-row regression passed: every Hot/Iced build has unique name/amount row identities, including builds with repeated ingredient names.</li>
+          <li>Asset review passed: all 24 final WebPs are 1254×1254 and were reviewed together as a contact sheet.</li>
+          <li>Local Vite URL smoke passed: the root page and all 24 <code>/recipes/*.webp</code> URLs returned HTTP 200.</li>
+          <li>Browser interaction recheck was unavailable: browser discovery returned “No browser is available”; existing component behavior and the shared data invariant were checked.</li>
+          <li>Vitest ran 5 files with 24 tests: 21 passed and 3 failed on pre-existing staged recipe-data expectations (<code>milk 5 ml</code> vs <code>10 ml</code> cold foam and the Dirty Matcha mixture shape), outside this task.</li>
         </ul>
-        <p class="note">No image-background code work remains. A browser recheck of scheduled queue temperatures is the only unexecuted verification item for the latest rotation behavior. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>.</p>
+        <p class="note">No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>. The three full-suite data failures remain as a separate pre-existing worktree issue.</p>
       </section>
     </main>
 

@@ -220,8 +220,8 @@ export function RecipeModal({
           </div>
 
           <ul className="mt-3 space-y-2.5 text-sm text-espresso-700">
-            {build.ingredients.map((ing) => (
-              <li key={ing.name} className="flex items-baseline gap-2">
+            {build.ingredients.map((ing, index) => (
+              <li key={`${ing.name}-${ing.amount}-${index}`} className="flex items-baseline gap-2">
                 <span>{ing.name}</span>
                 <span className="flex-1 border-b border-dotted border-espresso-900/15" />
                 <span className="font-medium text-espresso-900">{ing.amount}</span>

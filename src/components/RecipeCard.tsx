@@ -85,8 +85,8 @@ export function RecipeCard({
             {recipe.name}
           </span>
           <span role="list" className="mt-3 flex flex-col gap-1.5 text-sm text-cream-50/90">
-            {build.ingredients.map((ing) => (
-              <span key={ing.name} role="listitem" className="flex items-baseline gap-2">
+            {build.ingredients.map((ing, index) => (
+              <span key={`${ing.name}-${ing.amount}-${index}`} role="listitem" className="flex items-baseline gap-2">
                 <span className="shrink-0">{ing.name}</span>
                 <span className="flex-1 border-b border-dotted border-cream-50/30" />
                 <span className="shrink-0 font-medium text-cream-50">{ing.amount}</span>
