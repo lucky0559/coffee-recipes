@@ -140,11 +140,13 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        {
+          name: "Milk (for matcha powder mixture - Cold whisk frother)",
+          amount: "50 ml"
+        },
+        { name: "Milk", amount: "110 ml" },
         { name: "Palm Syrup/Blue Agave", amount: "7 ml" }
       ],
-      note: "Matcha powder mixture — combine the matcha powder with 40 ml water before adding 120 ml milk and palm syrup/blue agave.",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -204,11 +206,15 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        {
+          name: "Milk (for matcha powder mixture - Cold whisk frother)",
+          amount: "50 ml"
+        },
+        { name: "Milk", amount: "110 ml" },
+        { name: "Palm Syrup/Blue Agave", amount: "3 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, sea salt pinch, palm syrup/blue agave 3 ml",
+      note: "Cold foam — whipping cream 30 ml, milk 5 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -297,12 +303,15 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        {
+          name: "Milk (for matcha powder mixture - Cold whisk frother)",
+          amount: "50 ml"
+        },
+        { name: "Milk", amount: "110 ml" },
         { name: "Espresso", amount: "2 shots" },
-        { name: "Honey/Blue Agave", amount: "15 ml" }
+        { name: "Palm Syrup/Blue Agave", amount: "10 ml" }
       ],
-      note: "Matcha powder mixture — combine the matcha powder with 40 ml water before adding 120 ml milk and honey. Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -365,8 +374,11 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        {
+          name: "Milk (for matcha powder mixture - Cold whisk frother)",
+          amount: "50 ml"
+        },
+        { name: "Milk", amount: "110 ml" },
         { name: "Caramel Syrup", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
       ],
