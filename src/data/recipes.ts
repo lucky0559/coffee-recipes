@@ -195,8 +195,8 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Honey/Blue Agave", amount: "3 ml" },
-        { name: "Spiced Biscuit Syrup", amount: "15 ml" }
+        { name: "Palm Syrup/Blue Agave", amount: "3 ml" },
+        { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
       allergens: [],
       substitutions: []
@@ -206,7 +206,7 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Spiced Biscuit Syrup", amount: "15 ml" }
+        { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 5 ml, sea salt pinch, palm syrup/blue agave 3 ml",
       allergens: ["Dairy"],
