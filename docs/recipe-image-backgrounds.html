@@ -129,7 +129,7 @@
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Recipe image backgrounds</h1>
         <p class="lede">Twenty-four varied natural editorial café photographs now give every recipe a temperature-aware visual across cards, the featured recipe, the queue, and the recipe modal.</p>
-        <p><span class="status" role="status">Implemented · asset and switch regression verified · browser recheck unavailable</span></p>
+        <p><span class="status" role="status">Implemented · asset, switch, and Iced Spanish reference refresh verified · browser recheck unavailable</span></p>
       </div>
     </header>
 
@@ -182,7 +182,7 @@
             <tr><td>03</td><td>Sea Salt</td><td><a href="../public/recipes/sea-salt-hot.webp">sea-salt-hot.webp</a></td><td><a href="../public/recipes/sea-salt.webp">sea-salt.webp</a></td><td>1254×1254</td><td>117 KB / 100 KB</td></tr>
             <tr><td>04</td><td>Caramelized Patis</td><td><a href="../public/recipes/caramelized-patis-hot.webp">caramelized-patis-hot.webp</a></td><td><a href="../public/recipes/caramelized-patis.webp">caramelized-patis.webp</a></td><td>1254×1254</td><td>124 KB / 113 KB</td></tr>
             <tr><td>05</td><td>Matcha</td><td><a href="../public/recipes/matcha-hot.webp">matcha-hot.webp</a></td><td><a href="../public/recipes/matcha.webp">matcha.webp</a></td><td>1254×1254</td><td>154 KB / 138 KB</td></tr>
-            <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>104 KB / 187 KB</td></tr>
+            <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>104 KB / 141 KB</td></tr>
             <tr><td>07</td><td>Matcha Spiced</td><td><a href="../public/recipes/matcha-spiced-hot.webp">matcha-spiced-hot.webp</a></td><td><a href="../public/recipes/matcha-spiced.webp">matcha-spiced.webp</a></td><td>1254×1254</td><td>174 KB / 155 KB</td></tr>
             <tr><td>08</td><td>Kape Tibuok</td><td><a href="../public/recipes/kape-tibuok-hot.webp">kape-tibuok-hot.webp</a></td><td><a href="../public/recipes/kape-tibuok.webp">kape-tibuok.webp</a></td><td>1254×1254</td><td>146 KB / 159 KB</td></tr>
             <tr><td>09</td><td>Salted Caramel</td><td><a href="../public/recipes/salted-caramel-hot.webp">salted-caramel-hot.webp</a></td><td><a href="../public/recipes/salted-caramel.webp">salted-caramel.webp</a></td><td>1254×1254</td><td>114 KB / 212 KB</td></tr>
@@ -206,7 +206,7 @@
 
       <section aria-labelledby="prompt-title">
         <h2 id="prompt-title">Generation prompt set</h2>
-        <pre>The built-in ImageGen tool was used for the 23 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass.
+        <pre>The built-in ImageGen tool was used for the 23 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish.
 
 Use case: photorealistic-natural
 Asset type: natural editorial recipe photograph for a coffee recipe web app
@@ -231,6 +231,7 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, water
           <li><code>npm run build</code> passed through TypeScript and Vite; 24 recipe WebPs are included in the production output.</li>
           <li>Ingredient-row regression passed: every Hot/Iced build has unique name/amount row identities, including builds with repeated ingredient names.</li>
           <li>Asset review passed: all 24 final WebPs are 1254×1254 and were reviewed together as a contact sheet.</li>
+          <li>Iced Spanish reference refresh passed: the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at <code>public/recipes/spanish.webp</code>.</li>
           <li>Local Vite URL smoke passed: the root page and all 24 <code>/recipes/*.webp</code> URLs returned HTTP 200.</li>
           <li>Browser interaction recheck was unavailable: browser discovery returned “No browser is available”; existing component behavior and the shared data invariant were checked.</li>
           <li>Vitest ran 5 files with 24 tests: 21 passed and 3 failed on pre-existing staged recipe-data expectations (<code>milk 5 ml</code> vs <code>10 ml</code> cold foam and the Dirty Matcha mixture shape), outside this task.</li>

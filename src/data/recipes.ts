@@ -175,6 +175,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Milk", amount: "120 ml" },
+        { name: "Ground Cinnamon", amount: "splash on top" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",

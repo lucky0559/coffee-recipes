@@ -1,6 +1,6 @@
 # Brewline recipe image backgrounds
 
-Status: Implemented; varied natural editorial asset set and temperature-switch regression verified
+Status: Implemented; varied natural editorial asset set, temperature-switch regression, and reference-led Iced Spanish refresh verified
 Last verified: 2026-09-16
 Scope: Two natural editorial café photographs for every recipe in the Brewline rotation—one Hot and one Iced—used as the visual background wherever that recipe appears; the recent Iced Matcha Caramel asset is intentionally preserved while the other 23 assets are refreshed.
 
@@ -36,7 +36,7 @@ All assets are local, text-free, square WebP images in the same natural editoria
 | 03 | Sea Salt | `public/recipes/sea-salt-hot.webp` | `public/recipes/sea-salt.webp` | 1254×1254 | 117 KB / 100 KB |
 | 04 | Caramelized Patis | `public/recipes/caramelized-patis-hot.webp` | `public/recipes/caramelized-patis.webp` | 1254×1254 | 124 KB / 113 KB |
 | 05 | Matcha | `public/recipes/matcha-hot.webp` | `public/recipes/matcha.webp` | 1254×1254 | 154 KB / 138 KB |
-| 06 | Spanish | `public/recipes/spanish-hot.webp` | `public/recipes/spanish.webp` | 1254×1254 | 104 KB / 187 KB |
+| 06 | Spanish | `public/recipes/spanish-hot.webp` | `public/recipes/spanish.webp` | 1254×1254 | 104 KB / 141 KB |
 | 07 | Matcha Spiced | `public/recipes/matcha-spiced-hot.webp` | `public/recipes/matcha-spiced.webp` | 1254×1254 | 174 KB / 155 KB |
 | 08 | Kape Tibuok | `public/recipes/kape-tibuok-hot.webp` | `public/recipes/kape-tibuok.webp` | 1254×1254 | 146 KB / 159 KB |
 | 09 | Salted Caramel | `public/recipes/salted-caramel-hot.webp` | `public/recipes/salted-caramel.webp` | 1254×1254 | 114 KB / 212 KB |
@@ -56,7 +56,7 @@ All assets are local, text-free, square WebP images in the same natural editoria
 
 ## Generation prompt set
 
-The built-in ImageGen tool was used for the 23 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The shared prompt shape was:
+The built-in ImageGen tool was used for the 23 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish. The shared prompt shape was:
 
 ```text
 Use case: photorealistic-natural
@@ -95,6 +95,7 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 - `tsc -b` and Vite production build — PASS; 24 recipe WebPs are included in the production output.
 - Ingredient-row regression test — PASS; every Hot/Iced build now has unique name/amount row identities, including recipes with repeated ingredient names.
 - Asset review — PASS; all 24 final WebPs are 1254×1254 and were reviewed together as a contact sheet for natural composition and malformed details.
+- Iced Spanish reference refresh — PASS; the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at `public/recipes/spanish.webp`.
 - Local Vite URL smoke — PASS; the root page and all 24 `/recipes/*.webp` URLs returned HTTP 200.
 - Full Vitest suite — PARTIAL: 5 files, 24 tests; 21 passed and 3 failed on pre-existing staged recipe-data expectations (`milk 5 ml` vs `10 ml` cold foam and the Dirty Matcha mixture shape), outside this task.
 - Browser interaction recheck — Not available: browser discovery returned “No browser is available”; component renderers were statically checked and the shared ingredient-row invariant passes.
