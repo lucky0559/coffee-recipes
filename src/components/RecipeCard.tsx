@@ -48,7 +48,7 @@ export function RecipeCard({
               aria-label="Recommended bestseller"
               className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cream-50/90 text-espresso-950 shadow-sm"
             >
-              <RecommendedIcon className="h-4 w-4" />
+              <RecommendedIcon className="h-5 w-5 object-contain" />
             </span>
           ) : null}
         </div>
