@@ -1,4 +1,4 @@
-const CACHE_NAME = "brewline-shell-v2";
+const CACHE_NAME = "brewline-shell-__BUILD_ID__";
 const APP_SHELL = [
   "/",
   "/index.html",
@@ -36,6 +36,30 @@ const APP_SHELL = [
   "/recipes/matcha-caramel.webp",
 ];
 
+function storeResponse(request, response) {
+  if (!response.ok) return response;
+
+  const copy = response.clone();
+  void caches
+    .open(CACHE_NAME)
+    .then((cache) => cache.put(request, copy))
+    .catch(() => undefined);
+  return response;
+}
+
+function networkFirst(request, fallbackRequest = request) {
+  return fetch(request, { cache: "no-cache" })
+    .then((response) => storeResponse(fallbackRequest, response))
+    .catch(() => caches.match(fallbackRequest));
+}
+
+function cacheFirst(request) {
+  return caches.match(request).then((cached) => {
+    if (cached) return cached;
+    return fetch(request).then((response) => storeResponse(request, response));
+  });
+}
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches
@@ -49,36 +73,33 @@ self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches
       .keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then((keys) =>
+        Promise.all(
+          keys
+            .filter((key) => key.startsWith("brewline-shell-") && key !== CACHE_NAME)
+            .map((key) => caches.delete(key)),
+        ),
+      )
       .then(() => self.clients.claim()),
   );
 });
 
 self.addEventListener("fetch", (event) => {
   const request = event.request;
-  if (request.method !== "GET" || new URL(request.url).origin !== self.location.origin) return;
+  const url = new URL(request.url);
+  if (request.method !== "GET" || url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(
-      fetch(request)
-        .then((response) => {
-          const copy = response.clone();
-          void caches.open(CACHE_NAME).then((cache) => cache.put("/index.html", copy));
-          return response;
-        })
-        .catch(() => caches.match("/index.html")),
-    );
+    event.respondWith(networkFirst(request, "/index.html"));
     return;
   }
 
-  event.respondWith(
-    caches.match(request).then((cached) => {
-      if (cached) return cached;
-      return fetch(request).then((response) => {
-        const copy = response.clone();
-        void caches.open(CACHE_NAME).then((cache) => cache.put(request, copy));
-        return response;
-      });
-    }),
-  );
+  // Vite asset filenames include a content hash, so they are safe to cache long-term.
+  if (url.pathname.startsWith("/assets/")) {
+    event.respondWith(cacheFirst(request));
+    return;
+  }
+
+  // Root-level public files keep stable names; revalidate them online so edits appear.
+  event.respondWith(networkFirst(request));
 });

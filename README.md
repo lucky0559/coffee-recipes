@@ -207,7 +207,7 @@ Favorites, recently opened recipes, and the preferred build are stored under the
 
 Opening a recipe updates the URL with `recipe` and `temperature` query parameters. A shared URL opens the matching detail view directly; browser back and Escape/close remove the transient selection. The Share recipe action uses the clipboard when available, then the native share sheet, then a synchronous copy fallback.
 
-The production build registers `/sw.js`. Its versioned cache precaches the app shell, icons, manifest, and current recipe image set, serves navigations from the cached `index.html` when offline, and caches same-origin runtime assets as they are requested. Bump `CACHE_NAME` when changing the cache contract.
+The production build registers `/sw.js`. Its build-derived cache precaches the app shell, icons, manifest, and current recipe image set, revalidates navigations and stable public files online, serves the cached `index.html` when offline, and keeps hashed Vite assets cache-first. The registration disables the HTTP cache for service-worker updates and requests an update on page load.
 
 ## Deployment
 
@@ -223,6 +223,17 @@ Use these provider-agnostic settings on a static host:
 | Runtime environment variables | None visible or required by the repository |
 
 The build copies the `public/` tree into the production output, so `/recipes/*.webp`, favicon files, app icons, and `/site.webmanifest` must remain available at those root-relative paths. Deploying at the domain root is the current safe default. If the site must live under a subpath, configure Vite's `base` and update root-relative asset references accordingly; the repository does not currently include a subpath deployment configuration.
+
+### Cache policy
+
+The production build prevents stale deployments from requiring a manual browser-cache clear:
+
+- Vite content-hashes compiled files under `/assets/`, and `public/_headers` marks them as immutable for hosts that support the `_headers` convention.
+- `/`, `/index.html`, `/sw.js`, and `/site.webmanifest` are revalidated on every visit; configure equivalent `Cache-Control` headers on hosts that do not read `_headers`.
+- Root-level recipe images and public metadata are revalidated online and remain available offline through the service worker.
+- `scripts/version-service-worker.mjs` derives the service-worker cache name from the complete `dist/` build, so every content-changing build gets a fresh offline cache automatically.
+
+Deploy the new assets before the new HTML when your host updates files incrementally. If a CDN is configured separately, purge or revalidate the HTML and `/sw.js` paths after deployment; hashed `/assets/` files do not need invalidation.
 
 The current app does not define client-side routes, so a history fallback is not required for its existing root entry. Configure the host to serve `index.html` for unknown application routes if routing is introduced later.
 
