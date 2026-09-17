@@ -140,11 +140,8 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        {
-          name: "Milk (for matcha powder mixture - Cold whisk frother)",
-          amount: "50 ml"
-        },
-        { name: "Milk", amount: "110 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Palm Syrup/Blue Agave", amount: "7 ml" }
       ],
       allergens: ["Dairy"],
@@ -206,11 +203,8 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        {
-          name: "Milk (for matcha powder mixture - Cold whisk frother)",
-          amount: "50 ml"
-        },
-        { name: "Milk", amount: "110 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Palm Syrup/Blue Agave", amount: "3 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
@@ -303,11 +297,8 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        {
-          name: "Milk (for matcha powder mixture - Cold whisk frother)",
-          amount: "50 ml"
-        },
-        { name: "Milk", amount: "110 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" },
         { name: "Palm Syrup/Blue Agave", amount: "10 ml" }
       ],
@@ -374,11 +365,8 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
-        {
-          name: "Milk (for matcha powder mixture - Cold whisk frother)",
-          amount: "50 ml"
-        },
-        { name: "Milk", amount: "110 ml" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Caramel Syrup", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
       ],
