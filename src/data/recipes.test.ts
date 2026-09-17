@@ -16,11 +16,12 @@ const expectedRecipeLine = [
   { id: "dirty-matcha", category: "Matcha" },
   { id: "biscoff", category: "Sweet" },
   { id: "matcha-caramel", category: "Matcha" },
+  { id: "gula-melaka", category: "Sweet" },
 ] as const;
 
 describe("recipe data", () => {
-  it("keeps the 12-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(12);
+  it("keeps the 13-item serving line ordered and uniquely numbered", () => {
+    expect(recipes).toHaveLength(13);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -28,6 +29,20 @@ describe("recipe data", () => {
     recipes.forEach((recipe, index) => {
       expect(recipe.number).toBe(String(index + 1).padStart(2, "0"));
     });
+  });
+
+  it("keeps the Gula Melaka Hot and Iced ingredient builds", () => {
+    const gulaMelaka = recipes.find((recipe) => recipe.id === "gula-melaka");
+
+    expect(gulaMelaka?.hot.ingredients).toEqual([
+      { name: "Gula Melaka", amount: "10 ml" },
+      { name: "Espresso/Ristretto", amount: "2 shots" },
+    ]);
+    expect(gulaMelaka?.iced.ingredients).toEqual([
+      { name: "Gula Melaka", amount: "15 ml" },
+      { name: "Milk", amount: "120 ml" },
+      { name: "Espresso/Ristretto", amount: "2 shots" },
+    ]);
   });
 
   it("provides non-empty ingredient data for both temperature builds", () => {

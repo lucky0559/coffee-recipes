@@ -1,14 +1,14 @@
 # Brewline recipe image backgrounds
 
 Status: Implemented; varied natural editorial asset set, temperature-switch regression, and reference-led Iced Spanish refresh verified
-Last verified: 2026-09-16
-Scope: Two natural editorial café photographs for every recipe in the Brewline rotation—one Hot and one Iced—used as the visual background wherever that recipe appears; the recent Iced Matcha Caramel asset is intentionally preserved while the other 23 assets are refreshed.
+Last verified: 2026-09-17
+Scope: Two natural editorial café photographs for every recipe in the Brewline rotation—one Hot and one Iced—used as the visual background wherever that recipe appears; the recent Iced Matcha Caramel asset is intentionally preserved while the other 25 assets are refreshed.
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
-| Authoritative product data | `src/data/recipes.ts` | 12 recipe IDs and ingredient builds are in scope. |
+| Authoritative product data | `src/data/recipes.ts` | 13 recipe IDs and ingredient builds are in scope; all 13 have dedicated image pairs. |
 | Repository-verified behavior | `src/data/recipeImages.ts`, `RecipeBackdrop.tsx`, and the consuming components | Every recipe ID maps to Hot and Iced local WebPs; cards, featured content, the queue, and the modal use the matching temperature layer. Queue previews follow the scheduled build for each future day. |
 | Inferred requirement | User request to switch the image base when the drink is Hot or Iced, with a smooth transition | Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition. |
 | Task-board state | No task board or external issue reference is present in the repository. | No stale board state or board/repository discrepancy to reconcile. |
@@ -18,16 +18,16 @@ Scope: Two natural editorial café photographs for every recipe in the Brewline 
 
 | Task | Surface / owner | Status | Acceptance evidence |
 | --- | --- | --- | --- |
-| Inspect recipe data and UI surfaces | `src/data/recipes.ts`, `src/components/` / implementation | Complete | All 12 recipes and image-bearing surfaces identified. |
-| Generate Hot and Iced image variants | `public/recipes/*.webp` / ImageGen skill | Complete | 23 refreshed square beverage visuals plus the preserved recent Iced Matcha Caramel asset: 12 Hot and 12 Iced final assets. |
-| Optimize generated assets | `public/recipes/*.webp` / implementation | Complete | WebP derivatives are 1254×1254 and approximately 82–248 KB each; the asset folder is 3,503,650 bytes. |
+| Inspect recipe data and UI surfaces | `src/data/recipes.ts`, `src/components/` / implementation | Complete | All 13 recipes and image-bearing surfaces identified. |
+| Generate Hot and Iced image variants | `public/recipes/*.webp` / ImageGen skill | Complete | 25 refreshed square beverage visuals plus the preserved recent Iced Matcha Caramel asset: 13 Hot and 13 Iced final assets. |
+| Optimize generated assets | `public/recipes/*.webp` / implementation | Complete | WebP derivatives are 1254×1254 and approximately 82–248 KB each; the asset folder is 3,791,192 bytes. |
 | Wire temperature-aware images into the UI | `src/data/recipeImages.ts`, `RecipeBackdrop`, `RecipeCard`, `CoffeeOfTheDay`, `QueueStrip`, `RecipeModal` | Complete | Both layers mount per surface; Hot/Iced selectors drive the active layer and queue previews use each day’s scheduled build. |
-| Verify responsive and interactive behavior | Local Vite app / implementation | Complete for image feature; browser recheck unavailable | Existing desktop/mobile interaction QA remains valid; the current build served the root page and all 24 recipe image URLs with HTTP 200. |
+| Verify responsive and interactive behavior | Local Vite app / implementation | Complete for image feature; browser recheck unavailable | Existing desktop/mobile interaction QA remains valid; the current build served the root page and all 26 recipe image URLs with HTTP 200. |
 | Publish implementation record | This Markdown file and `recipe-image-backgrounds.html` | Complete | Both artifacts are self-contained and synchronized with the final worktree. |
 
 ## Asset matrix
 
-All assets are local, text-free, square WebP images in the same natural editorial café-photography family. The set combines 23 newly generated images with the preserved recent Iced Matcha Caramel image. They share moody café light, warm wood or stone, soft equipment bokeh, and honest drink texture, but intentionally vary the camera angle, crop, surface, vessel, props, and background arrangement so no refreshed recipe pair copies a full scene. Hot assets use ceramic vessels and warm drink texture; Iced assets use glass, ice, and condensation.
+All assets are local, text-free, square WebP images in the same natural editorial café-photography family. The set combines 25 newly generated images with the preserved recent Iced Matcha Caramel image. They share moody café light, warm wood or stone, soft equipment bokeh, and honest drink texture, but intentionally vary the camera angle, crop, surface, vessel, props, and background arrangement so no refreshed recipe pair copies a full scene. Hot assets use ceramic vessels and warm drink texture; Iced assets use glass, ice, and condensation.
 
 | # | Recipe | Hot asset | Iced asset | Dimensions | Approx. sizes |
 | ---: | --- | --- | --- | ---: | ---: |
@@ -43,6 +43,7 @@ All assets are local, text-free, square WebP images in the same natural editoria
 | 10 | Dirty Matcha | `public/recipes/dirty-matcha-hot.webp` | `public/recipes/dirty-matcha.webp` | 1254×1254 | 121 KB / 131 KB |
 | 11 | Biscoff | `public/recipes/biscoff-hot.webp` | `public/recipes/biscoff.webp` | 1254×1254 | 159 KB / 248 KB |
 | 12 | Matcha Caramel | `public/recipes/matcha-caramel-hot.webp` | `public/recipes/matcha-caramel.webp` | 1254×1254 | 114 KB / 107 KB |
+| 13 | Gula Melaka | `public/recipes/gula-melaka-hot.webp` | `public/recipes/gula-melaka.webp` | 1254×1254 | 155 KB / 171 KB |
 
 ## Implementation behavior
 
@@ -56,7 +57,7 @@ All assets are local, text-free, square WebP images in the same natural editoria
 
 ## Generation prompt set
 
-The built-in ImageGen tool was used for the 23 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish. The shared prompt shape was:
+The built-in ImageGen tool was used for the 25 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish. The shared prompt shape was:
 
 ```text
 Use case: photorealistic-natural
@@ -76,11 +77,11 @@ Recipe-specific variations identified the drink and used palettes such as matcha
 
 This feature has no API endpoints, authentication, authorization, request bodies, persistence changes, transactions, state transitions, or backend dependencies. It is a static asset mapping consumed by the existing React UI.
 
-Runtime dependency: the generated WebP files must be present under `public/recipes/` at the paths in the asset matrix. The original ImageGen PNG outputs remain in the local ImageGen output directory; duplicate PNG copies are not shipped from `public/`.
+Runtime dependency: the generated WebP files must be present under `public/recipes/` at the paths in the asset matrix for all 13 recipes. The original ImageGen PNG outputs remain in the local ImageGen output directory; duplicate PNG copies are not shipped from `public/`.
 
 ## Acceptance criteria
 
-- [x] Every one of the 12 repository recipes has distinct Hot and Iced drink visuals.
+- [x] Every one of the 13 repository recipes has distinct Hot and Iced drink visuals.
 - [x] Every visual uses a natural editorial café scene and has no baked-in text.
 - [x] Every recipe card uses its matching image as a background.
 - [x] The featured recipe, queue previews, and modal header use the selected recipe’s matching temperature image; queue previews follow the scheduled build for each future day.
@@ -92,14 +93,14 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 ## Verification evidence
 
 - `oxlint` — PASS (0 warnings, 0 errors).
-- `tsc -b` and Vite production build — PASS; 24 recipe WebPs are included in the production output.
+- `tsc -b` and Vite production build — PASS; 26 recipe WebPs are included in the production output.
 - Ingredient-row regression test — PASS; every Hot/Iced build now has unique name/amount row identities, including recipes with repeated ingredient names.
-- Asset review — PASS; all 24 final WebPs are 1254×1254 and were reviewed together as a contact sheet for natural composition and malformed details.
+- Asset review — PASS; all 26 final WebPs are 1254×1254 and were reviewed together as a contact sheet for natural composition and malformed details.
 - Iced Spanish reference refresh — PASS; the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at `public/recipes/spanish.webp`.
-- Local Vite URL smoke — PASS; the root page and all 24 `/recipes/*.webp` URLs returned HTTP 200.
-- Full Vitest suite — PARTIAL: 5 files, 24 tests; 21 passed and 3 failed on pre-existing staged recipe-data expectations (`milk 5 ml` vs `10 ml` cold foam and the Dirty Matcha mixture shape), outside this task.
+- Local Vite URL smoke — PASS; the root page and all 26 `/recipes/*.webp` URLs returned HTTP 200.
+- Full Vitest suite — PARTIAL: 5 files, 25 tests; 21 passed and 4 failed on pre-existing recipe-data expectations (Matcha Spiced syrup amount, `milk 5 ml` vs `10 ml` cold foam, and the Dirty Matcha mixture shape), outside this task.
 - Browser interaction recheck — Not available: browser discovery returned “No browser is available”; component renderers were statically checked and the shared ingredient-row invariant passes.
 
 ## Remaining work
 
-No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under `public/recipes/`. The three full-suite data failures remain as a separate pre-existing worktree issue.
+No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under `public/recipes/`. The four full-suite data failures remain as a separate pre-existing worktree issue.

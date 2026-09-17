@@ -33,6 +33,10 @@ const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
     Hot: "/recipes/matcha-caramel-hot.webp",
     Iced: "/recipes/matcha-caramel.webp",
   },
+  "gula-melaka": {
+    Hot: "/recipes/gula-melaka-hot.webp",
+    Iced: "/recipes/gula-melaka.webp",
+  },
 };
 
 export function getRecipeImage(

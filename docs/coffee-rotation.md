@@ -1,14 +1,14 @@
 # Brewline coffee rotation defaults
 
 Status: Implemented; code and browser verification passed
-Last updated: 2026-09-15
+Last updated: 2026-09-17
 Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the recipe line, start today on Matcha, and carry the correct build into the next rotation reset.
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
-| Authoritative recipe data | src/data/recipes.ts | The current line contains 12 recipes in a fixed order. |
+| Authoritative recipe data | src/data/recipes.ts | The current line contains 13 recipes in a fixed order. |
 | Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The recipe index advances by local calendar date from the 2026-09-11 anchor and wraps at the recipe count; 2026-09-15 resolves to Matcha. |
 | Repository-verified UI behavior | src/App.tsx, RecipeGrid.tsx, RecipeCard.tsx, CoffeeOfTheDay.tsx, QueueStrip.tsx, RecipeModal.tsx | The featured panel, recipe lists, and full-recipe modal are stateful Hot/Iced surfaces. |
 | User requirement | Start today on Matcha while preserving the Hot → Iced → Hot pattern and reset behavior | 2026-09-15 resolves to Matcha; the first cycle starts Hot by build, each recipe alternates, and each new cycle flips its starting build. |
@@ -37,7 +37,7 @@ The recipe queue still uses daysSinceEpoch(date) and queueIndexForDate(recipeCou
 3. Alternate the build using rotationIndex + positionInRotation.
 4. Even values are Hot; odd values are Iced.
 
-The current anchor is 2026-09-11, so 2026-09-15 lands on queue index 4, Matcha. The anchored rotation starts Hot by build and flips the next rotation’s starting build. With the current 12 recipes, the first line is Hot → Iced → Hot → … → Iced, and the next line also starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
+The current anchor is 2026-09-11, so 2026-09-15 lands on queue index 4, Matcha. The anchored rotation starts Hot by build and flips the next rotation’s starting build. With the current 13 recipes, the first line is Hot → Iced → Hot → … → Hot, and the next line starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
 
 | Recipe count | First item | Last item in first rotation | First item after reset |
 | ---: | --- | --- | --- |
