@@ -6,7 +6,7 @@ Brewline is a static coffee recipe browser built with React, TypeScript, Vite, a
 
 - A categorized grid of 13 coffee and matcha recipes.
 - A deterministic Coffee of the Day queue that advances one recipe per local calendar day.
-- Hot/Iced ingredient controls on the featured recipe and recipe cards.
+- Hot/Iced ingredient controls on the featured recipe and available recipe-card builds.
 - Search, category, saved-recipe, and allergen-aware discovery filters.
 - Device-local favorites, recently opened recipes, and a preferred build temperature.
 - A recipe-detail modal that carries the selected temperature into the build, labels known allergens, and lists possible substitutions.
@@ -62,7 +62,7 @@ npm run preview  # serves the existing dist/ build locally
 | `src/types.ts` | Defines `Recipe`, `RecipeBuild`, `Ingredient`, `Substitution`, `Allergen`, `Category`, and `Temperature`. |
 | `src/data/recipes.ts` | Authoritative ordered recipe data and ingredient display strings. |
 | `src/data/categories.ts` | Category accent and pill colors. |
-| `src/data/recipeImages.ts` | Recipe ID to Hot/Iced public-image mapping. |
+| `src/data/recipeImages.ts` | Recipe ID to available temperature-specific public-image mapping. |
 | `src/lib/coffeeOfTheDay.ts` | Pure date, queue, and scheduled-temperature helpers. |
 | `src/lib/recipeFilters.ts` | Search, category, favorites, and allergen-aware discovery helpers. |
 | `src/lib/recipeLinks.ts` | Deep-link parsing and share URL generation. |
@@ -95,7 +95,7 @@ The current line is:
 | 12 | `matcha-caramel` | Matcha Caramel | Matcha |
 | 13 | `gula-melaka` | Gula Melaka | Sweet |
 
-Each recipe has this shape:
+Each recipe can provide a `hot` build, an `iced` build, or both:
 
 ```ts
 {
@@ -129,8 +129,8 @@ Each recipe has this shape:
 1. Update the recipe object in `src/data/recipes.ts`.
 2. Keep `id` stable if the recipe already exists; it is also the image-map key.
 3. Keep `number`, array position, and the visible serving order consistent.
-4. Provide both `hot` and `iced` builds, even when their ingredients are similar.
-5. Add or update the two image files and the entry in `src/data/recipeImages.ts`.
+4. Provide only the temperature builds the recipe supports; recipes missing Hot or Iced are excluded from the daily rotation.
+5. Add or update image files for the available builds and the entry in `src/data/recipeImages.ts`.
 6. Run `npm test`, `npm run lint`, and `npm run build` before shipping the change.
 
 Because queue position depends on array order and recipe count, inserting, removing, or reordering a recipe changes future daily selections and rotation boundaries.
@@ -144,7 +144,9 @@ public/recipes/<recipe-id>-hot.webp   # Hot build
 public/recipes/<recipe-id>.webp       # Iced build
 ```
 
-The current asset set contains 26 recipe WebPs—one Hot/Iced pair for each of the 13 recipes—and occupies about 3.8 MB. Keep images text-free and use the existing square product-visual style so the overlays remain readable.
+Recipes without a supported build omit that image and mapping; Gula Melaka is intentionally Iced-only.
+
+The current asset set contains 25 recipe WebPs—Hot/Iced pairs for the 12 complete recipes plus an Iced-only Gula Melaka image—and occupies about 3.6 MB. Keep images text-free and use the existing square product-visual style so the overlays remain readable.
 
 `src/data/recipeImages.ts` is the only mapping consumed by the UI:
 
@@ -159,17 +161,18 @@ When an image is added or renamed, verify the complete chain: recipe ID → `REC
 
 ## Daily rotation
 
-The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the line at August 16, 2026:
+The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the complete-build line at September 11, 2026:
 
 ```ts
-const ROTATION_EPOCH_UTC = Date.UTC(2026, 7, 16);
+const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
 ```
 
 `daysSinceEpoch` converts the `Date` to its local calendar date before comparing UTC midnights, so the recipe changes at local midnight instead of after an arbitrary 24-hour interval. The main helpers are:
 
 - `queueIndexForDate(recipeCount, date)` — normalized zero-based index in the ordered recipe array.
-- `getCoffeeOfTheDay(recipes, date)` — recipe at today's queue index.
-- `getUpcomingQueue(recipes, date)` — the full line starting today, wrapped at the end.
+- `getRotatingRecipes(recipes)` — filters the library to recipes with both Hot and Iced builds.
+- `getCoffeeOfTheDay(recipes, date)` — complete-build recipe at today's queue index.
+- `getUpcomingQueue(recipes, date)` — the complete-build line starting today, wrapped at the end.
 - `defaultTemperatureForDate(recipeCount, date)` — scheduled Hot/Iced build for today's recipe.
 - `defaultTemperatureForRecipePosition(recipeCount, position, date)` — scheduled build for a known position in the current cycle.
 
@@ -184,17 +187,17 @@ even alternatingPosition → Hot
 odd alternatingPosition  → Iced
 ```
 
-With the current 13-recipe line, the anchored cycle starts Hot and alternates through the line, ending Hot. The next cycle starts Iced:
+With the current 12-recipe complete-build line, the anchored cycle starts Hot and alternates through the line, ending Iced. The next cycle also starts Iced. Gula Melaka remains in the library as an Iced-only recipe and is not scheduled:
 
 | Local date | Queue item | Scheduled build |
 | --- | --- | --- |
-| 2026-08-16 | Cheesecake | Hot |
-| 2026-08-17 | Caramel | Iced |
-| 2026-08-20 | Matcha | Hot |
-| 2026-08-28 | Matcha Caramel | Hot |
-| 2026-08-29 | Cheesecake, after reset | Iced |
+| 2026-09-11 | Cheesecake | Hot |
+| 2026-09-12 | Caramel | Iced |
+| 2026-09-15 | Matcha | Hot |
+| 2026-09-22 | Matcha Caramel | Iced |
+| 2026-09-23 | Cheesecake, after reset | Iced |
 
-Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation always uses the 13-item array.
+Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation uses the 12-item complete-build line while keeping all 13 library recipes discoverable.
 
 The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
 

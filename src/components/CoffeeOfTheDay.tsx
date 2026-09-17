@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Flame, Heart, ListOrdered, Snowflake, Sparkles } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
+import type { CompleteRecipe } from "../lib/coffeeOfTheDay";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 import { QueueStrip } from "./QueueStrip";
 
 interface CoffeeOfTheDayProps {
-  recipe: Recipe;
+  recipe: CompleteRecipe;
   date: Date;
-  queue: Recipe[];
+  queue: CompleteRecipe[];
   position: number;
   total: number;
   defaultTemperature: Temperature;

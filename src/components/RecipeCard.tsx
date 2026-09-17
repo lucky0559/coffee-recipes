@@ -2,6 +2,7 @@ import { Flame, Heart, Snowflake } from "lucide-react";
 import { useState } from "react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
+import { getAvailableTemperature, getRecipeBuild } from "../lib/coffeeOfTheDay";
 import { RecommendedIcon } from "./RecommendedIcon";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 
@@ -23,13 +24,20 @@ export function RecipeCard({
   onToggleFavorite,
 }: RecipeCardProps) {
   const { pill } = CATEGORY_STYLES[recipe.category];
-  const [temperature, setTemperature] = useState<Temperature>(defaultTemperature);
-  const build = temperature === "Iced" ? recipe.iced : recipe.hot;
-  const isIcedBestseller = recipe.id === "matcha-caramel" && temperature === "Iced";
+  const [temperature, setTemperature] = useState<Temperature>(() =>
+    getAvailableTemperature(recipe, defaultTemperature),
+  );
+  const displayTemperature = getRecipeBuild(recipe, temperature)
+    ? temperature
+    : getAvailableTemperature(recipe, temperature);
+  const build = getRecipeBuild(recipe, displayTemperature);
+  const isIcedBestseller = recipe.id === "matcha-caramel" && displayTemperature === "Iced";
+
+  if (!build) return null;
 
   return (
     <article className="group relative flex min-h-[350px] flex-col overflow-hidden rounded-2xl border border-cream-50/20 bg-espresso-950 text-left shadow-sm transition-[translate,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0">
-      <RecipeBackdrop recipeId={recipe.id} temperature={temperature} surface="card" />
+      <RecipeBackdrop recipeId={recipe.id} temperature={displayTemperature} surface="card" />
 
       <div className="relative z-10 flex items-start justify-between gap-3 p-5 pb-0">
         <div className="flex flex-wrap items-center gap-2.5">
@@ -73,7 +81,7 @@ export function RecipeCard({
       <div className="relative z-10 flex flex-1 flex-col gap-3 p-5 pt-3">
         <button
           type="button"
-          onClick={() => onSelect(recipe, temperature)}
+          onClick={() => onSelect(recipe, displayTemperature)}
           aria-label={`Open ${recipe.name} recipe`}
           className="flex flex-1 flex-col text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 focus-visible:ring-offset-2 focus-visible:ring-offset-espresso-950"
         >
@@ -104,9 +112,10 @@ export function RecipeCard({
           <button
             type="button"
             onClick={() => setTemperature("Hot")}
-            aria-pressed={temperature === "Hot"}
+            aria-pressed={displayTemperature === "Hot"}
+            hidden={!recipe.hot}
             className={`flex items-center gap-1 rounded-full px-2 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
-              temperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
+              displayTemperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
             <Flame className="h-3 w-3" />
@@ -115,9 +124,10 @@ export function RecipeCard({
           <button
             type="button"
             onClick={() => setTemperature("Iced")}
-            aria-pressed={temperature === "Iced"}
+            aria-pressed={displayTemperature === "Iced"}
+            hidden={!recipe.iced}
             className={`flex items-center gap-1 rounded-full px-2 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
-              temperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
+              displayTemperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
             <Snowflake className="h-3 w-3" />

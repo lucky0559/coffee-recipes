@@ -1,8 +1,27 @@
-import type { Recipe, Temperature } from "../types";
+import type { Recipe, RecipeBuild, Temperature } from "../types";
 
 // Anchored so today's rotation lands on Matcha on 2026-09-15, per house request.
 const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
 const MS_PER_DAY = 86_400_000;
+
+export type CompleteRecipe = Recipe & Required<Pick<Recipe, "hot" | "iced">>;
+
+export function isCompleteRecipe(recipe: Recipe): recipe is CompleteRecipe {
+  return recipe.hot !== undefined && recipe.iced !== undefined;
+}
+
+export function getRotatingRecipes(recipes: ReadonlyArray<Recipe>): CompleteRecipe[] {
+  return recipes.filter(isCompleteRecipe);
+}
+
+export function getRecipeBuild(recipe: Recipe, temperature: Temperature): RecipeBuild | undefined {
+  return temperature === "Hot" ? recipe.hot : recipe.iced;
+}
+
+export function getAvailableTemperature(recipe: Recipe, preferred: Temperature): Temperature {
+  if (getRecipeBuild(recipe, preferred)) return preferred;
+  return recipe.iced ? "Iced" : "Hot";
+}
 
 /**
  * Days elapsed since the rotation epoch, counted by local calendar date
@@ -17,7 +36,7 @@ export function daysSinceEpoch(date: Date): number {
 /**
  * The queue index for a given date. Recipes are served in a fixed order
  * and advance one position per day, wrapping back to the start once the
- * whole line has been served — like a rotating queue, not a random draw.
+ * complete-build line has been served — like a rotating queue, not a random draw.
  */
 export function queueIndexForDate(recipeCount: number, date: Date): number {
   if (recipeCount <= 0) return 0;
@@ -29,7 +48,7 @@ export function queueIndexForDate(recipeCount: number, date: Date): number {
  * The default build alternates within each recipe rotation. The first
  * rotation starts Hot; each new rotation flips its starting build so a
  * reset can begin Iced when the current rotation ends on Iced (including
- * the current 13-recipe rotation).
+ * the current 12-recipe complete-build rotation).
  */
 export function defaultTemperatureForRecipePosition(
   recipeCount: number,
@@ -59,12 +78,20 @@ export function defaultTemperatureForDate(
   );
 }
 
-export function getCoffeeOfTheDay(recipes: Recipe[], date: Date = new Date()): Recipe {
-  return recipes[queueIndexForDate(recipes.length, date)];
+export function getCoffeeOfTheDay(
+  recipes: ReadonlyArray<Recipe>,
+  date: Date = new Date(),
+): CompleteRecipe {
+  const rotatingRecipes = getRotatingRecipes(recipes);
+  return rotatingRecipes[queueIndexForDate(rotatingRecipes.length, date)];
 }
 
 /** Returns the full serving order starting from today, for showing "what's next in line". */
-export function getUpcomingQueue(recipes: Recipe[], date: Date = new Date()): Recipe[] {
-  const startIndex = queueIndexForDate(recipes.length, date);
-  return recipes.map((_, i) => recipes[(startIndex + i) % recipes.length]);
+export function getUpcomingQueue(
+  recipes: ReadonlyArray<Recipe>,
+  date: Date = new Date(),
+): CompleteRecipe[] {
+  const rotatingRecipes = getRotatingRecipes(recipes);
+  const startIndex = queueIndexForDate(rotatingRecipes.length, date);
+  return rotatingRecipes.map((_, i) => rotatingRecipes[(startIndex + i) % rotatingRecipes.length]);
 }

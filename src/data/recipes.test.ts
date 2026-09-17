@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 
 import { recipes } from "./recipes";
 import { getRecipeImage } from "./recipeImages";
+import type { Recipe, RecipeBuild } from "../types";
 
 const expectedRecipeLine = [
   { id: "cheesecake", category: "Sweet" },
@@ -19,6 +20,12 @@ const expectedRecipeLine = [
   { id: "gula-melaka", category: "Sweet" },
 ] as const;
 
+function getBuilds(recipe: Recipe): RecipeBuild[] {
+  return [recipe.hot, recipe.iced].filter(
+    (build): build is RecipeBuild => build !== undefined,
+  );
+}
+
 describe("recipe data", () => {
   it("keeps the 13-item serving line ordered and uniquely numbered", () => {
     expect(recipes).toHaveLength(13);
@@ -31,23 +38,23 @@ describe("recipe data", () => {
     });
   });
 
-  it("keeps the Gula Melaka Hot and Iced ingredient builds", () => {
+  it("keeps Gula Melaka Iced-only with 30 ml palm sugar syrup", () => {
     const gulaMelaka = recipes.find((recipe) => recipe.id === "gula-melaka");
 
-    expect(gulaMelaka?.hot.ingredients).toEqual([
-      { name: "Gula Melaka", amount: "10 ml" },
-      { name: "Espresso/Ristretto", amount: "2 shots" },
-    ]);
-    expect(gulaMelaka?.iced.ingredients).toEqual([
-      { name: "Gula Melaka", amount: "15 ml" },
+    expect(gulaMelaka?.hot).toBeUndefined();
+    expect(gulaMelaka?.iced?.ingredients).toEqual([
+      { name: "Palm Sugar Syrup", amount: "30 ml" },
       { name: "Milk", amount: "120 ml" },
       { name: "Espresso/Ristretto", amount: "2 shots" },
     ]);
   });
 
-  it("provides non-empty ingredient data for both temperature builds", () => {
+  it("provides non-empty ingredient data for every available temperature build", () => {
     recipes.forEach((recipe) => {
-      [recipe.hot, recipe.iced].forEach((build) => {
+      const builds = getBuilds(recipe);
+      expect(builds.length).toBeGreaterThan(0);
+
+      builds.forEach((build) => {
         expect(build.ingredients.length).toBeGreaterThan(0);
 
         build.ingredients.forEach((ingredient) => {
@@ -71,7 +78,7 @@ describe("recipe data", () => {
 
   it("keeps ingredient rows uniquely identifiable in every temperature build", () => {
     recipes.forEach(({ hot, iced }) => {
-      [hot, iced].forEach((build) => {
+      [hot, iced].filter((build): build is RecipeBuild => build !== undefined).forEach((build) => {
         const rowKeys = build.ingredients.map(({ name, amount }) => `${name}::${amount}`);
 
         expect(new Set(rowKeys).size).toBe(rowKeys.length);
@@ -82,17 +89,17 @@ describe("recipe data", () => {
   it("keeps Matcha Spiced syrup in the iced drink build", () => {
     const matchaSpiced = recipes.find((recipe) => recipe.id === "matcha-spiced");
 
-    expect(matchaSpiced?.iced.ingredients).toContainEqual({
+    expect(matchaSpiced?.iced?.ingredients).toContainEqual({
       name: "Spiced Biscuit Syrup",
       amount: "15 ml",
     });
-    expect(matchaSpiced?.iced.note).not.toContain("spiced biscuit syrup");
+    expect(matchaSpiced?.iced?.note).not.toContain("spiced biscuit syrup");
   });
 
   it("adds a ground cinnamon splash to Hot Spanish", () => {
     const spanish = recipes.find((recipe) => recipe.id === "spanish");
 
-    expect(spanish?.hot.ingredients).toContainEqual({
+    expect(spanish?.hot?.ingredients).toContainEqual({
       name: "Ground Cinnamon",
       amount: "splash",
     });
@@ -101,11 +108,11 @@ describe("recipe data", () => {
   it("uses 20 ml caramel syrup and a caramel sauce drizzle in Iced Matcha Caramel", () => {
     const matchaCaramel = recipes.find((recipe) => recipe.id === "matcha-caramel");
 
-    expect(matchaCaramel?.iced.ingredients).toContainEqual({
+    expect(matchaCaramel?.iced?.ingredients).toContainEqual({
       name: "Caramel Syrup",
       amount: "20 ml",
     });
-    expect(matchaCaramel?.iced.ingredients).toContainEqual({
+    expect(matchaCaramel?.iced?.ingredients).toContainEqual({
       name: "Caramel Sauce",
       amount: "drizzle",
     });
@@ -115,9 +122,9 @@ describe("recipe data", () => {
     const saltedCaramel = recipes.find((recipe) => recipe.id === "salted-caramel");
 
     expect(
-      saltedCaramel?.hot.ingredients.some(({ name }) => name === "Caramel Syrup"),
+      saltedCaramel?.hot?.ingredients.some(({ name }) => name === "Caramel Syrup"),
     ).toBe(false);
-    expect(saltedCaramel?.hot.ingredients).toContainEqual({
+    expect(saltedCaramel?.hot?.ingredients).toContainEqual({
       name: "Caramel Sauce",
       amount: "10 ml",
     });
@@ -125,9 +132,10 @@ describe("recipe data", () => {
 
   it("uses 10 ml milk in every cold-foam note", () => {
     recipes.forEach(({ iced }) => {
-      if (iced.note?.includes("Cold foam")) {
-        expect(iced.note).toContain("milk 10 ml");
-        expect(iced.note).not.toContain("milk 15 ml");
+      const note = iced?.note;
+      if (note?.includes("Cold foam")) {
+        expect(note).toContain("milk 10 ml");
+        expect(note).not.toContain("milk 15 ml");
       }
     });
   });
@@ -136,50 +144,55 @@ describe("recipe data", () => {
     const saltedCaramel = recipes.find((recipe) => recipe.id === "salted-caramel");
 
     expect(
-      saltedCaramel?.iced.ingredients.some(({ name }) => name === "Vanilla Syrup"),
+      saltedCaramel?.iced?.ingredients.some(({ name }) => name === "Vanilla Syrup"),
     ).toBe(false);
-    expect(saltedCaramel?.iced.ingredients).toContainEqual({
+    expect(saltedCaramel?.iced?.ingredients).toContainEqual({
       name: "Caramel Syrup",
       amount: "20 ml",
     });
-    expect(saltedCaramel?.iced.ingredients).toContainEqual({
+    expect(saltedCaramel?.iced?.ingredients).toContainEqual({
       name: "Caramel Sauce",
       amount: "drizzle",
     });
-    expect(saltedCaramel?.iced.note).toBe(
+    expect(saltedCaramel?.iced?.note).toBe(
       "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
     );
-    expect(saltedCaramel?.iced.note).not.toContain("caramel sauce");
-    expect(saltedCaramel?.iced.note).not.toContain("caramel syrup");
+    expect(saltedCaramel?.iced?.note).not.toContain("caramel sauce");
+    expect(saltedCaramel?.iced?.note).not.toContain("caramel syrup");
   });
 
   it("keeps Iced Dirty Matcha mixture milk separate from the main milk", () => {
     const dirtyMatcha = recipes.find((recipe) => recipe.id === "dirty-matcha");
 
-    expect(dirtyMatcha?.iced.ingredients).toContainEqual({
+    expect(dirtyMatcha?.iced?.ingredients).toContainEqual({
       name: "Milk (for matcha powder mixture)",
       amount: "60 ml",
     });
-    expect(dirtyMatcha?.iced.ingredients).toContainEqual({
+    expect(dirtyMatcha?.iced?.ingredients).toContainEqual({
       name: "Milk",
       amount: "100 ml",
     });
-    expect(dirtyMatcha?.iced.ingredients).toContainEqual({
+    expect(dirtyMatcha?.iced?.ingredients).toContainEqual({
       name: "Honey/Blue Agave",
       amount: "15 ml",
     });
     expect(
-      dirtyMatcha?.iced.ingredients.some(({ name }) => name === "Water"),
+      dirtyMatcha?.iced?.ingredients.some(({ name }) => name === "Water"),
     ).toBe(false);
-    expect(dirtyMatcha?.iced.note).toContain(
+    expect(dirtyMatcha?.iced?.note).toContain(
       "combine the matcha powder with 60 ml milk before adding 100 ml milk and honey",
     );
   });
 
-  it("maps every recipe to a Hot and Iced local image", () => {
+  it("maps every available recipe build to a local image", () => {
     recipes.forEach((recipe) => {
-      expect(getRecipeImage(recipe.id, "Hot")).toBe(`/recipes/${recipe.id}-hot.webp`);
-      expect(getRecipeImage(recipe.id, "Iced")).toBe(`/recipes/${recipe.id}.webp`);
+      if (recipe.hot) {
+        expect(getRecipeImage(recipe.id, "Hot")).toBe(`/recipes/${recipe.id}-hot.webp`);
+      }
+      if (recipe.iced) {
+        expect(getRecipeImage(recipe.id, "Iced")).toBe(`/recipes/${recipe.id}.webp`);
+      }
     });
+    expect(getRecipeImage("gula-melaka", "Hot")).toBe("/coffee-icon.png");
   });
 });

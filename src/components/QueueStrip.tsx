@@ -1,9 +1,9 @@
 import type { Recipe, Temperature } from "../types";
-import { defaultTemperatureForDate } from "../lib/coffeeOfTheDay";
+import { defaultTemperatureForDate, type CompleteRecipe } from "../lib/coffeeOfTheDay";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 
 interface QueueStripProps {
-  queue: Recipe[];
+  queue: CompleteRecipe[];
   date: Date;
   preferredTemperature: Temperature | null;
   onSelect: (recipe: Recipe, temperature?: Temperature) => void;

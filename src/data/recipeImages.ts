@@ -1,6 +1,6 @@
 import type { Temperature } from "../types";
 
-type RecipeImageSet = Record<Temperature, string>;
+type RecipeImageSet = Partial<Record<Temperature, string>>;
 
 const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
   cheesecake: { Hot: "/recipes/cheesecake-hot.webp", Iced: "/recipes/cheesecake.webp" },
@@ -34,7 +34,6 @@ const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
     Iced: "/recipes/matcha-caramel.webp",
   },
   "gula-melaka": {
-    Hot: "/recipes/gula-melaka-hot.webp",
     Iced: "/recipes/gula-melaka.webp",
   },
 };

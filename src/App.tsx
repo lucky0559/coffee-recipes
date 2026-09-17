@@ -15,7 +15,9 @@ import { useRecipePreferences } from "./lib/useRecipePreferences";
 import {
   defaultTemperatureForDate,
   defaultTemperatureForRecipePosition,
+  getAvailableTemperature,
   getCoffeeOfTheDay,
+  getRotatingRecipes,
   getUpcomingQueue,
   queueIndexForDate,
 } from "./lib/coffeeOfTheDay";
@@ -33,7 +35,9 @@ function getRecipeFromUrl(availableRecipes: Recipe[] = recipes): SelectedRecipe 
   if (!selection) return null;
 
   const recipe = availableRecipes.find(({ id }) => id === selection.recipeId);
-  return recipe ? { recipe, temperature: selection.temperature } : null;
+  return recipe
+    ? { recipe, temperature: getAvailableTemperature(recipe, selection.temperature) }
+    : null;
 }
 
 function useCurrentDate(): Date {
@@ -70,12 +74,22 @@ function App() {
   const favoriteIds = useMemo(() => new Set(preferences.favorites), [preferences.favorites]);
 
   const today = useCurrentDate();
-  const coffeeOfTheDay = useMemo(() => getCoffeeOfTheDay(recipes, today), [today]);
-  const queue = useMemo(() => getUpcomingQueue(recipes, today), [today]);
-  const position = useMemo(() => queueIndexForDate(recipes.length, today) + 1, [today]);
+  const rotatingRecipes = useMemo(() => getRotatingRecipes(recipes), []);
+  const coffeeOfTheDay = useMemo(
+    () => getCoffeeOfTheDay(rotatingRecipes, today),
+    [rotatingRecipes, today],
+  );
+  const queue = useMemo(
+    () => getUpcomingQueue(rotatingRecipes, today),
+    [rotatingRecipes, today],
+  );
+  const position = useMemo(
+    () => queueIndexForDate(rotatingRecipes.length, today) + 1,
+    [rotatingRecipes.length, today],
+  );
   const scheduledTemperature = useMemo(
-    () => defaultTemperatureForDate(recipes.length, today),
-    [today],
+    () => defaultTemperatureForDate(rotatingRecipes.length, today),
+    [rotatingRecipes.length, today],
   );
   const buildPreference: BuildPreference = preferences.preferredTemperature ?? "Scheduled";
   const featuredTemperature = preferences.preferredTemperature ?? scheduledTemperature;
@@ -114,12 +128,13 @@ function App() {
 
   const selectRecipe = useCallback(
     (recipe: Recipe, temperature?: Temperature) => {
-      const recipePosition = recipes.findIndex(({ id }) => id === recipe.id);
+      const recipePosition = rotatingRecipes.findIndex(({ id }) => id === recipe.id);
       const scheduled =
         recipePosition < 0
-          ? "Hot"
-          : defaultTemperatureForRecipePosition(recipes.length, recipePosition, today);
-      const resolvedTemperature = temperature ?? preferences.preferredTemperature ?? scheduled;
+          ? "Iced"
+          : defaultTemperatureForRecipePosition(rotatingRecipes.length, recipePosition, today);
+      const requestedTemperature = temperature ?? preferences.preferredTemperature ?? scheduled;
+      const resolvedTemperature = getAvailableTemperature(recipe, requestedTemperature);
 
       setSelected({ recipe, temperature: resolvedTemperature });
       preferences.rememberRecipe(recipe.id);
@@ -140,7 +155,7 @@ function App() {
         }
       }
     },
-    [preferences, today],
+    [preferences, rotatingRecipes, today],
   );
 
   const closeRecipe = useCallback(() => {
@@ -151,16 +166,23 @@ function App() {
   }, []);
 
   const updateSelectedTemperature = useCallback((temperature: Temperature) => {
-    setSelected((current) => (current ? { ...current, temperature } : current));
+    const resolvedTemperature = selected
+      ? getAvailableTemperature(selected.recipe, temperature)
+      : temperature;
+    setSelected((current) =>
+      current
+        ? { ...current, temperature: getAvailableTemperature(current.recipe, temperature) }
+        : current,
+    );
     if (typeof window !== "undefined" && selected) {
       const nextUrl = getRecipeShareUrl(
         selected.recipe.id,
-        temperature,
+        resolvedTemperature,
         window.location.origin,
         window.location.pathname,
       );
       window.history.replaceState(
-        { recipeId: selected.recipe.id, temperature },
+        { recipeId: selected.recipe.id, temperature: resolvedTemperature },
         "",
         nextUrl,
       );
@@ -190,7 +212,7 @@ function App() {
           date={today}
           queue={queue}
           position={position}
-          total={recipes.length}
+          total={rotatingRecipes.length}
           defaultTemperature={featuredTemperature}
           preferredTemperature={preferences.preferredTemperature}
           isFavorite={preferences.isFavorite(coffeeOfTheDay.id)}

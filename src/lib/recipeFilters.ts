@@ -1,4 +1,4 @@
-import type { Category, Recipe, Temperature } from "../types";
+import type { Category, Recipe, RecipeBuild, Temperature } from "../types";
 
 export type CategoryFilter = Category | "All";
 export type BuildPreference = Temperature | "Scheduled";
@@ -18,7 +18,9 @@ export const DEFAULT_RECIPE_FILTERS: RecipeFilters = {
 };
 
 function buildSearchText(recipe: Recipe): string {
-  const builds = [recipe.hot, recipe.iced];
+  const builds = [recipe.hot, recipe.iced].filter(
+    (build): build is RecipeBuild => build !== undefined,
+  );
   return [
     recipe.name,
     recipe.category,
@@ -36,10 +38,10 @@ function buildSearchText(recipe: Recipe): string {
 }
 
 function buildHasNoListedAllergens(recipe: Recipe, preference: BuildPreference): boolean {
-  if (preference === "Hot") return recipe.hot.allergens.length === 0;
-  if (preference === "Iced") return recipe.iced.allergens.length === 0;
+  if (preference === "Hot") return recipe.hot?.allergens.length === 0;
+  if (preference === "Iced") return recipe.iced?.allergens.length === 0;
 
-  return recipe.hot.allergens.length === 0 || recipe.iced.allergens.length === 0;
+  return recipe.hot?.allergens.length === 0 || recipe.iced?.allergens.length === 0;
 }
 
 export function filterRecipes(

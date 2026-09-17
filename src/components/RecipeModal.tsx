@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Flame, Heart, Share2, Snowflake, Sparkles, X } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
+import { getAvailableTemperature, getRecipeBuild } from "../lib/coffeeOfTheDay";
 import { getRecipeShareUrl } from "../lib/recipeLinks";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 
@@ -41,7 +42,8 @@ export function RecipeModal({
   const dialogRef = useRef<HTMLDivElement>(null);
   const [from, to] = CATEGORY_STYLES[recipe.category].accent;
   const [shareStatus, setShareStatus] = useState<ShareStatus>("idle");
-  const build = temperature === "Iced" ? recipe.iced : recipe.hot;
+  const displayTemperature = getAvailableTemperature(recipe, temperature);
+  const build = getRecipeBuild(recipe, displayTemperature);
 
   useEffect(() => {
     const previouslyFocused = document.activeElement instanceof HTMLElement
@@ -84,10 +86,12 @@ export function RecipeModal({
     };
   }, [onClose]);
 
+  if (!build) return null;
+
   const handleShare = async () => {
     const url = getRecipeShareUrl(
       recipe.id,
-      temperature,
+      displayTemperature,
       window.location.origin,
       window.location.pathname,
     );
@@ -105,7 +109,7 @@ export function RecipeModal({
       if ("share" in navigator && typeof navigator.share === "function") {
         await navigator.share({
           title: `${recipe.name} · Brewline`,
-          text: `${recipe.name}, ${temperature} recipe from Brewline`,
+          text: `${recipe.name}, ${displayTemperature} recipe from Brewline`,
           url,
         });
         setShareStatus("shared");
@@ -144,7 +148,7 @@ export function RecipeModal({
         <div className="relative flex items-start justify-between gap-4 overflow-hidden rounded-t-3xl bg-espresso-950 p-6 text-cream-50">
           <RecipeBackdrop
             recipeId={recipe.id}
-            temperature={temperature}
+            temperature={displayTemperature}
             accent={[from, to]}
             surface="modal"
           />
@@ -159,7 +163,7 @@ export function RecipeModal({
               {recipe.name}
             </h2>
             <p id="recipe-modal-description" className="mt-1 text-xs text-cream-50/70">
-              {temperature} build details
+              {displayTemperature} build details
             </p>
           </div>
           <div className="relative z-10 flex shrink-0 items-center gap-2">
@@ -197,9 +201,10 @@ export function RecipeModal({
               <button
                 type="button"
                 onClick={() => selectTemperature("Hot")}
-                aria-pressed={temperature === "Hot"}
+                aria-pressed={displayTemperature === "Hot"}
+                hidden={!recipe.hot}
                 className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow ${
-                  temperature === "Hot" ? "bg-espresso-900 text-cream-50" : ""
+                  displayTemperature === "Hot" ? "bg-espresso-900 text-cream-50" : ""
                 }`}
               >
                 <Flame aria-hidden="true" className="h-3 w-3" />
@@ -208,9 +213,10 @@ export function RecipeModal({
               <button
                 type="button"
                 onClick={() => selectTemperature("Iced")}
-                aria-pressed={temperature === "Iced"}
+                aria-pressed={displayTemperature === "Iced"}
+                hidden={!recipe.iced}
                 className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow ${
-                  temperature === "Iced" ? "bg-espresso-900 text-cream-50" : ""
+                  displayTemperature === "Iced" ? "bg-espresso-900 text-cream-50" : ""
                 }`}
               >
                 <Snowflake aria-hidden="true" className="h-3 w-3" />

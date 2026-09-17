@@ -128,7 +128,7 @@
       <div class="shell">
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Recipe image backgrounds</h1>
-        <p class="lede">Twenty-six varied natural editorial café photographs give all 13 recipes temperature-aware visuals across cards, the featured recipe, the queue, and the recipe modal.</p>
+        <p class="lede">Twenty-five varied natural editorial café photographs cover the available builds across 13 recipes: Hot/Iced pairs for 12 complete recipes plus an Iced-only Gula Melaka visual.</p>
         <p><span class="status" role="status">Implemented · asset, switch, and Iced Spanish reference refresh verified · browser recheck unavailable</span></p>
       </div>
     </header>
@@ -149,8 +149,8 @@
         <table>
           <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><td>Authoritative product data</td><td><code>src/data/recipes.ts</code></td><td>13 recipe IDs and ingredient builds are in scope; all 13 have dedicated image pairs.</td></tr>
-            <tr><td>Repository-verified behavior</td><td><code>src/data/recipeImages.ts</code>, <code>RecipeBackdrop.tsx</code>, and consuming components</td><td>Every recipe ID maps to Hot and Iced local WebPs; cards, featured content, the queue, and modal use matching temperature layers. Queue previews follow the scheduled build for each future day.</td></tr>
+            <tr><td>Authoritative product data</td><td><code>src/data/recipes.ts</code></td><td>13 recipe IDs and ingredient builds are in scope; 12 have complete image pairs and Gula Melaka has an Iced-only visual.</td></tr>
+            <tr><td>Repository-verified behavior</td><td><code>src/data/recipeImages.ts</code>, <code>RecipeBackdrop.tsx</code>, and consuming components</td><td>Each available recipe build maps to a local WebP; cards, featured content, the queue, and modal use the matching available temperature layer. Queue previews follow the scheduled build for each future day.</td></tr>
             <tr><td>Inferred requirement</td><td>Switch the image base when the drink is Hot or Iced, with a smooth transition</td><td>Each visual represents its temperature-specific build, and the active layer changes with a 500 ms opacity transition.</td></tr>
             <tr><td>Board / discrepancies</td><td>Latest worktree browser discovery</td><td>The current scheduled queue-temperature recheck could not run because no browser was available; no code blocker was found.</td></tr>
           </tbody>
@@ -163,17 +163,17 @@
           <thead><tr><th scope="col">Task</th><th scope="col">Surface / owner</th><th scope="col">Status</th><th scope="col">Acceptance evidence</th></tr></thead>
           <tbody>
             <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 13 recipes and image-bearing surfaces identified.</td></tr>
-            <tr><td>Generate Hot and Iced variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>25 refreshed square beverage visuals plus the preserved recent Iced Matcha Caramel asset: 13 Hot and 13 Iced final assets.</td></tr>
-            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is 3,791,192 bytes.</td></tr>
-            <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Both layers mount per surface; selectors drive the active layer and queue previews use each day’s scheduled build.</td></tr>
-            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; browser recheck unavailable</td><td>Existing desktop/mobile interaction QA remains valid; the current build served the root page and all 26 recipe image URLs with HTTP 200.</td></tr>
+            <tr><td>Generate available image variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>24 refreshed square beverage visuals plus the preserved recent Iced Matcha Caramel asset: 12 Hot/Iced pairs and one Iced-only Gula Melaka asset.</td></tr>
+            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is 3,632,130 bytes.</td></tr>
+            <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Available-build selectors drive the active layer; the Iced-only Gula Melaka card and modal never expose a Hot image.</td></tr>
+            <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; browser recheck unavailable</td><td>Existing desktop/mobile interaction QA remains valid; the current build served the root page and all 25 recipe image URLs with HTTP 200.</td></tr>
           </tbody>
         </table>
       </section>
 
       <section id="assets" aria-labelledby="assets-title">
         <h2 id="assets-title">Asset matrix</h2>
-        <p class="section-intro">All assets are local, text-free, square WebP images in one natural editorial café-photography family. The set combines 25 newly generated images with the preserved recent Iced Matcha Caramel image; the refreshed assets vary angle, crop, surface, vessel, props, and background arrangement so no recipe pair copies a full scene.</p>
+        <p class="section-intro">All assets are local, text-free, square WebP images in one natural editorial café-photography family. The set combines 24 newly generated images with the preserved recent Iced Matcha Caramel image; the refreshed assets vary angle, crop, surface, vessel, props, and background arrangement so no recipe pair copies a full scene.</p>
         <table>
           <thead><tr><th scope="col">#</th><th scope="col">Recipe</th><th scope="col">Hot asset</th><th scope="col">Iced asset</th><th scope="col">Dimensions</th><th scope="col">Approx. sizes</th></tr></thead>
           <tbody>
@@ -189,7 +189,7 @@
             <tr><td>10</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>121 KB / 131 KB</td></tr>
             <tr><td>11</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>159 KB / 248 KB</td></tr>
             <tr><td>12</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>114 KB / 107 KB</td></tr>
-            <tr><td>13</td><td>Gula Melaka</td><td><a href="../public/recipes/gula-melaka-hot.webp">gula-melaka-hot.webp</a></td><td><a href="../public/recipes/gula-melaka.webp">gula-melaka.webp</a></td><td>1254×1254</td><td>155 KB / 171 KB</td></tr>
+            <tr><td>13</td><td>Gula Melaka</td><td>—</td><td><a href="../public/recipes/gula-melaka.webp">gula-melaka.webp</a></td><td>1254×1254</td><td>— / 171 KB</td></tr>
           </tbody>
         </table>
       </section>
@@ -197,17 +197,17 @@
       <section id="behavior" aria-labelledby="behavior-title">
         <h2 id="behavior-title">Implementation behavior</h2>
         <div class="grid">
-          <article class="card"><h3>Central mapping</h3><p><code>getRecipeImage(recipe.id, temperature)</code> owns the Hot/Iced mapping and falls back to <code>/coffee-icon.png</code> for an unknown ID.</p></article>
-          <article class="card"><h3>Smooth crossfade</h3><p><code>RecipeBackdrop</code> mounts both image layers and crossfades opacity over 500 ms with an ease-in-out curve; reduced-motion users get no transition.</p></article>
+          <article class="card"><h3>Central mapping</h3><p><code>getRecipeImage(recipe.id, temperature)</code> owns the available temperature mapping and falls back to <code>/coffee-icon.png</code> when a requested variant is missing.</p></article>
+          <article class="card"><h3>Smooth crossfade</h3><p><code>RecipeBackdrop</code> renders the active build image and crossfades opacity over 500 ms with an ease-in-out curve; reduced-motion users get no transition.</p></article>
           <article class="card"><h3>Cards and featured</h3><p>Recipe cards and the Coffee of the Day panel use the active temperature image with dark and category-tint overlays for legibility. Card hover lift and shadow use a 300 ms ease-out transition limited to translate and box-shadow.</p></article>
-          <article class="card"><h3>Queue and modal</h3><p>Queue previews use the scheduled Hot/Iced layer for each future day because they have no selector. The modal header uses both layers and follows its Hot/Iced build controls.</p></article>
+          <article class="card"><h3>Queue and modal</h3><p>Queue previews use the scheduled Hot/Iced layer for each future day because they have no selector. The modal header uses the selected available build; Iced-only recipes do not expose a Hot control.</p></article>
         </div>
         <p class="note">There is no API surface for this feature: no endpoints, auth, persistence, transactions, or backend dependency. The generated files are static frontend assets.</p>
       </section>
 
       <section aria-labelledby="prompt-title">
         <h2 id="prompt-title">Generation prompt set</h2>
-        <pre>The built-in ImageGen tool was used for the 25 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish.
+        <pre>The built-in ImageGen tool was used for the 24 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish.
 
 Use case: photorealistic-natural
 Asset type: natural editorial recipe photograph for a coffee recipe web app
@@ -223,19 +223,19 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, water
       <section id="verification" aria-labelledby="verification-title">
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
-          <li>All 13 recipes have distinct Hot and Iced natural editorial visuals.</li>
-          <li>Cards, the featured panel, queue previews, and modal use matching temperature assets; queue previews follow each future day’s scheduled build.</li>
-          <li>Hot/Iced ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
+          <li>Every available build has a distinct natural editorial visual; 12 complete recipes have Hot/Iced pairs and Gula Melaka has an Iced-only visual.</li>
+          <li>Cards, the featured panel, queue previews, and modal use matching available-build assets; queue previews follow each future day’s scheduled build.</li>
+          <li>Available-build ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
           <li>Card hover lift and shadow transition smoothly without animating layout properties.</li>
           <li>Desktop and mobile layouts are readable with no horizontal overflow.</li>
           <li><code>npm run lint</code> passed with no findings.</li>
-          <li><code>npm run build</code> passed through TypeScript and Vite; 26 recipe WebPs are included in the production output.</li>
-          <li>Ingredient-row regression passed: every Hot/Iced build has unique name/amount row identities, including builds with repeated ingredient names.</li>
-          <li>Asset review passed: all 26 final WebPs are 1254×1254 and were reviewed together as a contact sheet.</li>
+          <li><code>npm run build</code> passed through TypeScript and Vite; 25 recipe WebPs are included in the production output.</li>
+          <li>Ingredient-row regression passed: every available build has unique name/amount row identities, including builds with repeated ingredient names.</li>
+          <li>Asset review passed: all 25 final WebPs are 1254×1254 and were reviewed together as a contact sheet.</li>
           <li>Iced Spanish reference refresh passed: the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at <code>public/recipes/spanish.webp</code>.</li>
-          <li>Local Vite URL smoke passed: the root page and all 26 <code>/recipes/*.webp</code> URLs returned HTTP 200.</li>
+          <li>Local Vite URL smoke passed: the root page and all 25 <code>/recipes/*.webp</code> URLs returned HTTP 200.</li>
           <li>Browser interaction recheck was unavailable: browser discovery returned “No browser is available”; existing component behavior and the shared data invariant were checked.</li>
-          <li>Vitest ran 5 files with 25 tests: 21 passed and 4 failed on pre-existing recipe-data expectations (Matcha Spiced syrup amount, <code>milk 5 ml</code> vs <code>10 ml</code> cold foam, and the Dirty Matcha mixture shape), outside this task.</li>
+          <li>Vitest ran 5 files with 27 tests: 23 passed and 4 failed on pre-existing recipe-data expectations (Matcha Spiced syrup amount, <code>milk 5 ml</code> vs <code>10 ml</code> cold foam, and the Dirty Matcha mixture shape), outside this task.</li>
         </ul>
         <p class="note">No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>. The four full-suite data failures remain as a separate pre-existing worktree issue.</p>
       </section>

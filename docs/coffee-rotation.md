@@ -2,15 +2,15 @@
 
 Status: Implemented; code and browser verification passed
 Last updated: 2026-09-17
-Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the recipe line, start today on Matcha, and carry the correct build into the next rotation reset.
+Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/Iced through the complete-build recipe line, start today on Matcha, and carry the correct build into the next rotation reset.
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
-| Authoritative recipe data | src/data/recipes.ts | The current line contains 13 recipes in a fixed order. |
-| Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The recipe index advances by local calendar date from the 2026-09-11 anchor and wraps at the recipe count; 2026-09-15 resolves to Matcha. |
-| Repository-verified UI behavior | src/App.tsx, RecipeGrid.tsx, RecipeCard.tsx, CoffeeOfTheDay.tsx, QueueStrip.tsx, RecipeModal.tsx | The featured panel, recipe lists, and full-recipe modal are stateful Hot/Iced surfaces. |
+| Authoritative recipe data | src/data/recipes.ts | The library contains 13 recipes in a fixed order; the Iced-only Gula Melaka entry is not part of the daily line. |
+| Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The queue filters out recipes missing either build, then advances by local calendar date from the 2026-09-11 anchor and wraps at the 12-recipe complete-build count; 2026-09-15 resolves to Matcha. |
+| Repository-verified UI behavior | src/App.tsx, RecipeGrid.tsx, RecipeCard.tsx, CoffeeOfTheDay.tsx, QueueStrip.tsx, RecipeModal.tsx | The featured panel and queue use complete recipes; cards and the full-recipe modal expose only builds present on each recipe. |
 | User requirement | Start today on Matcha while preserving the Hot → Iced → Hot pattern and reset behavior | 2026-09-15 resolves to Matcha; the first cycle starts Hot by build, each recipe alternates, and each new cycle flips its starting build. |
 | Explicit even-count interpretation | User specifically requested Iced on reset when an even-length line ends Iced | For an even count whose first cycle ends Iced, the next cycle starts Iced, producing a repeated Iced boundary as requested. |
 | Task-board state | No task board or issue reference exists in the repository | No stale board state was available to override the implementation. |
@@ -19,7 +19,8 @@ Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/I
 
 | Task | Surface / owner | Status | Acceptance evidence |
 | --- | --- | --- | --- |
-| Inspect the queue and featured build state | src/lib/coffeeOfTheDay.ts, src/App.tsx, src/components/ / implementation | Complete | Existing date-based queue and all Hot/Iced consumers were identified. |
+| Inspect the queue and featured build state | src/lib/coffeeOfTheDay.ts, src/App.tsx, src/components/ / implementation | Complete | Existing date-based queue, partial-build behavior, and all Hot/Iced consumers were identified. |
+| Exclude incomplete recipes from the daily line | getRotatingRecipes / implementation | Complete | Recipes without both Hot and Iced builds are filtered from the featured item, queue, and rotation count. |
 | Add a date-based default build function | defaultTemperatureForDate / implementation | Complete | The helper returns Hot/Iced for the cycle index plus the position within that cycle. |
 | Apply defaults to the featured recipe | App.tsx, CoffeeOfTheDay.tsx / implementation | Complete | The featured recipe initializes and resets to its scheduled build; manual changes remain available for the current day. |
 | Apply defaults to the recipe list | RecipeGrid.tsx, RecipeCard.tsx / implementation | Complete | Cards use their position in the current rotation phase and reset with the line. |
@@ -30,19 +31,19 @@ Scope: Make the Coffee of the Day and recipe-list default builds alternate Hot/I
 
 ## Rotation contract
 
-The recipe queue still uses daysSinceEpoch(date) and queueIndexForDate(recipeCount, date) for recipe identity. The default build is calculated independently by defaultTemperatureForDate(recipeCount, date):
+The recipe queue first filters the library with getRotatingRecipes, so only recipes with both Hot and Iced builds affect queue identity. It then uses daysSinceEpoch(date) and queueIndexForDate(recipeCount, date). The default build is calculated independently by defaultTemperatureForDate(recipeCount, date):
 
 1. Calculate the zero-based rotation index with floor(elapsedDays / recipeCount).
 2. Calculate the zero-based position inside that rotation.
 3. Alternate the build using rotationIndex + positionInRotation.
 4. Even values are Hot; odd values are Iced.
 
-The current anchor is 2026-09-11, so 2026-09-15 lands on queue index 4, Matcha. The anchored rotation starts Hot by build and flips the next rotation’s starting build. With the current 13 recipes, the first line is Hot → Iced → Hot → … → Hot, and the next line starts Iced. With an even count whose first line ends Iced, the next line also starts Iced, matching the requested reset rule.
+The current anchor is 2026-09-11, so 2026-09-15 lands on queue index 4, Matcha. The anchored complete-build rotation starts Hot by build and flips the next rotation’s starting build. With the current 12 complete recipes, the first line is Hot → Iced → Hot → … → Iced, and the next line also starts Iced, matching the requested reset rule. Gula Melaka remains available in the library as an Iced-only recipe but never changes the queue count or position.
 
 | Recipe count | First item | Last item in first rotation | First item after reset |
 | ---: | --- | --- | --- |
-| 13 | Hot | Hot | Iced |
 | 12 | Hot | Iced | Iced |
+| 13 | Hot | Hot | Iced |
 
 The helper returns Hot for an empty or non-positive count as a safe UI fallback. Dates before the anchor use floor-based division and continue to produce a stable cycle rather than relying on JavaScript’s negative remainder behavior.
 
@@ -53,6 +54,7 @@ The helper returns Hot for an empty or non-positive count as a safe UI fallback.
 - Clicking Hot or Iced on a recipe card changes only that card’s current view; it does not change the date-based schedule.
 - When the local date changes, the app recomputes the recipe, queue, position, and scheduled default. The featured temperature resets to that new default.
 - Opening a recipe carries that card’s current temperature into the modal. Queue selections use the scheduled temperature for that recipe’s position; the modal can still be changed independently.
+- Recipes missing a build remain discoverable, but their cards and modals use the available build only and they are excluded from the daily line.
 - There is no persistence, reset API, mutation, transaction, locking, idempotency key, batch operation, or rollback state. The schedule is deterministic from the anchored epoch, local calendar date, and current recipe count.
 
 ## API surface and dependencies
@@ -65,10 +67,11 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 
 - [x] The first recipe rotation defaults Hot.
 - [x] On 2026-09-15, the Coffee of the Day starts on Matcha.
-- [x] Consecutive recipes alternate Hot, Iced, Hot through the line.
+- [x] The 12 complete-build recipes alternate Hot, Iced, Hot through the line.
 - [x] The recipe list cards use the same alternating defaults for their positions in the line.
 - [x] Upcoming queue previews and queue selections use the scheduled build for each future day.
-- [x] With the current even count of 12, the first recipe after the reset defaults Iced.
+- [x] Gula Melaka is excluded from the daily line because it has no Hot build.
+- [x] With the current complete-build count of 12, the first recipe after the reset defaults Iced.
 - [x] With an even count whose first rotation ends Iced, the first recipe after reset defaults Iced.
 - [x] A user can still override the featured default with the Hot/Iced controls.
 - [x] The full-recipe modal preserves the featured recipe’s current build when opened from “View full recipe.”
@@ -77,12 +80,12 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 
 ## Verification evidence
 
-- Focused rotation boundary check — PASS: compiled coffeeOfTheDay.ts and asserted the 2026-09-15 Matcha start, 13-recipe sequence, list-position defaults, 13-item reset, 12-item last-Iced reset, later even-cycle phase, and empty-count fallback.
+- Focused rotation boundary check — PASS: asserted the 2026-09-15 Matcha start, the 12-recipe complete-build sequence, incomplete-recipe exclusion, list-position defaults, even-cycle reset, later phase, and empty-count fallback.
 - npm run lint — PASS: Oxlint reported no findings after the implementation.
 - npm run build — PASS: TypeScript project build and Vite production build completed successfully.
-- Browser QA — PASS: production preview opened a deep-linked Iced recipe, restored the modal, and reported zero browser console errors or warnings.
-- Full test suite — PARTIAL: Vitest ran 5 files with 22 tests; 21 passed and 1 failed on the pre-existing Iced Dirty Matcha mixture-milk expectation, outside this recipe-line change.
-- Known unrelated failures or environment warnings — `src/data/recipes.test.ts` still expects Iced Dirty Matcha to contain 60 ml of mixture milk, while the current source contains 40 ml Water; this failure is unchanged by the present task.
+- Browser QA — Not rerun: no browser was available for this partial-build UI change; TypeScript, Oxlint, and focused component data paths passed.
+- Full test suite — PARTIAL: Vitest ran 5 files with 27 tests; 23 passed and 4 failed on pre-existing recipe-data expectations, outside this recipe-line change.
+- Known unrelated failures or environment warnings — `src/data/recipes.test.ts` still expects the older Matcha Spiced syrup amount, 15 ml cold-foam milk, and the prior Dirty Matcha mixture shape; these failures are unchanged by the present task.
 
 ## Remaining work
 

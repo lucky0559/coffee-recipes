@@ -4,7 +4,9 @@ import {
   daysSinceEpoch,
   defaultTemperatureForDate,
   defaultTemperatureForRecipePosition,
+  getAvailableTemperature,
   getCoffeeOfTheDay,
+  getRotatingRecipes,
   getUpcomingQueue,
   queueIndexForDate,
 } from "./coffeeOfTheDay";
@@ -37,6 +39,24 @@ describe("coffee of the day rotation", () => {
     expect(getCoffeeOfTheDay(recipes, localDate(2026, 8, 15)).id).toBe("matcha");
   });
 
+  it("excludes recipes missing either temperature build from the rotation", () => {
+    const rotatingRecipes = getRotatingRecipes(recipes);
+
+    expect(rotatingRecipes).toHaveLength(12);
+    expect(rotatingRecipes.map(({ id }) => id)).not.toContain("gula-melaka");
+    expect(getUpcomingQueue(recipes, localDate(2026, 8, 11)).map(({ id }) => id)).not.toContain(
+      "gula-melaka",
+    );
+  });
+
+  it("falls back to an available build for partial recipes", () => {
+    const gulaMelaka = recipes.find((recipe) => recipe.id === "gula-melaka");
+
+    expect(gulaMelaka).toBeDefined();
+    expect(getAvailableTemperature(gulaMelaka!, "Hot")).toBe("Iced");
+    expect(getAvailableTemperature(gulaMelaka!, "Iced")).toBe("Iced");
+  });
+
   it("returns today's recipe and the wrapped serving queue", () => {
     const sample = recipes.slice(0, 3);
     const date = localDate(2026, 8, 13);
@@ -50,7 +70,7 @@ describe("coffee of the day rotation", () => {
     expect(getUpcomingQueue([], date)).toEqual([]);
   });
 
-  it("alternates builds within a 13-recipe cycle and flips after reset", () => {
+  it("alternates builds within an odd-length cycle and flips after reset", () => {
     expect(defaultTemperatureForDate(13, localDate(2026, 8, 11))).toBe("Hot");
     expect(defaultTemperatureForDate(13, localDate(2026, 8, 12))).toBe("Iced");
     expect(defaultTemperatureForDate(13, localDate(2026, 8, 23))).toBe("Hot");

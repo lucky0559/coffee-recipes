@@ -382,17 +382,9 @@ export const recipes: Recipe[] = [
     number: "13",
     name: "Gula Melaka",
     category: "Sweet",
-    hot: {
-      ingredients: [
-        { name: "Palm Sugar Syrup", amount: "10 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
-      ],
-      allergens: [],
-      substitutions: []
-    },
     iced: {
       ingredients: [
-        { name: "Palm Sugar Syrup", amount: "15 ml" },
+        { name: "Palm Sugar Syrup", amount: "30 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],

@@ -1,6 +1,10 @@
 import { Heart, Search, ShieldCheck, X } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
-import { defaultTemperatureForRecipePosition } from "../lib/coffeeOfTheDay";
+import {
+  defaultTemperatureForRecipePosition,
+  getAvailableTemperature,
+  getRotatingRecipes,
+} from "../lib/coffeeOfTheDay";
 import {
   DEFAULT_RECIPE_FILTERS,
   type BuildPreference,
@@ -50,6 +54,7 @@ export function RecipeGrid({
   };
 
   const resetFilters = () => onFiltersChange(DEFAULT_RECIPE_FILTERS);
+  const rotatingRecipes = getRotatingRecipes(recipes);
 
   return (
     <section id="recipes" className="mt-14 scroll-mt-24">
@@ -58,7 +63,7 @@ export function RecipeGrid({
           <h2 className="font-display text-2xl font-semibold text-espresso-950">All recipes</h2>
           <p className="mt-1 text-sm text-espresso-600">
             {visibleRecipes.length === recipes.length
-              ? `${recipes.length} coffees in the rotation`
+              ? `${recipes.length} recipes in the library`
               : `${visibleRecipes.length} of ${recipes.length} recipes shown`}
           </p>
         </div>
@@ -190,16 +195,21 @@ export function RecipeGrid({
       {visibleRecipes.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {visibleRecipes.map((recipe) => {
-            const position = recipes.findIndex(({ id }) => id === recipe.id);
+            const position = rotatingRecipes.findIndex(({ id }) => id === recipe.id);
+            const scheduledTemperature =
+              position < 0
+                ? "Iced"
+                : defaultTemperatureForRecipePosition(rotatingRecipes.length, position, date);
             return (
               <RecipeCard
                 key={`${recipe.id}-${buildPreference}-${date.toDateString()}`}
                 recipe={recipe}
                 isToday={recipe.id === todayId}
                 defaultTemperature={
-                  buildPreference === "Scheduled"
-                    ? defaultTemperatureForRecipePosition(recipes.length, position, date)
-                    : buildPreference
+                  getAvailableTemperature(
+                    recipe,
+                    buildPreference === "Scheduled" ? scheduledTemperature : buildPreference,
+                  )
                 }
                 isFavorite={favoriteIds.has(recipe.id)}
                 onSelect={onSelect}

@@ -26,6 +26,6 @@ export interface Recipe {
   number: string;
   name: string;
   category: Category;
-  hot: RecipeBuild;
-  iced: RecipeBuild;
+  hot?: RecipeBuild;
+  iced?: RecipeBuild;
 }
