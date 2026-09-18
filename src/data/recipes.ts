@@ -20,7 +20,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -49,7 +49,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 10 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -82,7 +82,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -114,7 +114,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 10 ml, patis 3 ml",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml, patis 3 ml",
       allergens: ["Dairy", "Fish"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -177,7 +177,7 @@ export const recipes: Recipe[] = [
         { name: "Ground Cinnamon", amount: "splash on top" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -208,7 +208,7 @@ export const recipes: Recipe[] = [
         { name: "Palm Syrup/Blue Agave", amount: "3 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -241,7 +241,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, 0.3 g Tibuok",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, 0.3 g Tibuok",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -271,7 +271,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 10 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -302,7 +302,7 @@ export const recipes: Recipe[] = [
         { name: "Espresso", amount: "2 shots" },
         { name: "Palm Syrup/Blue Agave", amount: "10 ml" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -335,7 +335,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 5 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy", "Gluten"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
