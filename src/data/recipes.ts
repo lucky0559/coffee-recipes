@@ -257,7 +257,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
-        { name: "Caramel Sauce", amount: "10 ml" },
+        { name: "Caramel Sauce", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
