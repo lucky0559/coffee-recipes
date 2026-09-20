@@ -315,6 +315,7 @@ export const recipes: Recipe[] = [
     number: "11",
     name: "Biscoff",
     category: "Sweet",
+    recommended: ["Iced"],
     hot: {
       ingredients: [
         { name: "Biscoff Spread", amount: "1 spoon" },
@@ -352,6 +353,7 @@ export const recipes: Recipe[] = [
     number: "12",
     name: "Matcha Caramel",
     category: "Matcha",
+    recommended: ["Iced"],
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },

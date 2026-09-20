@@ -38,6 +38,17 @@ describe("recipe data", () => {
     });
   });
 
+  it("stores temperature-specific recommendations in recipe data", () => {
+    expect(
+      recipes
+        .filter(({ recommended }) => recommended)
+        .map(({ id, recommended }) => ({ id, recommended })),
+    ).toEqual([
+      { id: "biscoff", recommended: ["Iced"] },
+      { id: "matcha-caramel", recommended: ["Iced"] },
+    ]);
+  });
+
   it("keeps Gula Melaka Iced-only with 30 ml palm sugar syrup", () => {
     const gulaMelaka = recipes.find((recipe) => recipe.id === "gula-melaka");
 

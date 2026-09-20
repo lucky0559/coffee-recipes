@@ -31,7 +31,7 @@ export function RecipeCard({
     ? temperature
     : getAvailableTemperature(recipe, temperature);
   const build = getRecipeBuild(recipe, displayTemperature);
-  const isIcedBestseller = recipe.id === "matcha-caramel" && displayTemperature === "Iced";
+  const isRecommended = recipe.recommended?.includes(displayTemperature) ?? false;
 
   if (!build) return null;
 
@@ -50,7 +50,7 @@ export function RecipeCard({
           >
             {recipe.category}
           </span>
-          {isIcedBestseller ? (
+          {isRecommended ? (
             <span
               role="img"
               aria-label="Recommended bestseller"
