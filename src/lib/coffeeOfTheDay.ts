@@ -4,14 +4,14 @@ import type { Recipe, RecipeBuild, Temperature } from "../types";
 const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
 const MS_PER_DAY = 86_400_000;
 
-export type CompleteRecipe = Recipe & Required<Pick<Recipe, "hot" | "iced">>;
+export type RotatingRecipe = Recipe & ({ hot: RecipeBuild } | { iced: RecipeBuild });
 
-export function isCompleteRecipe(recipe: Recipe): recipe is CompleteRecipe {
-  return recipe.hot !== undefined && recipe.iced !== undefined;
+function hasAvailableBuild(recipe: Recipe): recipe is RotatingRecipe {
+  return recipe.hot !== undefined || recipe.iced !== undefined;
 }
 
-export function getRotatingRecipes(recipes: ReadonlyArray<Recipe>): CompleteRecipe[] {
-  return recipes.filter(isCompleteRecipe);
+export function getRotatingRecipes(recipes: ReadonlyArray<Recipe>): RotatingRecipe[] {
+  return recipes.filter(hasAvailableBuild);
 }
 
 export function getRecipeBuild(recipe: Recipe, temperature: Temperature): RecipeBuild | undefined {
@@ -36,7 +36,7 @@ export function daysSinceEpoch(date: Date): number {
 /**
  * The queue index for a given date. Recipes are served in a fixed order
  * and advance one position per day, wrapping back to the start once the
- * complete-build line has been served — like a rotating queue, not a random draw.
+ * available-build line has been served — like a rotating queue, not a random draw.
  */
 export function queueIndexForDate(recipeCount: number, date: Date): number {
   if (recipeCount <= 0) return 0;
@@ -48,7 +48,7 @@ export function queueIndexForDate(recipeCount: number, date: Date): number {
  * The default build alternates within each recipe rotation. The first
  * rotation starts Hot; each new rotation flips its starting build so a
  * reset can begin Iced when the current rotation ends on Iced (including
- * the current 12-recipe complete-build rotation).
+ * the current available-build rotation).
  */
 export function defaultTemperatureForRecipePosition(
   recipeCount: number,
@@ -81,7 +81,7 @@ export function defaultTemperatureForDate(
 export function getCoffeeOfTheDay(
   recipes: ReadonlyArray<Recipe>,
   date: Date = new Date(),
-): CompleteRecipe {
+): RotatingRecipe {
   const rotatingRecipes = getRotatingRecipes(recipes);
   return rotatingRecipes[queueIndexForDate(rotatingRecipes.length, date)];
 }
@@ -90,7 +90,7 @@ export function getCoffeeOfTheDay(
 export function getUpcomingQueue(
   recipes: ReadonlyArray<Recipe>,
   date: Date = new Date(),
-): CompleteRecipe[] {
+): RotatingRecipe[] {
   const rotatingRecipes = getRotatingRecipes(recipes);
   const startIndex = queueIndexForDate(rotatingRecipes.length, date);
   return rotatingRecipes.map((_, i) => rotatingRecipes[(startIndex + i) % rotatingRecipes.length]);

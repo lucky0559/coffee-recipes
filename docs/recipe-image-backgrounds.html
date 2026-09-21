@@ -235,7 +235,7 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, water
           <li>Iced Spanish reference refresh passed: the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at <code>public/recipes/spanish.webp</code>.</li>
           <li>Local Vite URL smoke passed: the root page and all 25 <code>/recipes/*.webp</code> URLs returned HTTP 200.</li>
           <li>Browser interaction recheck was unavailable: browser discovery returned “No browser is available”; existing component behavior and the shared data invariant were checked.</li>
-          <li>Vitest ran 5 files with 27 tests: 23 passed and 4 failed on pre-existing recipe-data expectations (Matcha Spiced syrup amount, <code>milk 5 ml</code> vs <code>10 ml</code> cold foam, and the Dirty Matcha mixture shape), outside this task.</li>
+          <li>Vitest ran 5 files with 28 tests: 24 passed and 4 failed on pre-existing recipe-data expectations (temperature-specific recommendation metadata, Matcha Spiced syrup amount, <code>milk 5 ml</code> vs <code>10 ml</code> cold foam, and the Dirty Matcha mixture shape), outside this task.</li>
         </ul>
         <p class="note">No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>. The four full-suite data failures remain as a separate pre-existing worktree issue.</p>
       </section>

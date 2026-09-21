@@ -2,14 +2,18 @@ import { useState } from "react";
 import { Flame, Heart, ListOrdered, Snowflake, Sparkles } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import { CATEGORY_STYLES } from "../data/categories";
-import type { CompleteRecipe } from "../lib/coffeeOfTheDay";
+import {
+  getAvailableTemperature,
+  getRecipeBuild,
+  type RotatingRecipe,
+} from "../lib/coffeeOfTheDay";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 import { QueueStrip } from "./QueueStrip";
 
 interface CoffeeOfTheDayProps {
-  recipe: CompleteRecipe;
+  recipe: RotatingRecipe;
   date: Date;
-  queue: CompleteRecipe[];
+  queue: RotatingRecipe[];
   position: number;
   total: number;
   defaultTemperature: Temperature;
@@ -34,13 +38,18 @@ export function CoffeeOfTheDay({
   onToggleFavorite,
 }: CoffeeOfTheDayProps) {
   const [from, to] = CATEGORY_STYLES[recipe.category].accent;
-  const [temperature, setTemperature] = useState<Temperature>(defaultTemperature);
+  const [temperature, setTemperature] = useState<Temperature>(() =>
+    getAvailableTemperature(recipe, defaultTemperature),
+  );
+  const displayTemperature = getAvailableTemperature(recipe, temperature);
   const todayLabel = new Intl.DateTimeFormat(undefined, {
     weekday: "long",
     month: "long",
     day: "numeric",
   }).format(date);
-  const build = temperature === "Iced" ? recipe.iced : recipe.hot;
+  const build = getRecipeBuild(recipe, displayTemperature);
+
+  if (!build) return null;
 
   return (
     <section
@@ -48,7 +57,7 @@ export function CoffeeOfTheDay({
     >
       <RecipeBackdrop
         recipeId={recipe.id}
-        temperature={temperature}
+        temperature={displayTemperature}
         accent={[from, to]}
         surface="featured"
       />
@@ -92,9 +101,10 @@ export function CoffeeOfTheDay({
           <button
             type="button"
             onClick={() => setTemperature("Hot")}
-            aria-pressed={temperature === "Hot"}
+            aria-pressed={displayTemperature === "Hot"}
+            hidden={!recipe.hot}
             className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
-              temperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
+              displayTemperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
             <Flame className="h-3 w-3" />
@@ -103,9 +113,10 @@ export function CoffeeOfTheDay({
           <button
             type="button"
             onClick={() => setTemperature("Iced")}
-            aria-pressed={temperature === "Iced"}
+            aria-pressed={displayTemperature === "Iced"}
+            hidden={!recipe.iced}
             className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
-              temperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
+              displayTemperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
             <Snowflake className="h-3 w-3" />
@@ -138,7 +149,7 @@ export function CoffeeOfTheDay({
 
         <button
           type="button"
-          onClick={() => onViewRecipe(temperature)}
+          onClick={() => onViewRecipe(displayTemperature)}
           className="mt-6 inline-flex items-center rounded-full bg-cream-50 px-6 py-3 text-sm font-semibold text-espresso-950 shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0"
         >
           View full recipe

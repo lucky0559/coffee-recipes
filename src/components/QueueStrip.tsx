@@ -1,9 +1,13 @@
 import type { Recipe, Temperature } from "../types";
-import { defaultTemperatureForDate, type CompleteRecipe } from "../lib/coffeeOfTheDay";
+import {
+  defaultTemperatureForDate,
+  getAvailableTemperature,
+  type RotatingRecipe,
+} from "../lib/coffeeOfTheDay";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 
 interface QueueStripProps {
-  queue: CompleteRecipe[];
+  queue: RotatingRecipe[];
   date: Date;
   preferredTemperature: Temperature | null;
   onSelect: (recipe: Recipe, temperature?: Temperature) => void;
@@ -27,8 +31,9 @@ export function QueueStrip({ queue, date, preferredTemperature, onSelect }: Queu
         {preview.map((recipe, i) => {
           const previewDate = new Date(date);
           previewDate.setDate(previewDate.getDate() + i);
-          const temperature =
+          const scheduledTemperature =
             preferredTemperature ?? defaultTemperatureForDate(queue.length, previewDate);
+          const temperature = getAvailableTemperature(recipe, scheduledTemperature);
 
           return (
             <button

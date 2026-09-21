@@ -11,6 +11,7 @@ import {
   queueIndexForDate,
 } from "./coffeeOfTheDay";
 import { recipes } from "../data/recipes";
+import type { Recipe } from "../types";
 
 function localDate(year: number, month: number, day: number, hour = 12): Date {
   return new Date(year, month, day, hour);
@@ -39,14 +40,22 @@ describe("coffee of the day rotation", () => {
     expect(getCoffeeOfTheDay(recipes, localDate(2026, 8, 15)).id).toBe("matcha");
   });
 
-  it("excludes recipes missing either temperature build from the rotation", () => {
-    const rotatingRecipes = getRotatingRecipes(recipes);
+  it("includes recipes with at least one temperature build in the rotation", () => {
+    const unavailableRecipe: Recipe = {
+      id: "unavailable",
+      number: "00",
+      name: "Unavailable",
+      category: "Sweet",
+    };
+    const rotatingRecipes = getRotatingRecipes([...recipes, unavailableRecipe]);
 
-    expect(rotatingRecipes).toHaveLength(12);
-    expect(rotatingRecipes.map(({ id }) => id)).not.toContain("gula-melaka");
-    expect(getUpcomingQueue(recipes, localDate(2026, 8, 11)).map(({ id }) => id)).not.toContain(
+    expect(rotatingRecipes).toHaveLength(13);
+    expect(rotatingRecipes.map(({ id }) => id)).toContain("gula-melaka");
+    expect(rotatingRecipes.map(({ id }) => id)).not.toContain("unavailable");
+    expect(getUpcomingQueue(recipes, localDate(2026, 8, 11)).map(({ id }) => id)).toContain(
       "gula-melaka",
     );
+    expect(getCoffeeOfTheDay(recipes, localDate(2026, 8, 23)).id).toBe("gula-melaka");
   });
 
   it("falls back to an available build for partial recipes", () => {

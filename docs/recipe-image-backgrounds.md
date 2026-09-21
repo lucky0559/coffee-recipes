@@ -51,7 +51,7 @@ All assets are local, text-free, square WebP images in the same natural editoria
 - `RecipeBackdrop` renders the active build image and crossfades it over 500 ms with an ease-in-out curve. `motion-reduce:transition-none` respects reduced-motion preferences.
 - Recipe cards use the active generated image as their full background, with dark vertical and horizontal overlays for ingredient legibility. Their hover lift and shadow use a 300 ms ease-out transition limited to `translate` and `box-shadow`; reduced-motion users get no lift transition.
 - The Coffee of the Day panel and recipe modal use the active image, a readable dark overlay, and a translucent category gradient so the generated image remains visible.
-- Queue items use the scheduled Hot/Iced image for their future day because the queue has no Hot/Iced selector; incomplete recipes are not queued.
+- Queue items use the scheduled Hot/Iced image for their future day because the queue has no Hot/Iced selector; recipes with one available build use that build’s image, and recipes with neither build are not queued.
 - Hot/Iced controls change the displayed ingredient build and image base wherever that build exists; Iced-only Gula Melaka exposes only its Iced image.
 - The UI contains no image text, logos, packaging, people, or watermark content.
 
@@ -98,7 +98,7 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 - Asset review — PASS; all 25 final WebPs are 1254×1254 and were reviewed together as a contact sheet for natural composition and malformed details.
 - Iced Spanish reference refresh — PASS; the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at `public/recipes/spanish.webp`.
 - Local Vite URL smoke — PASS; the root page and all 25 `/recipes/*.webp` URLs returned HTTP 200.
-- Full Vitest suite — PARTIAL: 5 files, 27 tests; 23 passed and 4 failed on pre-existing recipe-data expectations (Matcha Spiced syrup amount, `milk 5 ml` vs `10 ml` cold foam, and the Dirty Matcha mixture shape), outside this task.
+- Full Vitest suite — PARTIAL: 5 files, 28 tests; 24 passed and 4 failed on pre-existing recipe-data expectations (temperature-specific recommendation metadata, Matcha Spiced syrup amount, `milk 5 ml` vs `10 ml` cold foam, and the Dirty Matcha mixture shape), outside this task.
 - Browser interaction recheck — Not available: browser discovery returned “No browser is available”; component renderers were statically checked and the shared ingredient-row invariant passes.
 
 ## Remaining work

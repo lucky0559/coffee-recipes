@@ -384,6 +384,7 @@ export const recipes: Recipe[] = [
     number: "13",
     name: "Gula Melaka",
     category: "Sweet",
+    recommended: ["Iced"],
     iced: {
       ingredients: [
         { name: "Palm Sugar Syrup", amount: "30 ml" },

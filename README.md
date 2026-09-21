@@ -161,7 +161,7 @@ When an image is added or renamed, verify the complete chain: recipe ID → `REC
 
 ## Daily rotation
 
-The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the complete-build line at September 11, 2026:
+The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the available-build line at September 11, 2026:
 
 ```ts
 const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
@@ -170,9 +170,9 @@ const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
 `daysSinceEpoch` converts the `Date` to its local calendar date before comparing UTC midnights, so the recipe changes at local midnight instead of after an arbitrary 24-hour interval. The main helpers are:
 
 - `queueIndexForDate(recipeCount, date)` — normalized zero-based index in the ordered recipe array.
-- `getRotatingRecipes(recipes)` — filters the library to recipes with both Hot and Iced builds.
-- `getCoffeeOfTheDay(recipes, date)` — complete-build recipe at today's queue index.
-- `getUpcomingQueue(recipes, date)` — the complete-build line starting today, wrapped at the end.
+- `getRotatingRecipes(recipes)` — filters the library to recipes with at least one Hot or Iced build.
+- `getCoffeeOfTheDay(recipes, date)` — available-build recipe at today's queue index.
+- `getUpcomingQueue(recipes, date)` — the available-build line starting today, wrapped at the end.
 - `defaultTemperatureForDate(recipeCount, date)` — scheduled Hot/Iced build for today's recipe.
 - `defaultTemperatureForRecipePosition(recipeCount, position, date)` — scheduled build for a known position in the current cycle.
 
@@ -187,7 +187,7 @@ even alternatingPosition → Hot
 odd alternatingPosition  → Iced
 ```
 
-With the current 12-recipe complete-build line, the anchored cycle starts Hot and alternates through the line, ending Iced. The next cycle also starts Iced. Gula Melaka remains in the library as an Iced-only recipe and is not scheduled:
+With the current 13-recipe available-build line, the anchored cycle starts Hot and alternates through the line, ending Hot. The next cycle starts Iced. Gula Melaka participates in the line as an Iced-only recipe; when its scheduled slot is Hot, the UI resolves to its available Iced build:
 
 | Local date | Queue item | Scheduled build |
 | --- | --- | --- |
@@ -195,9 +195,9 @@ With the current 12-recipe complete-build line, the anchored cycle starts Hot an
 | 2026-09-12 | Caramel | Iced |
 | 2026-09-15 | Matcha | Hot |
 | 2026-09-22 | Matcha Caramel | Iced |
-| 2026-09-23 | Cheesecake, after reset | Iced |
+| 2026-09-23 | Gula Melaka | Iced fallback from scheduled Hot |
 
-Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation uses the 12-item complete-build line while keeping all 13 library recipes discoverable.
+Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation uses the 13-item available-build line while excluding only recipes with neither build.
 
 The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
 
