@@ -132,7 +132,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Palm Syrup/Blue Agave", amount: "7 ml" }
+        { name: "Palm Syrup", amount: "7 ml" }
       ],
       allergens: [],
       substitutions: []
@@ -142,7 +142,7 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Palm Syrup/Blue Agave", amount: "7 ml" }
+        { name: "Palm Syrup", amount: "15 ml" }
       ],
       allergens: ["Dairy"],
       substitutions: [
@@ -194,7 +194,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Palm Syrup/Blue Agave", amount: "3 ml" },
+        { name: "Palm Syrup", amount: "5 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
       allergens: [],
@@ -205,7 +205,7 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Palm Syrup/Blue Agave", amount: "3 ml" },
+        { name: "Palm Syrup", amount: "5 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 10 ml, sea salt pinch",
@@ -288,7 +288,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Honey/Blue Agave", amount: "10 ml" },
+        { name: "Palm Syrup", amount: "20 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
       allergens: [],
@@ -300,7 +300,7 @@ export const recipes: Recipe[] = [
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" },
-        { name: "Palm Syrup/Blue Agave", amount: "10 ml" }
+        { name: "Palm Syrup", amount: "20 ml" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
