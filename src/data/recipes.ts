@@ -369,7 +369,7 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Caramel Syrup", amount: "20 ml" },
+        { name: "Caramel Syrup", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
       ],
       allergens: ["Dairy"],
@@ -391,6 +391,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
+      note: "Cold foam — whipping cream 30 ml, milk 10 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
