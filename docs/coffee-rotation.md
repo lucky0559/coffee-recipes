@@ -84,8 +84,8 @@ Runtime dependencies are the existing React app, the Temperature union in src/ty
 - Oxlint — PASS: direct lint invocation reported 0 warnings and 0 errors.
 - TypeScript and Vite — PASS: project type-check and production build completed successfully; service-worker cache version generation also passed.
 - Browser QA — Not run for this partial-build UI change; code-path verification passed.
-- Full test suite — PARTIAL: Vitest ran 5 files with 28 tests; 24 passed and 4 failed on pre-existing recipe-data expectations, outside this recipe-line change.
-- Known unrelated failures or environment warnings — `src/data/recipes.test.ts` has four existing expectation failures for temperature-specific recommendation metadata, Matcha Spiced syrup amount, Hot Salted Caramel syrup amount, and the Dirty Matcha mixture shape; these failures are unchanged by the present task.
+- Full test suite — PARTIAL: Vitest ran 5 files with 28 tests; 23 passed and 5 failed on pre-existing recipe-data expectations, outside this recipe-line change.
+- Known unrelated failures or environment warnings — `src/data/recipes.test.ts` has five existing expectation failures for temperature-specific recommendation metadata, Matcha Spiced syrup amount, Iced Matcha Caramel syrup/drizzle data, Hot Salted Caramel syrup amount, and the Dirty Matcha mixture shape; these failures are unchanged by the present task.
 
 ## Remaining work
 

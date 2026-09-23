@@ -128,8 +128,8 @@
       <div class="shell">
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Recipe image backgrounds</h1>
-        <p class="lede">Twenty-five varied natural editorial café photographs cover the available builds across 13 recipes: Hot/Iced pairs for 12 complete recipes plus an Iced-only Gula Melaka visual.</p>
-        <p><span class="status" role="status">Implemented · asset, switch, and Iced Spanish reference refresh verified · browser recheck unavailable</span></p>
+        <p class="lede">Twenty-five varied natural editorial café photographs cover the available builds across 13 recipes: Hot/Iced pairs for 12 complete recipes plus an Iced-only Gula Melaka visual; Iced Matcha and Iced Gula Melaka now have ImageGen-enhanced background edits.</p>
+        <p><span class="status" role="status">Implemented · asset, switch, and ImageGen-enhanced Iced Matcha and Iced Gula Melaka refreshes verified · browser recheck unavailable</span></p>
       </div>
     </header>
 
@@ -163,8 +163,8 @@
           <thead><tr><th scope="col">Task</th><th scope="col">Surface / owner</th><th scope="col">Status</th><th scope="col">Acceptance evidence</th></tr></thead>
           <tbody>
             <tr><td>Inspect recipe data and UI</td><td><code>src/data</code>, <code>src/components</code></td><td>Complete</td><td>All 13 recipes and image-bearing surfaces identified.</td></tr>
-            <tr><td>Generate available image variants</td><td><code>public/recipes/*.webp</code> / ImageGen</td><td>Complete</td><td>24 refreshed square beverage visuals plus the preserved recent Iced Matcha Caramel asset: 12 Hot/Iced pairs and one Iced-only Gula Melaka asset.</td></tr>
-            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is 3,632,130 bytes.</td></tr>
+            <tr><td>Generate and source available image variants</td><td><code>public/recipes/*.webp</code> / ImageGen and supplied reference</td><td>Complete</td><td>25 square beverage visuals: 12 Hot/Iced pairs and one Iced-only Gula Melaka asset; Iced Matcha and Iced Gula Melaka use ImageGen-enhanced supplied reference edits, and Iced Matcha Caramel remains preserved.</td></tr>
+            <tr><td>Optimize generated assets</td><td><code>public/recipes/*.webp</code></td><td>Complete</td><td>1254×1254 WebP files; folder is 3,555,676 bytes.</td></tr>
             <tr><td>Wire temperature-aware images</td><td>Mapping, backdrop, cards, featured panel, queue, modal</td><td>Complete</td><td>Available-build selectors drive the active layer; the Iced-only Gula Melaka card and modal never expose a Hot image.</td></tr>
             <tr><td>Responsive and interaction QA</td><td>Local Vite app</td><td>Complete for image feature; browser recheck unavailable</td><td>Existing desktop/mobile interaction QA remains valid; the current build served the root page and all 25 recipe image URLs with HTTP 200.</td></tr>
           </tbody>
@@ -173,7 +173,7 @@
 
       <section id="assets" aria-labelledby="assets-title">
         <h2 id="assets-title">Asset matrix</h2>
-        <p class="section-intro">All assets are local, text-free, square WebP images in one natural editorial café-photography family. The set combines 24 newly generated images with the preserved recent Iced Matcha Caramel image; the refreshed assets vary angle, crop, surface, vessel, props, and background arrangement so no recipe pair copies a full scene.</p>
+        <p class="section-intro">All assets are local, text-free, square WebP images in one natural editorial café-photography family. The set combines 23 generated images, ImageGen-enhanced Iced Matcha and Iced Gula Melaka edits based on the supplied photos, and the preserved recent Iced Matcha Caramel image; the refreshed assets vary angle, crop, surface, vessel, props, and background arrangement so no recipe pair copies a full scene.</p>
         <table>
           <thead><tr><th scope="col">#</th><th scope="col">Recipe</th><th scope="col">Hot asset</th><th scope="col">Iced asset</th><th scope="col">Dimensions</th><th scope="col">Approx. sizes</th></tr></thead>
           <tbody>
@@ -181,7 +181,7 @@
             <tr><td>02</td><td>Caramel</td><td><a href="../public/recipes/caramel-hot.webp">caramel-hot.webp</a></td><td><a href="../public/recipes/caramel.webp">caramel.webp</a></td><td>1254×1254</td><td>129 KB / 185 KB</td></tr>
             <tr><td>03</td><td>Sea Salt</td><td><a href="../public/recipes/sea-salt-hot.webp">sea-salt-hot.webp</a></td><td><a href="../public/recipes/sea-salt.webp">sea-salt.webp</a></td><td>1254×1254</td><td>117 KB / 100 KB</td></tr>
             <tr><td>04</td><td>Caramelized Patis</td><td><a href="../public/recipes/caramelized-patis-hot.webp">caramelized-patis-hot.webp</a></td><td><a href="../public/recipes/caramelized-patis.webp">caramelized-patis.webp</a></td><td>1254×1254</td><td>124 KB / 113 KB</td></tr>
-            <tr><td>05</td><td>Matcha</td><td><a href="../public/recipes/matcha-hot.webp">matcha-hot.webp</a></td><td><a href="../public/recipes/matcha.webp">matcha.webp</a></td><td>1254×1254</td><td>154 KB / 138 KB</td></tr>
+            <tr><td>05</td><td>Matcha</td><td><a href="../public/recipes/matcha-hot.webp">matcha-hot.webp</a></td><td><a href="../public/recipes/matcha.webp">matcha.webp</a></td><td>1254×1254</td><td>154 KB / 109 KB</td></tr>
             <tr><td>06</td><td>Spanish</td><td><a href="../public/recipes/spanish-hot.webp">spanish-hot.webp</a></td><td><a href="../public/recipes/spanish.webp">spanish.webp</a></td><td>1254×1254</td><td>104 KB / 141 KB</td></tr>
             <tr><td>07</td><td>Matcha Spiced</td><td><a href="../public/recipes/matcha-spiced-hot.webp">matcha-spiced-hot.webp</a></td><td><a href="../public/recipes/matcha-spiced.webp">matcha-spiced.webp</a></td><td>1254×1254</td><td>174 KB / 155 KB</td></tr>
             <tr><td>08</td><td>Kape Tibuok</td><td><a href="../public/recipes/kape-tibuok-hot.webp">kape-tibuok-hot.webp</a></td><td><a href="../public/recipes/kape-tibuok.webp">kape-tibuok.webp</a></td><td>1254×1254</td><td>146 KB / 159 KB</td></tr>
@@ -189,7 +189,7 @@
             <tr><td>10</td><td>Dirty Matcha</td><td><a href="../public/recipes/dirty-matcha-hot.webp">dirty-matcha-hot.webp</a></td><td><a href="../public/recipes/dirty-matcha.webp">dirty-matcha.webp</a></td><td>1254×1254</td><td>121 KB / 131 KB</td></tr>
             <tr><td>11</td><td>Biscoff</td><td><a href="../public/recipes/biscoff-hot.webp">biscoff-hot.webp</a></td><td><a href="../public/recipes/biscoff.webp">biscoff.webp</a></td><td>1254×1254</td><td>159 KB / 248 KB</td></tr>
             <tr><td>12</td><td>Matcha Caramel</td><td><a href="../public/recipes/matcha-caramel-hot.webp">matcha-caramel-hot.webp</a></td><td><a href="../public/recipes/matcha-caramel.webp">matcha-caramel.webp</a></td><td>1254×1254</td><td>114 KB / 107 KB</td></tr>
-            <tr><td>13</td><td>Gula Melaka</td><td>—</td><td><a href="../public/recipes/gula-melaka.webp">gula-melaka.webp</a></td><td>1254×1254</td><td>— / 171 KB</td></tr>
+            <tr><td>13</td><td>Gula Melaka</td><td>—</td><td><a href="../public/recipes/gula-melaka.webp">gula-melaka.webp</a></td><td>1254×1254</td><td>— / 125 KB</td></tr>
           </tbody>
         </table>
       </section>
@@ -207,7 +207,7 @@
 
       <section aria-labelledby="prompt-title">
         <h2 id="prompt-title">Generation prompt set</h2>
-        <pre>The built-in ImageGen tool was used for the 24 refreshed assets. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from the attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish.
+        <pre>The built-in ImageGen tool was used for the 23 refreshed assets and for targeted Iced Matcha and Iced Gula Melaka background edits; ImageGen preserved both supplied glass drinks and replaced their cluttered backgrounds before optimization into matcha.webp and gula-melaka.webp. The recent Iced Matcha Caramel image was preserved from the preceding approved pass. The Iced Spanish asset was regenerated from its attached espresso-bar reference, keeping the recipe mapping while matching its moody machine backdrop, navy woven cloth, rounded glass, foamed milk, and cinnamon finish.
 
 Use case: photorealistic-natural
 Asset type: natural editorial recipe photograph for a coffee recipe web app
@@ -224,6 +224,8 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, water
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
           <li>Every available build has a distinct natural editorial visual; 12 complete recipes have Hot/Iced pairs and Gula Melaka has an Iced-only visual.</li>
+          <li>Iced Matcha uses an ImageGen-enhanced edit of the supplied reference through the existing <code>matcha.webp</code> mapping, preserving the glass drink while improving the background.</li>
+          <li>Iced Gula Melaka uses an ImageGen-enhanced edit of the supplied reference through the existing <code>gula-melaka.webp</code> mapping, preserving the glass drink while improving the background.</li>
           <li>Cards, the featured panel, queue previews, and modal use matching available-build assets; queue previews follow each future day’s scheduled build.</li>
           <li>Available-build ingredient behavior remains functional, with a smooth image crossfade on selectable surfaces.</li>
           <li>Card hover lift and shadow transition smoothly without animating layout properties.</li>
@@ -231,13 +233,14 @@ Constraints: no people, hands, logos, labels, packaging, typography, text, water
           <li><code>npm run lint</code> passed with no findings.</li>
           <li><code>npm run build</code> passed through TypeScript and Vite; 25 recipe WebPs are included in the production output.</li>
           <li>Ingredient-row regression passed: every available build has unique name/amount row identities, including builds with repeated ingredient names.</li>
-          <li>Asset review passed: all 25 final WebPs are 1254×1254 and were reviewed together as a contact sheet.</li>
-          <li>Iced Spanish reference refresh passed: the new asset was generated from the attached café reference, visually inspected, and saved as a 1254×1254 WebP at <code>public/recipes/spanish.webp</code>.</li>
+          <li>Asset review passed: all 25 final WebPs are 1254×1254, and the ImageGen-enhanced Iced Matcha and Iced Gula Melaka edits were visually inspected for composition and malformed details.</li>
+          <li>ImageGen-enhanced Iced Matcha reference refresh passed: ImageGen preserved the supplied glass matcha drink, replaced the cluttered background with a warm blurred café bar, and the selected result was optimized to a 1254×1254 WebP at <code>public/recipes/matcha.webp</code>.</li>
+          <li>ImageGen-enhanced Iced Gula Melaka reference refresh passed: ImageGen preserved the supplied glass drink, replaced the cluttered background with a warm blurred café bar, and the selected result was optimized to a 1254×1254 WebP at <code>public/recipes/gula-melaka.webp</code>.</li>
           <li>Local Vite URL smoke passed: the root page and all 25 <code>/recipes/*.webp</code> URLs returned HTTP 200.</li>
           <li>Browser interaction recheck was unavailable: browser discovery returned “No browser is available”; existing component behavior and the shared data invariant were checked.</li>
-          <li>Vitest ran 5 files with 28 tests: 24 passed and 4 failed on pre-existing recipe-data expectations (temperature-specific recommendation metadata, Matcha Spiced syrup amount, <code>milk 5 ml</code> vs <code>10 ml</code> cold foam, and the Dirty Matcha mixture shape), outside this task.</li>
+          <li>Vitest ran 5 files with 28 tests: 23 passed and 5 failed on pre-existing recipe-data expectations (temperature-specific recommendation metadata, Matcha Spiced syrup amount, Iced Matcha Caramel syrup/drizzle data, Hot Salted Caramel syrup amount, and the Dirty Matcha mixture shape), outside this task.</li>
         </ul>
-        <p class="note">No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>. The four full-suite data failures remain as a separate pre-existing worktree issue.</p>
+        <p class="note">No requested image or ingredient-switch work remains. The original ImageGen PNG outputs remain in the local generated-image archive; only optimized WebPs are shipped under <code>public/recipes/</code>. The five full-suite data failures remain as a separate pre-existing worktree issue.</p>
       </section>
     </main>
 
