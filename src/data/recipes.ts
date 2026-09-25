@@ -35,7 +35,7 @@ export const recipes: Recipe[] = [
     category: "Sweet",
     hot: {
       ingredients: [
-        { name: "Caramel Sauce", amount: "20 ml" },
+        { name: "Caramel Sauce", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
