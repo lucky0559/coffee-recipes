@@ -141,7 +141,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        { name: "Milk", amount: "100 ml" },
         { name: "Palm Syrup", amount: "15 ml" }
       ],
       allergens: ["Dairy"],
@@ -204,7 +204,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        { name: "Milk", amount: "100 ml" },
         { name: "Palm Syrup", amount: "5 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
@@ -298,7 +298,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        { name: "Milk", amount: "100 ml" },
         { name: "Espresso", amount: "2 shots" },
         { name: "Palm Syrup", amount: "20 ml" }
       ],
@@ -368,7 +368,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "120 ml" },
+        { name: "Milk", amount: "100 ml" },
         { name: "Caramel Syrup", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
       ],
