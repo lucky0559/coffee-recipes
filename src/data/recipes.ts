@@ -6,6 +6,8 @@ export const recipes: Recipe[] = [
     number: "01",
     name: "Cheesecake",
     category: "Sweet",
+    description:
+      "Espresso sweetened with cheesecake syrup — rich and dessert-like, finished iced under a salted vanilla cold foam.",
     hot: {
       ingredients: [
         { name: "Cheesecake Syrup", amount: "15 ml" },
@@ -33,6 +35,8 @@ export const recipes: Recipe[] = [
     number: "02",
     name: "Caramel",
     category: "Sweet",
+    description:
+      "A classic caramel latte: double espresso, buttery caramel and a glossy caramel drizzle on top.",
     hot: {
       ingredients: [
         { name: "Caramel Sauce", amount: "15 ml" },
@@ -62,6 +66,8 @@ export const recipes: Recipe[] = [
     number: "03",
     name: "Sea Salt",
     category: "Savory",
+    description:
+      "Condensed milk and espresso with a pinch of sea salt that rounds out the sweetness.",
     hot: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
@@ -95,6 +101,8 @@ export const recipes: Recipe[] = [
     number: "04",
     name: "Caramelized Patis",
     category: "Savory",
+    description:
+      "Caramel meets a few drops of patis (fish sauce) for a surprising salty-umami twist on a caramel latte.",
     hot: {
       ingredients: [
         { name: "Caramel Sauce", amount: "10 ml" },
@@ -128,6 +136,8 @@ export const recipes: Recipe[] = [
     number: "05",
     name: "Matcha",
     category: "Matcha",
+    description:
+      "Whisked matcha lightly sweetened with palm syrup — earthy, grassy and smooth, with or without milk.",
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
@@ -156,6 +166,8 @@ export const recipes: Recipe[] = [
     number: "06",
     name: "Spanish",
     category: "Classic",
+    description:
+      "A Spanish latte: espresso and condensed milk, finished with a dusting of ground cinnamon.",
     hot: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
@@ -190,6 +202,8 @@ export const recipes: Recipe[] = [
     number: "07",
     name: "Matcha Spiced",
     category: "Matcha",
+    description:
+      "Matcha layered with spiced biscuit syrup for a warm, cookie-like finish.",
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
@@ -221,6 +235,8 @@ export const recipes: Recipe[] = [
     number: "08",
     name: "Kape Tibuok",
     category: "Classic",
+    description:
+      "Espresso and condensed milk seasoned with tibuok, the Philippines' prized ash-cured salt.",
     hot: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
@@ -254,6 +270,8 @@ export const recipes: Recipe[] = [
     number: "09",
     name: "Salted Caramel",
     category: "Sweet",
+    description:
+      "Caramel sauce and espresso lifted by a pinch of sea salt — sweet, salty and balanced.",
     hot: {
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
@@ -284,6 +302,8 @@ export const recipes: Recipe[] = [
     number: "10",
     name: "Dirty Matcha",
     category: "Matcha",
+    description:
+      'Palm-sweetened matcha "dirtied" with a double shot of espresso — green tea and coffee in one cup.',
     hot: {
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
@@ -315,6 +335,8 @@ export const recipes: Recipe[] = [
     number: "11",
     name: "Biscoff",
     category: "Sweet",
+    description:
+      "Espresso blended with Biscoff spread for a caramelized cookie flavor. A house favorite iced.",
     recommended: ["Iced"],
     hot: {
       ingredients: [
@@ -353,6 +375,8 @@ export const recipes: Recipe[] = [
     number: "12",
     name: "Matcha Caramel",
     category: "Matcha",
+    description:
+      "Earthy matcha sweetened with caramel and finished with a caramel drizzle. A house favorite iced.",
     recommended: ["Iced"],
     hot: {
       ingredients: [
@@ -384,6 +408,8 @@ export const recipes: Recipe[] = [
     number: "13",
     name: "Gula Melaka",
     category: "Sweet",
+    description:
+      "An iced latte sweetened with gula melaka palm sugar syrup — deep, smoky caramel notes.",
     recommended: ["Iced"],
     iced: {
       ingredients: [

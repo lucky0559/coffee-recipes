@@ -46,6 +46,7 @@ describe("coffee of the day rotation", () => {
       number: "00",
       name: "Unavailable",
       category: "Sweet",
+      description: "",
     };
     const rotatingRecipes = getRotatingRecipes([...recipes, unavailableRecipe]);
 

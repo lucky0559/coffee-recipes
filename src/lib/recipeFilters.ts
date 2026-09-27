@@ -61,3 +61,20 @@ export function filterRecipes(
     return query.length === 0 || buildSearchText(recipe).includes(query);
   });
 }
+
+export type DrinkType = "All" | "Coffee" | "Matcha";
+
+export const DRINK_TYPES: DrinkType[] = ["All", "Coffee", "Matcha"];
+
+export function getDrinkType(recipe: Pick<Recipe, "category">): Exclude<DrinkType, "All"> {
+  return recipe.category === "Matcha" ? "Matcha" : "Coffee";
+}
+
+export function filterByDrinkType<T extends Pick<Recipe, "category">>(
+  recipes: T[],
+  drinkType: DrinkType,
+): T[] {
+  return drinkType === "All"
+    ? recipes
+    : recipes.filter((recipe) => getDrinkType(recipe) === drinkType);
+}

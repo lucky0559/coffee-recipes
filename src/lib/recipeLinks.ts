@@ -28,3 +28,10 @@ export function getRecipeShareUrl(
   const params = new URLSearchParams({ recipe: recipeId, temperature });
   return `${origin}${pathname}?${params.toString()}`;
 }
+
+export const RECIPE_PATH = "/recipe";
+
+export function isRecipePath(pathname: string): boolean {
+  return pathname.replace(/\/+$/, "") === RECIPE_PATH;
+}
+

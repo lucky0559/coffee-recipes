@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { recipes } from "../data/recipes";
-import { DEFAULT_RECIPE_FILTERS, filterRecipes } from "./recipeFilters";
+import { DEFAULT_RECIPE_FILTERS, filterByDrinkType, filterRecipes } from "./recipeFilters";
 
 describe("recipe discovery filters", () => {
   it("matches names, ingredients, notes, and substitutions", () => {
@@ -33,5 +33,18 @@ describe("recipe discovery filters", () => {
         "Hot",
       ).map(({ id }) => id),
     ).toContain("matcha");
+  });
+});
+
+describe("drink type filter", () => {
+  it("splits the menu into coffee and matcha drinks", () => {
+    const matchaIds = filterByDrinkType(recipes, "Matcha").map(({ id }) => id);
+    const coffeeIds = filterByDrinkType(recipes, "Coffee").map(({ id }) => id);
+
+    expect(matchaIds).toEqual(["matcha", "matcha-spiced", "dirty-matcha", "matcha-caramel"]);
+    expect(coffeeIds).not.toContain("matcha");
+    expect(coffeeIds).toContain("biscoff");
+    expect(coffeeIds.length + matchaIds.length).toBe(recipes.length);
+    expect(filterByDrinkType(recipes, "All")).toBe(recipes);
   });
 });
