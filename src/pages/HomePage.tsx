@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { Header } from "../components/Header";
 import { RecipeBackdrop } from "../components/RecipeBackdrop";
 import { RecommendedIcon } from "../components/RecommendedIcon";
@@ -6,6 +6,7 @@ import { CATEGORY_STYLES } from "../data/categories";
 import { recipes } from "../data/recipes";
 import { getAvailableTemperature } from "../lib/coffeeOfTheDay";
 import { DRINK_TYPES, filterByDrinkType, type DrinkType } from "../lib/recipeFilters";
+import { RECIPE_PATH } from "../lib/recipeLinks";
 import { useOnlineStatus } from "../lib/useOnlineStatus";
 import type { Recipe, Temperature } from "../types";
 
@@ -13,6 +14,21 @@ function getServedTemperatures(recipe: Recipe): Temperature[] {
   return (["Hot", "Iced"] as const).filter((temperature) =>
     temperature === "Hot" ? recipe.hot : recipe.iced,
   );
+}
+
+const SECRET_CLICK_COUNT = 5;
+const SECRET_CLICK_WINDOW_MS = 1500;
+
+// Hidden shortcut: quickly clicking the "The menu" label opens the full recipe page.
+function useSecretRecipeShortcut(): () => void {
+  const clicks = useRef({ count: 0, lastAt: 0 });
+
+  return () => {
+    const now = Date.now();
+    const count = now - clicks.current.lastAt > SECRET_CLICK_WINDOW_MS ? 1 : clicks.current.count + 1;
+    clicks.current = { count, lastAt: now };
+    if (count >= SECRET_CLICK_COUNT) window.location.assign(RECIPE_PATH);
+  };
 }
 
 function DrinkCard({ recipe }: { recipe: Recipe }) {
@@ -60,6 +76,7 @@ function DrinkCard({ recipe }: { recipe: Recipe }) {
 
 export function HomePage() {
   const isOnline = useOnlineStatus();
+  const onMenuLabelClick = useSecretRecipeShortcut();
   const [drinkType, setDrinkType] = useState<DrinkType>("All");
   const visibleRecipes = useMemo(() => filterByDrinkType(recipes, drinkType), [drinkType]);
 
@@ -69,7 +86,10 @@ export function HomePage() {
 
       <main className="mx-auto max-w-6xl px-6 pb-24 pt-10">
         <section aria-labelledby="drinks-heading" className="flex flex-col gap-3">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-espresso-500">
+          <p
+            onClick={onMenuLabelClick}
+            className="w-fit select-none text-xs font-semibold uppercase tracking-[0.2em] text-espresso-500"
+          >
             The menu
           </p>
           <h1
