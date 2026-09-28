@@ -142,7 +142,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Palm Syrup", amount: "7 ml" }
+        { name: "Palm Syrup", amount: "10 ml" }
       ],
       allergens: [],
       substitutions: []
