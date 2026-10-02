@@ -50,7 +50,7 @@ describe("coffee of the day rotation", () => {
     };
     const rotatingRecipes = getRotatingRecipes([...recipes, unavailableRecipe]);
 
-    expect(rotatingRecipes).toHaveLength(13);
+    expect(rotatingRecipes).toHaveLength(14);
     expect(rotatingRecipes.map(({ id }) => id)).toContain("gula-melaka");
     expect(rotatingRecipes.map(({ id }) => id)).not.toContain("unavailable");
     expect(getUpcomingQueue(recipes, localDate(2026, 8, 11)).map(({ id }) => id)).toContain(

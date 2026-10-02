@@ -423,5 +423,23 @@ export const recipes: Recipe[] = [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
       ]
     }
+  },
+  {
+    id: "guava-spark-espresso",
+    number: "14",
+    name: "Guava Spark Espresso",
+    category: "Refresher",
+    description:
+      "A sparkling espresso soda: pink guava syrup and fizzy Sprite or tonic water topped with a double shot — fruity, bright and refreshing. A house favorite iced.",
+    recommended: ["Iced"],
+    iced: {
+      ingredients: [
+        { name: "Pink Guava Syrup", amount: "25 ml" },
+        { name: "Sprite/Tonic Water", amount: "130 ml" },
+        { name: "Espresso/Ristretto", amount: "2 shots" }
+      ],
+      allergens: [],
+      substitutions: []
+    }
   }
 ];

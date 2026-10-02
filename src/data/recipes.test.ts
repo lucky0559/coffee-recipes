@@ -18,6 +18,7 @@ const expectedRecipeLine = [
   { id: "biscoff", category: "Sweet" },
   { id: "matcha-caramel", category: "Matcha" },
   { id: "gula-melaka", category: "Sweet" },
+  { id: "guava-spark-espresso", category: "Refresher" },
 ] as const;
 
 function getBuilds(recipe: Recipe): RecipeBuild[] {
@@ -27,8 +28,8 @@ function getBuilds(recipe: Recipe): RecipeBuild[] {
 }
 
 describe("recipe data", () => {
-  it("keeps the 13-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(13);
+  it("keeps the 14-item serving line ordered and uniquely numbered", () => {
+    expect(recipes).toHaveLength(14);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -46,6 +47,8 @@ describe("recipe data", () => {
     ).toEqual([
       { id: "biscoff", recommended: ["Iced"] },
       { id: "matcha-caramel", recommended: ["Iced"] },
+      { id: "gula-melaka", recommended: ["Iced"] },
+      { id: "guava-spark-espresso", recommended: ["Iced"] },
     ]);
   });
 

@@ -5,4 +5,5 @@ export const CATEGORY_STYLES: Record<Category, { accent: [string, string]; pill:
   Savory: { accent: ["#2f4356", "#6f8fa8"], pill: "#3a5065" },
   Matcha: { accent: ["#38431f", "#8a9a5b"], pill: "#4b5a2c" },
   Classic: { accent: ["#3d2a1c", "#a87a3d"], pill: "#533a26" },
+  Refresher: { accent: ["#8a2f4a", "#e8728f"], pill: "#9a3555" },
 };

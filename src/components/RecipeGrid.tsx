@@ -28,7 +28,7 @@ interface RecipeGridProps {
   onToggleFavorite: (recipeId: string) => void;
 }
 
-const categories: CategoryFilter[] = ["All", "Sweet", "Savory", "Matcha", "Classic"];
+const categories: CategoryFilter[] = ["All", "Sweet", "Savory", "Matcha", "Classic", "Refresher"];
 const buildPreferences: Array<{ value: BuildPreference; label: string }> = [
   { value: "Scheduled", label: "Schedule" },
   { value: "Hot", label: "Hot" },

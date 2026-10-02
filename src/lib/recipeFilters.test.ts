@@ -37,14 +37,17 @@ describe("recipe discovery filters", () => {
 });
 
 describe("drink type filter", () => {
-  it("splits the menu into coffee and matcha drinks", () => {
+  it("splits the menu into coffee, matcha, and refresher drinks", () => {
     const matchaIds = filterByDrinkType(recipes, "Matcha").map(({ id }) => id);
     const coffeeIds = filterByDrinkType(recipes, "Coffee").map(({ id }) => id);
+    const refresherIds = filterByDrinkType(recipes, "Refresher").map(({ id }) => id);
 
+    expect(refresherIds).toEqual(["guava-spark-espresso"]);
     expect(matchaIds).toEqual(["matcha", "matcha-spiced", "dirty-matcha", "matcha-caramel"]);
     expect(coffeeIds).not.toContain("matcha");
     expect(coffeeIds).toContain("biscoff");
-    expect(coffeeIds.length + matchaIds.length).toBe(recipes.length);
+    expect(coffeeIds).not.toContain("guava-spark-espresso");
+    expect(coffeeIds.length + matchaIds.length + refresherIds.length).toBe(recipes.length);
     expect(filterByDrinkType(recipes, "All")).toBe(recipes);
   });
 });

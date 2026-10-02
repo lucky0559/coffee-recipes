@@ -1,4 +1,4 @@
-export type Category = "Sweet" | "Savory" | "Matcha" | "Classic";
+export type Category = "Sweet" | "Savory" | "Matcha" | "Classic" | "Refresher";
 
 export interface Ingredient {
   name: string;
