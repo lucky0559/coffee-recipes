@@ -19,6 +19,7 @@ const expectedRecipeLine = [
   { id: "matcha-caramel", category: "Matcha" },
   { id: "gula-melaka", category: "Sweet" },
   { id: "guava-spark-espresso", category: "Refresher" },
+  { id: "creamy-calamansi", category: "Refresher" },
 ] as const;
 
 function getBuilds(recipe: Recipe): RecipeBuild[] {
@@ -28,8 +29,8 @@ function getBuilds(recipe: Recipe): RecipeBuild[] {
 }
 
 describe("recipe data", () => {
-  it("keeps the 14-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(14);
+  it("keeps the 15-item serving line ordered and uniquely numbered", () => {
+    expect(recipes).toHaveLength(15);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -61,6 +62,21 @@ describe("recipe data", () => {
       { name: "Milk", amount: "120 ml" },
       { name: "Espresso/Ristretto", amount: "2 shots" },
     ]);
+  });
+
+  it("keeps Creamy Calamansi Iced-only with its cold-foam note", () => {
+    const creamyCalamansi = recipes.find((recipe) => recipe.id === "creamy-calamansi");
+
+    expect(creamyCalamansi?.hot).toBeUndefined();
+    expect(creamyCalamansi?.iced?.ingredients).toEqual([
+      { name: "Calamansi Extract", amount: "20 ml" },
+      { name: "Palm Sugar Syrup", amount: "10 ml" },
+      { name: "Water", amount: "60 ml" },
+      { name: "Espresso/Ristretto", amount: "2 shots" },
+    ]);
+    expect(creamyCalamansi?.iced?.note).toContain("Cold foam — whipping cream 30 ml");
+    expect(creamyCalamansi?.iced?.note).toContain("vanilla syrup 1 pump, sea salt pinch");
+    expect(creamyCalamansi?.iced?.allergens).toEqual(["Dairy"]);
   });
 
   it("provides non-empty ingredient data for every available temperature build", () => {

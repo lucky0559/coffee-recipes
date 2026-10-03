@@ -39,6 +39,9 @@ const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
   "guava-spark-espresso": {
     Iced: "/recipes/guava-spark-espresso.webp",
   },
+  "creamy-calamansi": {
+    Iced: "/recipes/creamy-calamansi.webp",
+  },
 };
 
 export function getRecipeImage(
