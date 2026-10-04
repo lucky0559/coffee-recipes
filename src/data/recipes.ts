@@ -272,6 +272,7 @@ export const recipes: Recipe[] = [
     category: "Sweet",
     description:
       "Caramel sauce and espresso lifted by a pinch of sea salt — sweet, salty and balanced.",
+    recommended: ["Iced"],
     hot: {
       ingredients: [
         { name: "Sea Salt", amount: "pinch" },
@@ -441,27 +442,27 @@ export const recipes: Recipe[] = [
       allergens: [],
       substitutions: []
     }
-  },
-  {
-    id: "creamy-calamansi",
-    number: "15",
-    name: "Creamy Calamansi",
-    category: "Refresher",
-    description:
-      "A bright iced espresso refresher: calamansi and palm sugar over a double shot, crowned with a salted vanilla cold foam — citrusy, sweet and creamy.",
-    iced: {
-      ingredients: [
-        { name: "Calamansi Extract", amount: "20 ml" },
-        { name: "Palm Sugar Syrup", amount: "10 ml" },
-        { name: "Water", amount: "60 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
-      ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
-      allergens: ["Dairy"],
-      substitutions: [
-        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
-        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
-      ]
-    }
   }
+  // {
+  //   id: "creamy-calamansi",
+  //   number: "15",
+  //   name: "Creamy Calamansi",
+  //   category: "Refresher",
+  //   description:
+  //     "A bright iced espresso refresher: calamansi and palm sugar over a double shot, crowned with a salted vanilla cold foam — citrusy, sweet and creamy.",
+  //   iced: {
+  //     ingredients: [
+  //       { name: "Calamansi Extract", amount: "20 ml" },
+  //       { name: "Palm Sugar Syrup", amount: "10 ml" },
+  //       { name: "Water", amount: "60 ml" },
+  //       { name: "Espresso/Ristretto", amount: "2 shots" }
+  //     ],
+  //     note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+  //     allergens: ["Dairy"],
+  //     substitutions: [
+  //       { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+  //       { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
+  //     ]
+  //   }
+  // }
 ];

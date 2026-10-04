@@ -46,6 +46,7 @@ describe("recipe data", () => {
         .filter(({ recommended }) => recommended)
         .map(({ id, recommended }) => ({ id, recommended })),
     ).toEqual([
+      { id: "salted-caramel", recommended: ["Iced"] },
       { id: "biscoff", recommended: ["Iced"] },
       { id: "matcha-caramel", recommended: ["Iced"] },
       { id: "gula-melaka", recommended: ["Iced"] },

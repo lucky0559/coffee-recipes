@@ -16,6 +16,26 @@ function getServedTemperatures(recipe: Recipe): Temperature[] {
   );
 }
 
+function RecommendedHint() {
+  return (
+    <aside
+      aria-label="What the recommended icon means"
+      className="mb-8 flex items-center gap-3 rounded-2xl border border-espresso-900/10 bg-cream-100 px-4 py-3.5"
+    >
+      <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-cream-50 shadow-sm">
+        <RecommendedIcon className="h-6 w-6 object-contain" />
+      </span>
+      <div className="flex flex-col gap-1 text-sm text-espresso-700">
+        <p>
+          <span className="font-semibold text-espresso-950">Recommended icon:</span> a drink with this
+          badge is a house pick — a bestseller we suggest you try first. The card tells you which
+          temperature to order.
+        </p>
+      </div>
+    </aside>
+  );
+}
+
 const SECRET_CLICK_COUNT = 5;
 const SECRET_CLICK_WINDOW_MS = 1500;
 
@@ -52,10 +72,11 @@ function DrinkCard({ recipe }: { recipe: Recipe }) {
           {isRecommended && (
             <span
               role="img"
-              aria-label="Recommended bestseller"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cream-50/90 text-espresso-950 shadow-sm"
+              aria-label={`Recommended bestseller: ${recipe.recommended?.join(" / ")}`}
+              className="inline-flex h-7 items-center gap-1.5 rounded-full bg-cream-50/90 pl-1 pr-2.5 text-[10px] font-semibold uppercase leading-none tracking-wide text-espresso-950 shadow-sm"
             >
-              <RecommendedIcon className="h-5 w-5 object-contain" />
+              <RecommendedIcon className="h-5 w-5 shrink-0 object-contain" />
+              <span aria-hidden="true">{recipe.recommended?.join(" / ")}</span>
             </span>
           )}
         </div>
@@ -85,6 +106,7 @@ export function HomePage() {
       <Header isOnline={isOnline} />
 
       <main className="mx-auto max-w-6xl px-6 pb-24 pt-10">
+        <RecommendedHint />
         <section aria-labelledby="drinks-heading" className="flex flex-col gap-3">
           <p
             onClick={onMenuLabelClick}
