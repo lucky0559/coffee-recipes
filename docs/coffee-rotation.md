@@ -47,6 +47,16 @@ The current anchor is 2026-09-11, so 2026-09-15 lands on queue index 4, Matcha. 
 
 The helper returns Hot for an empty or non-positive count as a safe UI fallback. Dates before the anchor use floor-based division and continue to produce a stable cycle rather than relying on JavaScript’s negative remainder behavior.
 
+## Iced-only spacing (2026-10-06)
+
+Three recipes have no Hot build: Gula Melaka, Guava Spark Espresso, and Calamansi Aerocano. Listed together at the end of the library they formed a run of Iced days, both in the daily queue and in the menu grid. Because the 15-recipe line is odd, the plain alternation also flips each cycle, so a Hot-slot fallback to Iced put Iced on both sides of them in every other cycle.
+
+- **Menu order.** `src/data/recipes.ts` now keeps the Iced-only recipes apart: Gula Melaka is #06, Guava Spark Espresso #10, and Calamansi Aerocano #13. The recipes were reordered and renumbered, so the menu grid, the recipe numbers, and the daily queue all share one order. The first five recipes are unchanged, so 2026-09-15 still lands on Matcha at index 4. A test fails if the Iced-only recipes drift back together. `getRotatingRecipes` simply follows library order.
+- **Scheduled build.** `scheduledTemperatureForPosition` and `scheduledTemperatureForDate` use the Iced-only recipes as anchors. A recipe right after one is Hot, builds then alternate, and the recipe right before the next one is Hot. Between two anchors with an even number of recipes this produces one Hot, Hot pair. Neighbours wrap around the ends of the line.
+- **Result.** With the current library the scheduled builds read, in menu order, `H I H I H I H I H I H H I H I`. No two consecutive days are scheduled Iced and there are no runs of three Hot cards. The pattern is the same in every cycle.
+- **Tradeoff.** The anchored pattern replaces the flip-each-cycle rule whenever the line contains an Iced-only recipe, so a recipe's scheduled default stays the same each cycle (users can still switch Hot/Iced on any card). A line with no Iced-only recipe still flips each cycle as described above.
+- **Effect on dates.** Recipes after position 4 moved: for example, 2026-10-06 is Salted Caramel (#11, Hot).
+
 ## State transitions and side effects
 
 - On initial render, the featured temperature and each recipe-card temperature are scheduled defaults for the current local date and rotation phase.

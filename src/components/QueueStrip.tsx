@@ -1,13 +1,14 @@
 import type { Recipe, Temperature } from "../types";
 import {
-  defaultTemperatureForDate,
   getAvailableTemperature,
+  scheduledTemperatureForDate,
   type RotatingRecipe,
 } from "../lib/coffeeOfTheDay";
 import { RecipeBackdrop } from "./RecipeBackdrop";
 
 interface QueueStripProps {
   queue: RotatingRecipe[];
+  rotation: RotatingRecipe[];
   date: Date;
   preferredTemperature: Temperature | null;
   onSelect: (recipe: Recipe, temperature?: Temperature) => void;
@@ -19,7 +20,13 @@ const dayLabel = (offset: number) => {
   return `In ${offset} days`;
 };
 
-export function QueueStrip({ queue, date, preferredTemperature, onSelect }: QueueStripProps) {
+export function QueueStrip({
+  queue,
+  rotation,
+  date,
+  preferredTemperature,
+  onSelect,
+}: QueueStripProps) {
   const preview = queue.slice(0, 6);
 
   return (
@@ -32,7 +39,7 @@ export function QueueStrip({ queue, date, preferredTemperature, onSelect }: Queu
           const previewDate = new Date(date);
           previewDate.setDate(previewDate.getDate() + i);
           const scheduledTemperature =
-            preferredTemperature ?? defaultTemperatureForDate(queue.length, previewDate);
+            preferredTemperature ?? scheduledTemperatureForDate(rotation, previewDate);
           const temperature = getAvailableTemperature(recipe, scheduledTemperature);
 
           return (

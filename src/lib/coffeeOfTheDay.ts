@@ -10,6 +10,14 @@ function hasAvailableBuild(recipe: Recipe): recipe is RotatingRecipe {
   return recipe.hot !== undefined || recipe.iced !== undefined;
 }
 
+function isIcedOnly(recipe: Recipe): boolean {
+  return recipe.hot === undefined && recipe.iced !== undefined;
+}
+
+/**
+ * The rotation follows library order. Keep Iced-only recipes spaced apart in
+ * src/data/recipes.ts, otherwise they serve a run of Iced days.
+ */
 export function getRotatingRecipes(recipes: ReadonlyArray<Recipe>): RotatingRecipe[] {
   return recipes.filter(hasAvailableBuild);
 }
@@ -74,6 +82,51 @@ export function defaultTemperatureForDate(
   return defaultTemperatureForRecipePosition(
     recipeCount,
     queueIndexForDate(recipeCount, date),
+    date,
+  );
+}
+
+/**
+ * The default build for a recipe in the rotation (the fixed order from
+ * getRotatingRecipes, wrapping at the ends).
+ *
+ * Iced-only recipes always serve Iced, so they anchor the pattern: the recipe
+ * right after one is Hot, then builds alternate, and the recipe right before the
+ * next one is Hot so Iced never lands on two days in a row. Between two anchors
+ * with an even number of recipes that makes one Hot, Hot pair. The pattern is
+ * the same every cycle. Without any Iced-only recipe, the alternation flips each
+ * cycle instead (see defaultTemperatureForRecipePosition).
+ */
+export function scheduledTemperatureForPosition(
+  rotation: ReadonlyArray<Recipe>,
+  position: number,
+  date: Date,
+): Temperature {
+  const count = rotation.length;
+  if (!rotation.some(isIcedOnly)) {
+    return defaultTemperatureForRecipePosition(count, position, date);
+  }
+
+  const index = ((position % count) + count) % count;
+  if (isIcedOnly(rotation[index])) return "Iced";
+
+  let before = 1;
+  while (!isIcedOnly(rotation[(index - before + count) % count])) before += 1;
+  let after = 1;
+  while (!isIcedOnly(rotation[(index + after) % count])) after += 1;
+
+  return before % 2 === 1 || after === 1 ? "Hot" : "Iced";
+}
+
+export function scheduledTemperatureForDate(
+  rotation: ReadonlyArray<Recipe>,
+  date: Date,
+): Temperature {
+  if (rotation.length === 0) return "Hot";
+
+  return scheduledTemperatureForPosition(
+    rotation,
+    queueIndexForDate(rotation.length, date),
     date,
   );
 }

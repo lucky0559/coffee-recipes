@@ -11,7 +11,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Cheesecake Syrup", amount: "15 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: [],
       substitutions: []
@@ -20,7 +20,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Cheesecake Syrup", amount: "20 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
@@ -41,7 +41,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Caramel Sauce", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: [],
       substitutions: []
@@ -51,7 +51,7 @@ export const recipes: Recipe[] = [
         { name: "Caramel Syrup", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
@@ -72,7 +72,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Sea Salt", amount: "pinch" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: ["Dairy"],
       substitutions: [
@@ -86,7 +86,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "20 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
@@ -108,7 +108,7 @@ export const recipes: Recipe[] = [
         { name: "Caramel Sauce", amount: "10 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Patis", amount: "3 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: ["Fish"],
       substitutions: [
@@ -120,7 +120,7 @@ export const recipes: Recipe[] = [
         { name: "Caramel Syrup", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, patis 3 ml",
       allergens: ["Dairy", "Fish"],
@@ -162,8 +162,29 @@ export const recipes: Recipe[] = [
     }
   },
   {
-    id: "spanish",
+    id: "gula-melaka",
     number: "06",
+    name: "Gula Melaka",
+    category: "Sweet",
+    description:
+      "An iced latte sweetened with gula melaka palm sugar syrup — deep, smoky caramel notes.",
+    recommended: ["Iced"],
+    iced: {
+      ingredients: [
+        { name: "Palm Sugar Syrup", amount: "30 ml" },
+        { name: "Milk", amount: "120 ml" },
+        { name: "Espresso", amount: "2 shots" }
+      ],
+      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
+      ]
+    }
+  },
+  {
+    id: "spanish",
+    number: "07",
     name: "Spanish",
     category: "Classic",
     description:
@@ -172,7 +193,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Ground Cinnamon", amount: "splash" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: ["Dairy"],
       substitutions: [
@@ -187,7 +208,7 @@ export const recipes: Recipe[] = [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Milk", amount: "120 ml" },
         { name: "Ground Cinnamon", amount: "splash on top" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
@@ -199,7 +220,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-spiced",
-    number: "07",
+    number: "08",
     name: "Matcha Spiced",
     category: "Matcha",
     description:
@@ -232,7 +253,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "kape-tibuok",
-    number: "08",
+    number: "09",
     name: "Kape Tibuok",
     category: "Classic",
     description:
@@ -241,7 +262,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Tibuok", amount: "0.4 g" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: ["Dairy"],
       substitutions: [
@@ -255,7 +276,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, 0.4 g Tibuok",
       allergens: ["Dairy"],
@@ -266,8 +287,26 @@ export const recipes: Recipe[] = [
     }
   },
   {
+    id: "guava-spark-espresso",
+    number: "10",
+    name: "Guava Spark Espresso",
+    category: "Refresher",
+    description:
+      "A sparkling espresso soda: pink guava syrup and fizzy Sprite or tonic water topped with a double shot — fruity, bright and refreshing. A house favorite iced.",
+    recommended: ["Iced"],
+    iced: {
+      ingredients: [
+        { name: "Pink Guava Syrup", amount: "25 ml" },
+        { name: "Sprite/Tonic Water", amount: "130 ml" },
+        { name: "Espresso", amount: "2 shots" }
+      ],
+      allergens: [],
+      substitutions: []
+    }
+  },
+  {
     id: "salted-caramel",
-    number: "09",
+    number: "11",
     name: "Salted Caramel",
     category: "Sweet",
     description:
@@ -278,7 +317,7 @@ export const recipes: Recipe[] = [
         { name: "Sea Salt", amount: "pinch" },
         { name: "Caramel Sauce", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: [],
       substitutions: []
@@ -288,7 +327,7 @@ export const recipes: Recipe[] = [
         { name: "Caramel Syrup", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
@@ -300,28 +339,28 @@ export const recipes: Recipe[] = [
   },
   {
     id: "dirty-matcha",
-    number: "10",
+    number: "12",
     name: "Dirty Matcha",
     category: "Matcha",
     description:
       'Palm-sweetened matcha "dirtied" with a double shot of espresso — green tea and coffee in one cup.',
     hot: {
       ingredients: [
-        { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Matcha Powder", amount: "3 g" },
+        { name: "Water (for matcha powder mixture)", amount: "30 ml" },
         { name: "Palm Syrup", amount: "20 ml" },
-        { name: "Espresso", amount: "2 shots" }
+        { name: "Espresso", amount: "1 shot" }
       ],
       allergens: [],
       substitutions: []
     },
     iced: {
       ingredients: [
-        { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "100 ml" },
-        { name: "Espresso", amount: "2 shots" },
-        { name: "Palm Syrup", amount: "20 ml" }
+        { name: "Matcha Powder", amount: "3 g" },
+        { name: "Water (for matcha powder mixture)", amount: "30 ml" },
+        { name: "Milk", amount: "80 ml" },
+        { name: "Espresso", amount: "1 shot" },
+        { name: "Palm Syrup", amount: "10 ml" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
@@ -332,8 +371,29 @@ export const recipes: Recipe[] = [
     }
   },
   {
+    id: "calamansi-aerocano",
+    number: "13",
+    name: "Calamansi Aerocano",
+    category: "Refresher",
+    description:
+      "A bright iced espresso refresher: calamansi and palm sugar over a double shot, crowned with a salted vanilla cold foam — citrusy, sweet and creamy.",
+    iced: {
+      ingredients: [
+        { name: "Calamansi Extract", amount: "10 ml" },
+        { name: "Palm Sugar Syrup", amount: "10 ml" },
+        { name: "Water", amount: "60 ml" },
+        { name: "Espresso", amount: "2 shots" }
+      ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
+      ]
+    }
+  },
+  {
     id: "biscoff",
-    number: "11",
+    number: "14",
     name: "Biscoff",
     category: "Sweet",
     description:
@@ -343,7 +403,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Biscoff Spread", amount: "1 spoon" },
         { name: "Vanilla Syrup", amount: "1 pump" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       allergens: ["Gluten"],
       substitutions: [
@@ -357,7 +417,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Biscoff Spread", amount: "1 spoon" },
         { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
+        { name: "Espresso", amount: "2 shots" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy", "Gluten"],
@@ -373,7 +433,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-caramel",
-    number: "12",
+    number: "15",
     name: "Matcha Caramel",
     category: "Matcha",
     description:
@@ -396,66 +456,6 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "100 ml" },
         { name: "Caramel Syrup", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
-      ],
-      allergens: ["Dairy"],
-      substitutions: [
-        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
-        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
-      ]
-    }
-  },
-  {
-    id: "gula-melaka",
-    number: "13",
-    name: "Gula Melaka",
-    category: "Sweet",
-    description:
-      "An iced latte sweetened with gula melaka palm sugar syrup — deep, smoky caramel notes.",
-    recommended: ["Iced"],
-    iced: {
-      ingredients: [
-        { name: "Palm Sugar Syrup", amount: "30 ml" },
-        { name: "Milk", amount: "120 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
-      ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
-      allergens: ["Dairy"],
-      substitutions: [
-        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
-      ]
-    }
-  },
-  {
-    id: "guava-spark-espresso",
-    number: "14",
-    name: "Guava Spark Espresso",
-    category: "Refresher",
-    description:
-      "A sparkling espresso soda: pink guava syrup and fizzy Sprite or tonic water topped with a double shot — fruity, bright and refreshing. A house favorite iced.",
-    recommended: ["Iced"],
-    iced: {
-      ingredients: [
-        { name: "Pink Guava Syrup", amount: "25 ml" },
-        { name: "Sprite/Tonic Water", amount: "130 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
-      ],
-      allergens: [],
-      substitutions: []
-    }
-  },
-  {
-    id: "calamansi-aerocano",
-    number: "15",
-    name: "Calamansi Aerocano",
-    category: "Refresher",
-    description:
-      "A bright iced espresso refresher: calamansi and palm sugar over a double shot, crowned with a salted vanilla cold foam — citrusy, sweet and creamy.",
-    iced: {
-      ingredients: [
-        { name: "Calamansi Extract", amount: "10 ml" },
-        { name: "Palm Sugar Syrup", amount: "10 ml" },
-        { name: "Water", amount: "60 ml" },
-        { name: "Espresso/Ristretto", amount: "2 shots" }
       ],
       allergens: ["Dairy"],
       substitutions: [

@@ -187,17 +187,19 @@ even alternatingPosition → Hot
 odd alternatingPosition  → Iced
 ```
 
-With the current 13-recipe available-build line, the anchored cycle starts Hot and alternates through the line, ending Hot. The next cycle starts Iced. Gula Melaka participates in the line as an Iced-only recipe; when its scheduled slot is Hot, the UI resolves to its available Iced build:
+The current line has 15 recipes, three of them Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13). Iced-only recipes anchor the schedule: the recipe right after one is Hot, builds alternate, and the recipe right before the next one is Hot, so Iced never lands on two days in a row. In menu order the scheduled builds are `H I H I H I H I H I H H I H I`, and the same every cycle. Keep Iced-only recipes spaced apart in `src/data/recipes.ts`; a test fails if they end up together. A line with no Iced-only recipe instead starts Hot and flips its starting build each cycle.
 
 | Local date | Queue item | Scheduled build |
 | --- | --- | --- |
 | 2026-09-11 | Cheesecake | Hot |
 | 2026-09-12 | Caramel | Iced |
 | 2026-09-15 | Matcha | Hot |
-| 2026-09-22 | Matcha Caramel | Iced |
-| 2026-09-23 | Gula Melaka | Iced fallback from scheduled Hot |
+| 2026-09-16 | Gula Melaka | Iced (Iced-only) |
+| 2026-09-20 | Guava Spark Espresso | Iced (Iced-only) |
+| 2026-09-21 | Salted Caramel | Hot |
+| 2026-09-22 | Dirty Matcha | Hot |
 
-Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation uses the 13-item available-build line while excluding only recipes with neither build.
+Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation uses the 15-item available-build line while excluding only recipes with neither build.
 
 The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
 

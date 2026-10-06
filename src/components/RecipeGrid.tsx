@@ -1,9 +1,9 @@
 import { Heart, Search, ShieldCheck, X } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import {
-  defaultTemperatureForRecipePosition,
   getAvailableTemperature,
   getRotatingRecipes,
+  scheduledTemperatureForPosition,
 } from "../lib/coffeeOfTheDay";
 import {
   DEFAULT_RECIPE_FILTERS,
@@ -199,7 +199,7 @@ export function RecipeGrid({
             const scheduledTemperature =
               position < 0
                 ? "Iced"
-                : defaultTemperatureForRecipePosition(rotatingRecipes.length, position, date);
+                : scheduledTemperatureForPosition(rotatingRecipes, position, date);
             return (
               <RecipeCard
                 key={`${recipe.id}-${buildPreference}-${date.toDateString()}`}

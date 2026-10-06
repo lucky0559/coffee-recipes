@@ -14,13 +14,13 @@ import { parseRecipeSelection, getRecipeShareUrl } from "../lib/recipeLinks";
 import { useRecipePreferences } from "../lib/useRecipePreferences";
 import { useOnlineStatus } from "../lib/useOnlineStatus";
 import {
-  defaultTemperatureForDate,
-  defaultTemperatureForRecipePosition,
   getAvailableTemperature,
   getCoffeeOfTheDay,
   getRotatingRecipes,
   getUpcomingQueue,
   queueIndexForDate,
+  scheduledTemperatureForDate,
+  scheduledTemperatureForPosition,
 } from "../lib/coffeeOfTheDay";
 import type { Recipe, Temperature } from "../types";
 
@@ -87,8 +87,8 @@ export function RecipePage() {
     [rotatingRecipes.length, today],
   );
   const scheduledTemperature = useMemo(
-    () => defaultTemperatureForDate(rotatingRecipes.length, today),
-    [rotatingRecipes.length, today],
+    () => scheduledTemperatureForDate(rotatingRecipes, today),
+    [rotatingRecipes, today],
   );
   const buildPreference: BuildPreference = preferences.preferredTemperature ?? "Scheduled";
   const featuredTemperature = preferences.preferredTemperature ?? scheduledTemperature;
@@ -120,7 +120,7 @@ export function RecipePage() {
       const scheduled =
         recipePosition < 0
           ? "Iced"
-          : defaultTemperatureForRecipePosition(rotatingRecipes.length, recipePosition, today);
+          : scheduledTemperatureForPosition(rotatingRecipes, recipePosition, today);
       const requestedTemperature = temperature ?? preferences.preferredTemperature ?? scheduled;
       const resolvedTemperature = getAvailableTemperature(recipe, requestedTemperature);
 
@@ -199,6 +199,7 @@ export function RecipePage() {
           recipe={coffeeOfTheDay}
           date={today}
           queue={queue}
+          rotation={rotatingRecipes}
           position={position}
           total={rotatingRecipes.length}
           defaultTemperature={featuredTemperature}

@@ -169,6 +169,8 @@ even → Hot · odd → Iced</pre>
           <article class="card"><h3>13 available-build recipes (current)</h3><p>First cycle: Hot, Iced, Hot … Hot. The next cycle begins Iced. Gula Melaka participates as Iced-only and falls back to Iced when its slot is scheduled Hot.</p></article>
           <article class="card"><h3>13 recipes (odd-count example)</h3><p>First cycle ends Hot. The next cycle begins Iced.</p></article>
         </div>
+        <h3 style="margin-top: 24px">Iced-only spacing (2026-10-06)</h3>
+        <p class="section-intro">Gula Melaka, Guava Spark Espresso, and Calamansi Aerocano have no Hot build. <code>src/data/recipes.ts</code> now keeps them apart (#06, #10, #13; recipes reordered and renumbered), so the menu grid, recipe numbers, and daily queue share one order, and the first five recipes are unchanged (Matcha stays at index 4). <code>scheduledTemperatureForPosition</code> and <code>scheduledTemperatureForDate</code> use the Iced-only recipes as anchors: the recipe after one is Hot, builds alternate, and the recipe before the next is Hot. The scheduled builds read <code>H I H I H I H I H I H H I H I</code> in menu order, with no two consecutive Iced days and no run of three Hot cards. Tradeoff: with an Iced-only recipe in the line, a recipe's scheduled default stays the same each cycle instead of flipping.</p>
         <p class="note" style="margin-top: 16px">Empty or non-positive counts return Hot as a safe fallback. No API, persistence, transaction, locking, idempotency, or rollback behavior is involved.</p>
       </section>
 

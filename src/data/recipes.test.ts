@@ -10,16 +10,16 @@ const expectedRecipeLine = [
   { id: "sea-salt", category: "Savory" },
   { id: "caramelized-patis", category: "Savory" },
   { id: "matcha", category: "Matcha" },
+  { id: "gula-melaka", category: "Sweet" },
   { id: "spanish", category: "Classic" },
   { id: "matcha-spiced", category: "Matcha" },
   { id: "kape-tibuok", category: "Classic" },
+  { id: "guava-spark-espresso", category: "Refresher" },
   { id: "salted-caramel", category: "Sweet" },
   { id: "dirty-matcha", category: "Matcha" },
+  { id: "calamansi-aerocano", category: "Refresher" },
   { id: "biscoff", category: "Sweet" },
   { id: "matcha-caramel", category: "Matcha" },
-  { id: "gula-melaka", category: "Sweet" },
-  { id: "guava-spark-espresso", category: "Refresher" },
-  { id: "creamy-calamansi", category: "Refresher" },
 ] as const;
 
 function getBuilds(recipe: Recipe): RecipeBuild[] {
@@ -46,11 +46,11 @@ describe("recipe data", () => {
         .filter(({ recommended }) => recommended)
         .map(({ id, recommended }) => ({ id, recommended })),
     ).toEqual([
+      { id: "gula-melaka", recommended: ["Iced"] },
+      { id: "guava-spark-espresso", recommended: ["Iced"] },
       { id: "salted-caramel", recommended: ["Iced"] },
       { id: "biscoff", recommended: ["Iced"] },
       { id: "matcha-caramel", recommended: ["Iced"] },
-      { id: "gula-melaka", recommended: ["Iced"] },
-      { id: "guava-spark-espresso", recommended: ["Iced"] },
     ]);
   });
 
