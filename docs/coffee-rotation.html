@@ -111,9 +111,9 @@
     <header>
       <div class="shell">
         <p class="eyebrow">Brewline · implementation record</p>
-        <h1>Coffee rotation defaults</h1>
-        <p class="lede">The Coffee of the Day and recipe list now alternate Hot and Iced through the available-build recipe line, include recipes with either build, start today on Matcha, carry the available build into the full recipe, and reset with the requested phase.</p>
-        <p><span class="status" role="status">Code checks passed · browser QA not rerun</span></p>
+        <h1>Coffee rotation</h1>
+        <p class="lede">The Coffee of the Day and the upcoming queue rotate through the recipe line by date, starting today (2026-10-06) on Biscoff. There is no scheduled Hot/Iced rotation: every card, the featured drink, and the queue open on the drink's own default build, and you switch Hot/Iced by hand.</p>
+        <p><span class="status" role="status">Type-check, lint and rotation tests passed · checked in the local dev server</span></p>
       </div>
     </header>
 
@@ -132,11 +132,11 @@
         <table>
           <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><td>Authoritative data</td><td><code>src/data/recipes.ts</code></td><td>The library contains 13 recipes; the Iced-only Gula Melaka entry participates in the fixed daily line.</td></tr>
-            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Only recipes missing both builds are filtered before identity advances by local calendar date from the 2026-09-11 anchor; 2026-09-15 resolves to Matcha.</td></tr>
-            <tr><td>Verified UI</td><td><code>src/App.tsx</code>, recipe lists, featured panel, modal</td><td>Recipes with at least one build drive the queue; scheduled temperatures fall back to the available build, while cards and modal controls expose only the builds available for each recipe.</td></tr>
-            <tr><td>Explicit interpretation</td><td>User request</td><td>Today starts on Matcha; the first cycle starts Hot by build, items alternate, and a reset starts Iced when requested—including an even line ending Iced.</td></tr>
-            <tr><td>Board discrepancy</td><td>No board or issue reference in the repository</td><td>No stale external state was available.</td></tr>
+            <tr><td>Authoritative data</td><td><code>src/data/recipes.ts</code></td><td>The library holds 15 recipes in menu order. The Iced-only drinks (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13) are kept apart.</td></tr>
+            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Only recipes missing both builds are filtered; the queue advances one recipe per local calendar day from the 2026-09-23 anchor and wraps at 15. 2026-10-06 is queue index 13, Biscoff.</td></tr>
+            <tr><td>Verified default build</td><td><code>getDefaultTemperature</code></td><td>A recipe's first recommended build that exists, otherwise Hot, otherwise Iced for Iced-only recipes. It does not depend on the date.</td></tr>
+            <tr><td>Verified UI</td><td><code>RecipePage.tsx</code>, recipe grid and cards, featured panel, queue, modal</td><td>Each opens on the recipe's default build unless you picked Hot or Iced; only builds a recipe has are offered.</td></tr>
+            <tr><td>User requirement</td><td>2026-10-06 conversation</td><td>Remove the scheduled Hot/Iced default, keep the daily recipe rotation, and make today Biscoff.</td></tr>
           </tbody>
         </table>
       </section>
@@ -146,41 +146,33 @@
         <table>
           <thead><tr><th scope="col">Task</th><th scope="col">Surface</th><th scope="col">Status</th><th scope="col">Evidence</th></tr></thead>
           <tbody>
-            <tr><td>Inspect queue and build state</td><td><code>src/lib</code>, <code>src/components</code></td><td>Complete</td><td>Existing date queue, partial-build behavior, and Hot/Iced consumers mapped.</td></tr>
             <tr><td>Include recipes with an available build in the daily line</td><td><code>getRotatingRecipes</code></td><td>Complete</td><td>Recipes with Hot or Iced builds enter the featured item, queue, and rotation count; recipes with neither build remain excluded.</td></tr>
-            <tr><td>Add scheduled build helper</td><td><code>defaultTemperatureForDate</code></td><td>Complete</td><td>Cycle index plus in-cycle position determines Hot/Iced.</td></tr>
-            <tr><td>Wire featured and modal defaults</td><td><code>App.tsx</code>, featured panel, modal</td><td>Complete</td><td>Featured resets on date/recipe changes; modal carries the active build.</td></tr>
-            <tr><td>Wire recipe-list defaults</td><td><code>RecipeGrid.tsx</code>, <code>RecipeCard.tsx</code></td><td>Complete</td><td>Cards follow the current rotation phase and preserve their active build when opened.</td></tr>
-            <tr><td>Wire upcoming-queue defaults</td><td><code>QueueStrip.tsx</code></td><td>Complete</td><td>Preview images and queue selections follow each future day, including a reset boundary.</td></tr>
-            <tr><td>Refresh at local midnight</td><td><code>useCurrentDate</code></td><td>Complete</td><td>Open tabs recalculate without a reload.</td></tr>
-            <tr><td>Final verification and record</td><td>Checks and this document</td><td>Complete</td><td>Build, lint, Vitest, production-preview smoke, service-worker assets, and browser-console checks pass.</td></tr>
+            <tr><td>Space the Iced-only recipes apart</td><td><code>src/data/recipes.ts</code>, rotation test</td><td>Complete</td><td>Reordered and renumbered to #06, #10, #13; a test fails if they become adjacent.</td></tr>
+            <tr><td>Anchor today on Biscoff</td><td><code>ROTATION_EPOCH_UTC</code></td><td>Complete</td><td>2026-10-06 resolves to Biscoff, then Matcha Caramel, then Cheesecake.</td></tr>
+            <tr><td>Replace the scheduled Hot/Iced default</td><td><code>getDefaultTemperature</code>, <code>RecipePage.tsx</code>, <code>RecipeGrid.tsx</code>, <code>QueueStrip.tsx</code></td><td>Complete</td><td>Featured panel, cards and queue open on each recipe's own default build; the control reads Default / Hot / Iced.</td></tr>
+            <tr><td>Refresh at local midnight</td><td><code>useCurrentDate</code></td><td>Complete</td><td>Open tabs recalculate the recipe, queue and position without a reload.</td></tr>
           </tbody>
         </table>
       </section>
 
       <section id="contract" aria-labelledby="contract-title">
         <h2 id="contract-title">Rotation contract</h2>
-        <p class="section-intro">The queue first filters the library to recipes with at least one Hot or Iced build, then uses <code>daysSinceEpoch</code> and <code>queueIndexForDate</code>. The current 2026-09-11 anchor puts Matcha first on 2026-09-15. The featured panel and recipe cards use the rotation index and the position inside that rotation, resolving each scheduled temperature to an available build, so the phase is deterministic from the date and current recipe count.</p>
-        <pre>rotationIndex = floor(elapsedDays / recipeCount)
-positionInRotation = elapsedDays - rotationIndex * recipeCount
-alternatingPosition = rotationIndex + positionInRotation
-even → Hot · odd → Iced</pre>
+        <p class="section-intro">The rotation is the library in menu order, filtered to recipes with at least one Hot or Iced build. <code>daysSinceEpoch</code> counts local calendar days from the 2026-09-23 anchor and <code>queueIndexForDate</code> wraps that to a queue position, so the Coffee of the Day changes at local midnight.</p>
         <div class="grid" style="margin-top: 16px">
-          <article class="card"><h3>13 available-build recipes (current)</h3><p>First cycle: Hot, Iced, Hot … Hot. The next cycle begins Iced. Gula Melaka participates as Iced-only and falls back to Iced when its slot is scheduled Hot.</p></article>
-          <article class="card"><h3>13 recipes (odd-count example)</h3><p>First cycle ends Hot. The next cycle begins Iced.</p></article>
+          <article class="card"><h3>Today and next</h3><p>2026-10-06 Biscoff (13), 2026-10-07 Matcha Caramel (14), 2026-10-08 Cheesecake (0), then the line repeats.</p></article>
+          <article class="card"><h3>Default build</h3><p>A recipe's first recommended build that exists, otherwise Hot, otherwise Iced for Iced-only recipes. Not date-based. Users can still switch Hot/Iced by hand.</p></article>
         </div>
-        <h3 style="margin-top: 24px">Iced-only spacing (2026-10-06)</h3>
-        <p class="section-intro">Gula Melaka, Guava Spark Espresso, and Calamansi Aerocano have no Hot build. <code>src/data/recipes.ts</code> now keeps them apart (#06, #10, #13; recipes reordered and renumbered), so the menu grid, recipe numbers, and daily queue share one order, and the first five recipes are unchanged (Matcha stays at index 4). <code>scheduledTemperatureForPosition</code> and <code>scheduledTemperatureForDate</code> use the Iced-only recipes as anchors: the recipe after one is Hot, builds alternate, and the recipe before the next is Hot. The scheduled builds read <code>H I H I H I H I H I H H I H I</code> in menu order, with no two consecutive Iced days and no run of three Hot cards. Tradeoff: with an Iced-only recipe in the line, a recipe's scheduled default stays the same each cycle instead of flipping.</p>
-        <p class="note" style="margin-top: 16px">Empty or non-positive counts return Hot as a safe fallback. No API, persistence, transaction, locking, idempotency, or rollback behavior is involved.</p>
+        <h3 style="margin-top: 24px">Iced-only spacing</h3>
+        <p class="section-intro">Gula Melaka, Guava Spark Espresso, and Calamansi Aerocano have no Hot build. <code>src/data/recipes.ts</code> keeps them apart (#06, #10, #13; recipes reordered and renumbered) and a test fails if they become adjacent.</p>
+        <p class="note" style="margin-top: 16px">An empty line has queue index 0. The earlier Hot/Iced schedule (alternating by date, flipping each cycle) was removed on 2026-10-06. No API, persistence, transaction, locking, idempotency, or rollback behavior is involved.</p>
       </section>
 
       <section aria-labelledby="behavior-title">
         <h2 id="behavior-title">User-facing behavior</h2>
         <ul class="checklist">
-          <li>The featured recipe starts on Matcha today, and every available-build list card starts with its scheduled Hot/Iced build or the recipe’s available fallback.</li>
-          <li>Manual Hot/Iced changes remain available and last for the current view.</li>
-          <li>At local midnight, recipe, queue, position, date label, and default build update together.</li>
-          <li>Upcoming queue previews and selections use the scheduled build for their future day.</li>
+          <li>The featured recipe is Biscoff today; the featured panel, list cards and queue open on each recipe's default build.</li>
+          <li>Manual Hot/Iced changes remain available and last for the current view; the home-page control reads Default / Hot / Iced.</li>
+          <li>At local midnight, recipe, queue, position and date label update together.</li>
           <li>Opening a recipe carries the active card or featured build into the modal; recipes with one available build use that build only.</li>
         </ul>
       </section>
@@ -188,13 +180,10 @@ even → Hot · odd → Iced</pre>
       <section id="verification" aria-labelledby="verification-title">
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
-          <li>2026-09-15 Matcha start, 13-recipe available-build sequence, one-build inclusion, no-build exclusion, fallback behavior, and reset boundary assertions passed.</li>
-          <li>Recipe-list position defaults follow the same cycle phase.</li>
-          <li>Current 13-recipe last-Hot reset, later even-cycle phase, and empty-count fallback assertions passed.</li>
-          <li>Oxlint passed with 0 warnings and 0 errors.</li>
-          <li>TypeScript, Vite production build, and service-worker cache version generation passed.</li>
-          <li>Browser QA was not run for this partial-build UI change.</li>
-          <li>Vitest ran 5 files with 28 tests: 23 passed and 5 failed on pre-existing recipe-data expectations, outside this recipe-line change.</li>
+          <li>8 rotation tests passed: anchor, queue wrapping, Biscoff today, one-build inclusion, Iced-only spacing, default build selection, available-build fallback, and the wrapped serving queue.</li>
+          <li>TypeScript (<code>tsc -b</code>) and Oxlint passed with no errors or warnings.</li>
+          <li>Local dev server: <code>/recipe</code> shows Biscoff as today's coffee, a queue of Matcha Caramel, Cheesecake, Caramel, Sea Salt, Caramelized Patis, and a Default / Hot / Iced control.</li>
+          <li>Full Vitest: 22 passed and 9 failed on recipe-data and filter expectations unrelated to the rotation.</li>
         </ul>
         <p class="note">This feature has no endpoints, authentication, authorization, request/response contracts, persistence changes, or backend dependencies.</p>
       </section>

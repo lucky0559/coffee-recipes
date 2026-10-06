@@ -16,11 +16,10 @@ import { useOnlineStatus } from "../lib/useOnlineStatus";
 import {
   getAvailableTemperature,
   getCoffeeOfTheDay,
+  getDefaultTemperature,
   getRotatingRecipes,
   getUpcomingQueue,
   queueIndexForDate,
-  scheduledTemperatureForDate,
-  scheduledTemperatureForPosition,
 } from "../lib/coffeeOfTheDay";
 import type { Recipe, Temperature } from "../types";
 
@@ -86,12 +85,8 @@ export function RecipePage() {
     () => queueIndexForDate(rotatingRecipes.length, today) + 1,
     [rotatingRecipes.length, today],
   );
-  const scheduledTemperature = useMemo(
-    () => scheduledTemperatureForDate(rotatingRecipes, today),
-    [rotatingRecipes, today],
-  );
-  const buildPreference: BuildPreference = preferences.preferredTemperature ?? "Scheduled";
-  const featuredTemperature = preferences.preferredTemperature ?? scheduledTemperature;
+  const buildPreference: BuildPreference = preferences.preferredTemperature ?? "Default";
+  const featuredTemperature = preferences.preferredTemperature ?? getDefaultTemperature(coffeeOfTheDay);
   const visibleRecipes = useMemo(
     () => filterRecipes(recipes, filters, favoriteIds, buildPreference),
     [buildPreference, favoriteIds, filters],
@@ -116,12 +111,8 @@ export function RecipePage() {
 
   const selectRecipe = useCallback(
     (recipe: Recipe, temperature?: Temperature) => {
-      const recipePosition = rotatingRecipes.findIndex(({ id }) => id === recipe.id);
-      const scheduled =
-        recipePosition < 0
-          ? "Iced"
-          : scheduledTemperatureForPosition(rotatingRecipes, recipePosition, today);
-      const requestedTemperature = temperature ?? preferences.preferredTemperature ?? scheduled;
+      const requestedTemperature =
+        temperature ?? preferences.preferredTemperature ?? getDefaultTemperature(recipe);
       const resolvedTemperature = getAvailableTemperature(recipe, requestedTemperature);
 
       setSelected({ recipe, temperature: resolvedTemperature });
@@ -143,7 +134,7 @@ export function RecipePage() {
         }
       }
     },
-    [preferences, rotatingRecipes, today],
+    [preferences],
   );
 
   const closeRecipe = useCallback(() => {
@@ -199,7 +190,6 @@ export function RecipePage() {
           recipe={coffeeOfTheDay}
           date={today}
           queue={queue}
-          rotation={rotatingRecipes}
           position={position}
           total={rotatingRecipes.length}
           defaultTemperature={featuredTemperature}
@@ -222,7 +212,7 @@ export function RecipePage() {
           onSelect={selectRecipe}
           onFiltersChange={setFilters}
           onBuildPreferenceChange={(preference) =>
-            preferences.setPreferredTemperature(preference === "Scheduled" ? null : preference)
+            preferences.setPreferredTemperature(preference === "Default" ? null : preference)
           }
           onToggleFavorite={preferences.toggleFavorite}
         />

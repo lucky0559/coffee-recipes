@@ -2,8 +2,7 @@ import { Heart, Search, ShieldCheck, X } from "lucide-react";
 import type { Recipe, Temperature } from "../types";
 import {
   getAvailableTemperature,
-  getRotatingRecipes,
-  scheduledTemperatureForPosition,
+  getDefaultTemperature,
 } from "../lib/coffeeOfTheDay";
 import {
   DEFAULT_RECIPE_FILTERS,
@@ -30,7 +29,7 @@ interface RecipeGridProps {
 
 const categories: CategoryFilter[] = ["All", "Sweet", "Savory", "Matcha", "Classic", "Refresher"];
 const buildPreferences: Array<{ value: BuildPreference; label: string }> = [
-  { value: "Scheduled", label: "Schedule" },
+  { value: "Default", label: "Default" },
   { value: "Hot", label: "Hot" },
   { value: "Iced", label: "Iced" },
 ];
@@ -54,7 +53,6 @@ export function RecipeGrid({
   };
 
   const resetFilters = () => onFiltersChange(DEFAULT_RECIPE_FILTERS);
-  const rotatingRecipes = getRotatingRecipes(recipes);
 
   return (
     <section id="recipes" className="mt-14 scroll-mt-24">
@@ -102,7 +100,7 @@ export function RecipeGrid({
                 key={recipe.id}
                 type="button"
                 onClick={() =>
-                  onSelect(recipe, buildPreference === "Scheduled" ? undefined : buildPreference)
+                  onSelect(recipe, buildPreference === "Default" ? undefined : buildPreference)
                 }
                 className="shrink-0 rounded-full border border-espresso-900/15 bg-cream-50 px-3 py-2 text-sm font-medium text-espresso-800 transition hover:border-espresso-900/30 hover:bg-cream-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow"
               >
@@ -194,29 +192,20 @@ export function RecipeGrid({
 
       {visibleRecipes.length > 0 ? (
         <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleRecipes.map((recipe) => {
-            const position = rotatingRecipes.findIndex(({ id }) => id === recipe.id);
-            const scheduledTemperature =
-              position < 0
-                ? "Iced"
-                : scheduledTemperatureForPosition(rotatingRecipes, position, date);
-            return (
-              <RecipeCard
-                key={`${recipe.id}-${buildPreference}-${date.toDateString()}`}
-                recipe={recipe}
-                isToday={recipe.id === todayId}
-                defaultTemperature={
-                  getAvailableTemperature(
-                    recipe,
-                    buildPreference === "Scheduled" ? scheduledTemperature : buildPreference,
-                  )
-                }
-                isFavorite={favoriteIds.has(recipe.id)}
-                onSelect={onSelect}
-                onToggleFavorite={onToggleFavorite}
-              />
-            );
-          })}
+          {visibleRecipes.map((recipe) => (
+            <RecipeCard
+              key={`${recipe.id}-${buildPreference}-${date.toDateString()}`}
+              recipe={recipe}
+              isToday={recipe.id === todayId}
+              defaultTemperature={getAvailableTemperature(
+                recipe,
+                buildPreference === "Default" ? getDefaultTemperature(recipe) : buildPreference,
+              )}
+              isFavorite={favoriteIds.has(recipe.id)}
+              onSelect={onSelect}
+              onToggleFavorite={onToggleFavorite}
+            />
+          ))}
         </div>
       ) : (
         <div className="rounded-2xl border border-dashed border-espresso-900/20 bg-cream-100/60 px-6 py-12 text-center">

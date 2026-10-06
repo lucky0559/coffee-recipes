@@ -1,7 +1,7 @@
 import type { Recipe, RecipeBuild, Temperature } from "../types";
 
-// Anchored so today's rotation lands on Matcha on 2026-09-15, per house request.
-const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
+// Anchored so the rotation lands on Biscoff (queue index 13) on 2026-10-06, per house request.
+const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 23);
 const MS_PER_DAY = 86_400_000;
 
 export type RotatingRecipe = Recipe & ({ hot: RecipeBuild } | { iced: RecipeBuild });
@@ -10,14 +10,6 @@ function hasAvailableBuild(recipe: Recipe): recipe is RotatingRecipe {
   return recipe.hot !== undefined || recipe.iced !== undefined;
 }
 
-function isIcedOnly(recipe: Recipe): boolean {
-  return recipe.hot === undefined && recipe.iced !== undefined;
-}
-
-/**
- * The rotation follows library order. Keep Iced-only recipes spaced apart in
- * src/data/recipes.ts, otherwise they serve a run of Iced days.
- */
 export function getRotatingRecipes(recipes: ReadonlyArray<Recipe>): RotatingRecipe[] {
   return recipes.filter(hasAvailableBuild);
 }
@@ -53,82 +45,14 @@ export function queueIndexForDate(recipeCount: number, date: Date): number {
 }
 
 /**
- * The default build alternates within each recipe rotation. The first
- * rotation starts Hot; each new rotation flips its starting build so a
- * reset can begin Iced when the current rotation ends on Iced (including
- * the current available-build rotation).
+ * The build a recipe opens on when the user hasn't picked Hot or Iced: its
+ * first recommended build, otherwise Hot, otherwise Iced for Iced-only recipes.
+ * It does not depend on the date.
  */
-export function defaultTemperatureForRecipePosition(
-  recipeCount: number,
-  positionInRotation: number,
-  date: Date,
-): Temperature {
-  if (recipeCount <= 0) return "Hot";
-
-  const elapsedDays = daysSinceEpoch(date);
-  const rotationIndex = Math.floor(elapsedDays / recipeCount);
-  const normalizedPosition = ((positionInRotation % recipeCount) + recipeCount) % recipeCount;
-  const alternatingPosition = rotationIndex + normalizedPosition;
-
-  return alternatingPosition % 2 === 0 ? "Hot" : "Iced";
-}
-
-export function defaultTemperatureForDate(
-  recipeCount: number,
-  date: Date,
-): Temperature {
-  if (recipeCount <= 0) return "Hot";
-
-  return defaultTemperatureForRecipePosition(
-    recipeCount,
-    queueIndexForDate(recipeCount, date),
-    date,
-  );
-}
-
-/**
- * The default build for a recipe in the rotation (the fixed order from
- * getRotatingRecipes, wrapping at the ends).
- *
- * Iced-only recipes always serve Iced, so they anchor the pattern: the recipe
- * right after one is Hot, then builds alternate, and the recipe right before the
- * next one is Hot so Iced never lands on two days in a row. Between two anchors
- * with an even number of recipes that makes one Hot, Hot pair. The pattern is
- * the same every cycle. Without any Iced-only recipe, the alternation flips each
- * cycle instead (see defaultTemperatureForRecipePosition).
- */
-export function scheduledTemperatureForPosition(
-  rotation: ReadonlyArray<Recipe>,
-  position: number,
-  date: Date,
-): Temperature {
-  const count = rotation.length;
-  if (!rotation.some(isIcedOnly)) {
-    return defaultTemperatureForRecipePosition(count, position, date);
-  }
-
-  const index = ((position % count) + count) % count;
-  if (isIcedOnly(rotation[index])) return "Iced";
-
-  let before = 1;
-  while (!isIcedOnly(rotation[(index - before + count) % count])) before += 1;
-  let after = 1;
-  while (!isIcedOnly(rotation[(index + after) % count])) after += 1;
-
-  return before % 2 === 1 || after === 1 ? "Hot" : "Iced";
-}
-
-export function scheduledTemperatureForDate(
-  rotation: ReadonlyArray<Recipe>,
-  date: Date,
-): Temperature {
-  if (rotation.length === 0) return "Hot";
-
-  return scheduledTemperatureForPosition(
-    rotation,
-    queueIndexForDate(rotation.length, date),
-    date,
-  );
+export function getDefaultTemperature(recipe: Recipe): Temperature {
+  const recommended = recipe.recommended?.find((temperature) => getRecipeBuild(recipe, temperature));
+  if (recommended) return recommended;
+  return recipe.hot ? "Hot" : "Iced";
 }
 
 export function getCoffeeOfTheDay(

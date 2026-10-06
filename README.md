@@ -63,7 +63,7 @@ npm run preview  # serves the existing dist/ build locally
 | `src/data/recipes.ts` | Authoritative ordered recipe data and ingredient display strings. |
 | `src/data/categories.ts` | Category accent and pill colors. |
 | `src/data/recipeImages.ts` | Recipe ID to available temperature-specific public-image mapping. |
-| `src/lib/coffeeOfTheDay.ts` | Pure date, queue, and scheduled-temperature helpers. |
+| `src/lib/coffeeOfTheDay.ts` | Pure date, queue, and default-build helpers. |
 | `src/lib/recipeFilters.ts` | Search, category, favorites, and allergen-aware discovery helpers. |
 | `src/lib/recipeLinks.ts` | Deep-link parsing and share URL generation. |
 | `src/lib/recipePreferences.ts` | Safe preference serialization and favorite/recent-history updates. |
@@ -161,10 +161,10 @@ When an image is added or renamed, verify the complete chain: recipe ID → `REC
 
 ## Daily rotation
 
-The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the available-build line at September 11, 2026:
+The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the available-build line at September 23, 2026, which puts Biscoff on October 6, 2026:
 
 ```ts
-const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
+const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 23);
 ```
 
 `daysSinceEpoch` converts the `Date` to its local calendar date before comparing UTC midnights, so the recipe changes at local midnight instead of after an arbitrary 24-hour interval. The main helpers are:
@@ -173,35 +173,30 @@ const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 11);
 - `getRotatingRecipes(recipes)` — filters the library to recipes with at least one Hot or Iced build.
 - `getCoffeeOfTheDay(recipes, date)` — available-build recipe at today's queue index.
 - `getUpcomingQueue(recipes, date)` — the available-build line starting today, wrapped at the end.
-- `defaultTemperatureForDate(recipeCount, date)` — scheduled Hot/Iced build for today's recipe.
-- `defaultTemperatureForRecipePosition(recipeCount, position, date)` — scheduled build for a known position in the current cycle.
+- `getDefaultTemperature(recipe)` — the build a recipe opens on: its first recommended build that exists, otherwise Hot, otherwise Iced for Iced-only recipes.
 
-The effective rules are:
+The queue rule is:
 
 ```text
 elapsedDays = daysSinceEpoch(date)
 queueIndex = normalized(elapsedDays % recipeCount)
-rotationIndex = floor(elapsedDays / recipeCount)
-alternatingPosition = rotationIndex + positionInRotation
-even alternatingPosition → Hot
-odd alternatingPosition  → Iced
 ```
 
-The current line has 15 recipes, three of them Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13). Iced-only recipes anchor the schedule: the recipe right after one is Hot, builds alternate, and the recipe right before the next one is Hot, so Iced never lands on two days in a row. In menu order the scheduled builds are `H I H I H I H I H I H H I H I`, and the same every cycle. Keep Iced-only recipes spaced apart in `src/data/recipes.ts`; a test fails if they end up together. A line with no Iced-only recipe instead starts Hot and flips its starting build each cycle.
+There is no scheduled Hot/Iced rotation. Only the recipe rotates by date; the featured panel, recipe cards, queue previews and modal all open on each recipe's own default build, and the build control on the home page (Default / Hot / Iced) lets you force Hot or Iced instead.
 
-| Local date | Queue item | Scheduled build |
-| --- | --- | --- |
-| 2026-09-11 | Cheesecake | Hot |
-| 2026-09-12 | Caramel | Iced |
-| 2026-09-15 | Matcha | Hot |
-| 2026-09-16 | Gula Melaka | Iced (Iced-only) |
-| 2026-09-20 | Guava Spark Espresso | Iced (Iced-only) |
-| 2026-09-21 | Salted Caramel | Hot |
-| 2026-09-22 | Dirty Matcha | Hot |
+The current line has 15 recipes, three of them Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13). They are spaced apart in `src/data/recipes.ts` so they do not sit together in the menu or the daily line; a test fails if they end up adjacent.
 
-Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. Empty or non-positive recipe counts return a safe Hot fallback in the temperature helpers; normal UI operation uses the 15-item available-build line while excluding only recipes with neither build.
+| Local date | Coffee of the Day |
+| --- | --- |
+| 2026-09-23 | Cheesecake |
+| 2026-09-28 | Gula Melaka |
+| 2026-10-06 | Biscoff |
+| 2026-10-07 | Matcha Caramel |
+| 2026-10-08 | Cheesecake (the line repeats) |
 
-The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
+Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. An empty line has queue index 0; normal UI operation uses the 15-item available-build line while excluding only recipes with neither build.
+
+The app schedules a refresh at the next local midnight while open. The Default/Hot/Iced preference is persisted on the device; Default restores each recipe's own build. Manual temperature changes inside a detail view affect that view and its share link.
 
 ## Discovery and local preferences
 

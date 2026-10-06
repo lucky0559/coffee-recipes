@@ -14,7 +14,6 @@ interface CoffeeOfTheDayProps {
   recipe: RotatingRecipe;
   date: Date;
   queue: RotatingRecipe[];
-  rotation: RotatingRecipe[];
   position: number;
   total: number;
   defaultTemperature: Temperature;
@@ -29,7 +28,6 @@ export function CoffeeOfTheDay({
   recipe,
   date,
   queue,
-  rotation,
   position,
   total,
   defaultTemperature,
@@ -159,8 +157,6 @@ export function CoffeeOfTheDay({
 
         <QueueStrip
           queue={queue}
-          rotation={rotation}
-          date={date}
           preferredTemperature={preferredTemperature}
           onSelect={onSelect}
         />
