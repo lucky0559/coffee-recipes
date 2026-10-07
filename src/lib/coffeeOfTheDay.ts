@@ -44,15 +44,50 @@ export function queueIndexForDate(recipeCount: number, date: Date): number {
   return offset < 0 ? offset + recipeCount : offset;
 }
 
+function hasBothBuilds(recipe: Recipe): boolean {
+  return recipe.hot !== undefined && recipe.iced !== undefined;
+}
+
 /**
- * The build a recipe opens on when the user hasn't picked Hot or Iced: its
- * first recommended build, otherwise Hot, otherwise Iced for Iced-only recipes.
- * It does not depend on the date.
+ * The scheduled build for the recipe at `position` in the rotation (the fixed
+ * order from getRotatingRecipes).
+ *
+ * Only recipes with both a Hot and an Iced build alternate, in rotation order:
+ * Hot, Iced, Hot, Iced... A recipe with a single build always uses it (Iced-only
+ * recipes are Iced) and does not take a turn in the alternation.
+ *
+ * Each pass through the whole line flips the starting build. With an odd number
+ * of both-build recipes the alternation simply continues across the reset; with
+ * an even number, a line that started Hot ends Iced and the next pass starts
+ * Iced.
  */
-export function getDefaultTemperature(recipe: Recipe): Temperature {
-  const recommended = recipe.recommended?.find((temperature) => getRecipeBuild(recipe, temperature));
-  if (recommended) return recommended;
-  return recipe.hot ? "Hot" : "Iced";
+export function scheduledTemperatureForPosition(
+  rotation: ReadonlyArray<Recipe>,
+  position: number,
+  date: Date,
+): Temperature {
+  const count = rotation.length;
+  if (count <= 0) return "Hot";
+
+  const index = ((position % count) + count) % count;
+  const recipe = rotation[index];
+  if (!hasBothBuilds(recipe)) return recipe.hot ? "Hot" : "Iced";
+
+  const turn = rotation.slice(0, index).filter(hasBothBuilds).length;
+  const rotationIndex = Math.floor(daysSinceEpoch(date) / count);
+
+  return (rotationIndex + turn) % 2 === 0 ? "Hot" : "Iced";
+}
+
+export function scheduledTemperatureForDate(
+  rotation: ReadonlyArray<Recipe>,
+  date: Date,
+): Temperature {
+  return scheduledTemperatureForPosition(
+    rotation,
+    queueIndexForDate(rotation.length, date),
+    date,
+  );
 }
 
 export function getCoffeeOfTheDay(

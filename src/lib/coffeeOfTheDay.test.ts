@@ -4,10 +4,11 @@ import {
   daysSinceEpoch,
   getAvailableTemperature,
   getCoffeeOfTheDay,
-  getDefaultTemperature,
   getRotatingRecipes,
   getUpcomingQueue,
   queueIndexForDate,
+  scheduledTemperatureForDate,
+  scheduledTemperatureForPosition,
 } from "./coffeeOfTheDay";
 import { recipes } from "../data/recipes";
 import type { Recipe } from "../types";
@@ -75,15 +76,76 @@ describe("coffee of the day rotation", () => {
     });
   });
 
-  it("defaults to a recipe's recommended build, else Hot, else Iced for Iced-only recipes", () => {
-    const byId = (id: string) => recipes.find((recipe) => recipe.id === id)!;
+  describe("scheduled Hot/Iced build", () => {
+    const build = { ingredients: [], allergens: [], substitutions: [] };
+    const both = (id: string): Recipe => ({
+      id,
+      number: "00",
+      name: id,
+      category: "Sweet",
+      description: "",
+      hot: build,
+      iced: build,
+    });
+    const icedOnly = (id: string): Recipe => ({ ...both(id), hot: undefined });
+    // Day 0 of cycle `cycle` for a line of `count` drinks (epoch is 2026-09-23).
+    const cycleDay = (cycle: number, count: number, offset: number) =>
+      localDate(2026, 8, 23 + cycle * count + offset);
+    const pattern = (rotation: Recipe[], cycle: number) =>
+      rotation
+        .map((recipe, i) =>
+          getAvailableTemperature(
+            recipe,
+            scheduledTemperatureForPosition(rotation, i, cycleDay(cycle, rotation.length, i)),
+          )[0],
+        )
+        .join("");
 
-    expect(getDefaultTemperature(byId("biscoff"))).toBe("Iced");
-    expect(getDefaultTemperature(byId("cheesecake"))).toBe("Hot");
-    expect(getDefaultTemperature(byId("gula-melaka"))).toBe("Iced");
-    expect(
-      getDefaultTemperature({ ...byId("cheesecake"), recommended: ["Iced"], iced: undefined }),
-    ).toBe("Hot");
+    it("alternates only the both-build drinks and keeps Iced-only drinks Iced", () => {
+      const line = [
+        both("1"),
+        both("2"),
+        icedOnly("3"),
+        both("4"),
+        icedOnly("5"),
+        both("6"),
+      ];
+
+      // Hot, Iced, Iced-only, Hot, Iced-only, Iced
+      expect(pattern(line, 0)).toBe("HIIHII");
+    });
+
+    it("starts the next pass Iced when an even count of both-build drinks started Hot", () => {
+      const line = [both("1"), both("2"), icedOnly("3"), both("4"), icedOnly("5"), both("6")];
+
+      expect(pattern(line, 0)).toBe("HIIHII");
+      expect(pattern(line, 1)).toBe("IHIIIH");
+      expect(pattern(line, 2)).toBe("HIIHII");
+    });
+
+    it("continues the alternation across the reset for an odd count of both-build drinks", () => {
+      const line = [both("1"), both("2"), icedOnly("3"), both("4")];
+
+      expect(pattern(line, 0)).toBe("HIIH");
+      expect(pattern(line, 1)).toBe("IHII");
+    });
+
+    it("schedules the real menu around its Iced-only drinks", () => {
+      const rotation = getRotatingRecipes(recipes);
+
+      // Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13 are Iced-only.
+      expect(pattern(rotation, 0)).toBe("HIHIHIIHIIHIIHI");
+      expect(pattern(rotation, 1)).toBe("IHIHIIHIHIIHIIH");
+    });
+
+    it("uses the schedule for a date's recipe and falls back to Hot for an empty line", () => {
+      const rotation = getRotatingRecipes(recipes);
+
+      // 2026-10-07 is queue index 14, the last both-build drink, on its first pass.
+      expect(scheduledTemperatureForDate(rotation, localDate(2026, 9, 7))).toBe("Iced");
+      expect(scheduledTemperatureForDate([], localDate(2026, 9, 7))).toBe("Hot");
+      expect(scheduledTemperatureForPosition([], 0, localDate(2026, 9, 7))).toBe("Hot");
+    });
   });
 
   it("falls back to an available build for partial recipes", () => {

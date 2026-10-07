@@ -1,7 +1,7 @@
 import type { Category, Recipe, RecipeBuild, Temperature } from "../types";
 
 export type CategoryFilter = Category | "All";
-export type BuildPreference = Temperature | "Default";
+export type BuildPreference = Temperature | "Scheduled";
 
 export interface RecipeFilters {
   query: string;
@@ -48,7 +48,7 @@ export function filterRecipes(
   recipes: Recipe[],
   filters: RecipeFilters,
   favoriteIds: ReadonlySet<string>,
-  buildPreference: BuildPreference = "Default",
+  buildPreference: BuildPreference = "Scheduled",
 ): Recipe[] {
   const query = filters.query.trim().toLocaleLowerCase();
 
