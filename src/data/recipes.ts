@@ -454,9 +454,30 @@ export const recipes: Recipe[] = [
         { name: "Matcha Powder", amount: "4 g" },
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "100 ml" },
-        { name: "Caramel Syrup", amount: "15 ml" },
+        { name: "Caramel Syrup", amount: "10 ml" },
         { name: "Caramel Sauce", amount: "drizzle" }
       ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
+      ]
+    }
+  },
+  {
+    id: "matcha-strawberry-cloud",
+    number: "16",
+    name: "Matcha Strawberry Cloud",
+    category: "Matcha",
+    description:
+      "Iced matcha under a strawberry jam cold foam — earthy, creamy and sweetly fruity.",
+    iced: {
+      ingredients: [
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "90 ml" }
+      ],
+      note: "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 25 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },

@@ -42,8 +42,14 @@ describe("drink type filter", () => {
     const coffeeIds = filterByDrinkType(recipes, "Coffee").map(({ id }) => id);
     const refresherIds = filterByDrinkType(recipes, "Refresher").map(({ id }) => id);
 
-    expect(refresherIds).toEqual(["guava-spark-espresso", "creamy-calamansi"]);
-    expect(matchaIds).toEqual(["matcha", "matcha-spiced", "dirty-matcha", "matcha-caramel"]);
+    expect(refresherIds).toEqual(["guava-spark-espresso", "calamansi-aerocano"]);
+    expect(matchaIds).toEqual([
+      "matcha",
+      "matcha-spiced",
+      "dirty-matcha",
+      "matcha-caramel",
+      "matcha-strawberry-cloud",
+    ]);
     expect(coffeeIds).not.toContain("matcha");
     expect(coffeeIds).toContain("biscoff");
     expect(coffeeIds).not.toContain("guava-spark-espresso");

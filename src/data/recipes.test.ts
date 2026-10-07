@@ -20,6 +20,7 @@ const expectedRecipeLine = [
   { id: "calamansi-aerocano", category: "Refresher" },
   { id: "biscoff", category: "Sweet" },
   { id: "matcha-caramel", category: "Matcha" },
+  { id: "matcha-strawberry-cloud", category: "Matcha" },
 ] as const;
 
 function getBuilds(recipe: Recipe): RecipeBuild[] {
@@ -29,8 +30,8 @@ function getBuilds(recipe: Recipe): RecipeBuild[] {
 }
 
 describe("recipe data", () => {
-  it("keeps the 15-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(15);
+  it("keeps the 16-item serving line ordered and uniquely numbered", () => {
+    expect(recipes).toHaveLength(16);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -62,6 +63,26 @@ describe("recipe data", () => {
       { name: "Palm Sugar Syrup", amount: "30 ml" },
       { name: "Milk", amount: "120 ml" },
       { name: "Espresso/Ristretto", amount: "2 shots" },
+    ]);
+  });
+
+  it("keeps Matcha Strawberry Cloud Iced-only with its strawberry cold foam", () => {
+    const cloud = recipes.find((recipe) => recipe.id === "matcha-strawberry-cloud");
+
+    expect(cloud?.category).toBe("Matcha");
+    expect(cloud?.hot).toBeUndefined();
+    expect(cloud?.iced?.ingredients).toEqual([
+      { name: "Matcha Powder", amount: "4 g" },
+      { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+      { name: "Milk", amount: "90 ml" },
+    ]);
+    expect(cloud?.iced?.note).toBe(
+      "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 25 ml, sea salt pinch",
+    );
+    expect(cloud?.iced?.allergens).toEqual(["Dairy"]);
+    expect(cloud?.iced?.substitutions).toEqual([
+      { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+      { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
     ]);
   });
 

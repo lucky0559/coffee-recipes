@@ -144,9 +144,9 @@ public/recipes/<recipe-id>-hot.webp   # Hot build
 public/recipes/<recipe-id>.webp       # Iced build
 ```
 
-Recipes without a supported build omit that image and mapping; Gula Melaka is intentionally Iced-only.
+Recipes without a supported build omit that image and mapping; Gula Melaka is intentionally Iced-only. Matcha Strawberry Cloud (#16) is also Iced-only; its photo is `public/recipes/matcha-strawberry-cloud.webp` (a 1024 px source upscaled to 1254×1254, so slightly softer than the native 1254 px assets).
 
-The current asset set contains 25 recipe WebPs—Hot/Iced pairs for the 12 complete recipes plus an Iced-only Gula Melaka image—and occupies about 3.6 MB. Keep images text-free and use the existing square product-visual style so the overlays remain readable.
+The current asset set maps 28 recipe WebPs—Hot/Iced pairs for the 12 complete recipes plus Iced-only images for Gula Melaka, Guava Spark Espresso, Calamansi Aerocano and Matcha Strawberry Cloud—and `public/recipes/` occupies about 3.8 MB (including one unmapped leftover, `creamy-calamansi.webp`). Keep images text-free and use the existing square product-visual style so the overlays remain readable.
 
 `src/data/recipeImages.ts` is the only mapping consumed by the UI:
 
@@ -161,10 +161,10 @@ When an image is added or renamed, verify the complete chain: recipe ID → `REC
 
 ## Daily rotation
 
-The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the available-build line at September 23, 2026, which puts Biscoff on October 6, 2026:
+The rotation is deterministic rather than random. `src/lib/coffeeOfTheDay.ts` anchors the available-build line at September 22, 2026, so the line restarts on Cheesecake (Iced) on October 8, 2026, the first day of its second loop:
 
 ```ts
-const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 23);
+const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 22);
 ```
 
 `daysSinceEpoch` converts the `Date` to its local calendar date before comparing UTC midnights, so the recipe changes at local midnight instead of after an arbitrary 24-hour interval. The main helpers are:
@@ -189,22 +189,24 @@ both builds: (loop + turn) even → Hot, odd → Iced
 
 Only recipes with both a Hot and an Iced build alternate Hot, Iced in menu order. Iced-only recipes are always Iced and do not take a turn in the alternation. Each pass through the whole line (a loop) flips the starting build: with an even number of both-build recipes, a loop that started Hot ends Iced and the next loop starts Iced; with an odd number the alternation continues across the reset. The featured panel, recipe cards, and queue previews use this schedule, and the home-page build control (Schedule / Hot / Iced) can force Hot or Iced instead.
 
-The current line has 15 recipes: 12 with both builds and three Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13), kept apart in `src/data/recipes.ts` (a test fails if they end up adjacent). In menu order the builds are:
+The current line has 16 recipes: 12 with both builds and four Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13, Matcha Strawberry Cloud #16), kept apart in `src/data/recipes.ts` (a test fails if they end up adjacent). In menu order the builds are:
 
-| Loop | #01–#15 |
+| Loop | #01–#16 |
 | --- | --- |
-| First (starts 2026-09-23) | `H I H I H I I H I I H I I H I` |
-| After the reset (starts 2026-10-08) | `I H I H I I H I H I I H I I H` |
+| First (starts 2026-09-22) | `H I H I H I I H I I H I I H I I` |
+| Second, after the reset (starts 2026-10-08) | `I H I H I I H I H I I H I I H I` |
+| Third (starts 2026-10-24) | `H I H I H I I H I I H I I H I I` |
 
 | Local date | Coffee of the Day | Build |
 | --- | --- | --- |
-| 2026-10-06 | Biscoff | Hot |
-| 2026-10-07 | Matcha Caramel | Iced |
+| 2026-10-06 | Matcha Caramel | Iced |
+| 2026-10-07 | Matcha Strawberry Cloud | Iced (Iced-only) |
 | 2026-10-08 | Cheesecake | Iced (first of the new loop) |
 | 2026-10-09 | Caramel | Hot |
 | 2026-10-10 | Sea Salt | Iced |
+| 2026-10-11 | Caramelized Patis | Hot |
 
-Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. An empty line has queue index 0; normal UI operation uses the 15-item available-build line while excluding only recipes with neither build.
+Dates before the anchor remain deterministic because the helper uses floor-based rotation division and normalizes negative remainders. An empty line has queue index 0; normal UI operation uses the 16-item available-build line while excluding only recipes with neither build.
 
 The app schedules a refresh at the next local midnight while open. The Schedule/Hot/Iced preference is persisted on the device; selecting Schedule restores the deterministic daily build. Manual temperature changes inside a detail view affect that view and its share link.
 

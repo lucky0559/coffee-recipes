@@ -112,7 +112,7 @@
       <div class="shell">
         <p class="eyebrow">Brewline · implementation record</p>
         <h1>Coffee rotation</h1>
-        <p class="lede">The Coffee of the Day, the recipe cards, and the upcoming queue rotate by date. Drinks with both a Hot and an Iced build alternate Hot, Iced in menu order; Iced-only drinks are always Iced and skip the alternation. Each pass through the line flips the starting build, and 2026-10-06 is anchored on Biscoff.</p>
+        <p class="lede">The Coffee of the Day, the recipe cards, and the upcoming queue rotate by date. Drinks with both a Hot and an Iced build alternate Hot, Iced in menu order; Iced-only drinks are always Iced and skip the alternation. Each pass through the line flips the starting build, and the line restarts on Iced Cheesecake on 2026-10-08.</p>
         <p><span class="status" role="status">Type-check, lint and rotation tests passed · checked in the local dev server</span></p>
       </div>
     </header>
@@ -132,11 +132,11 @@
         <table>
           <thead><tr><th scope="col">Classification</th><th scope="col">Evidence</th><th scope="col">Result</th></tr></thead>
           <tbody>
-            <tr><td>Authoritative data</td><td><code>src/data/recipes.ts</code></td><td>The library holds 15 recipes in menu order: 12 with both builds and three Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13), kept apart.</td></tr>
-            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Only recipes missing both builds are filtered; the queue advances one recipe per local calendar day from the 2026-09-23 anchor and wraps at 15. 2026-10-06 is queue index 13, Biscoff.</td></tr>
+            <tr><td>Authoritative data</td><td><code>src/data/recipes.ts</code></td><td>The library holds 16 recipes in menu order: 12 with both builds and four Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13, Matcha Strawberry Cloud #16), kept apart.</td></tr>
+            <tr><td>Verified queue</td><td><code>src/lib/coffeeOfTheDay.ts</code></td><td>Only recipes missing both builds are filtered; the queue advances one recipe per local calendar day from the 2026-09-22 anchor and wraps at 16. 2026-10-08 is day 16, queue index 0 (Cheesecake) of the second loop.</td></tr>
             <tr><td>Verified schedule</td><td><code>scheduledTemperatureForPosition</code>, <code>scheduledTemperatureForDate</code></td><td>The build is derived from the date and the rotation order, counting only both-build recipes in the alternation.</td></tr>
             <tr><td>Verified UI</td><td><code>RecipePage.tsx</code>, recipe grid and cards, featured panel, queue, modal</td><td>The featured panel, cards and queue previews use the scheduled build unless you picked Hot or Iced; only builds a recipe has are offered.</td></tr>
-            <tr><td>User requirement</td><td>2026-10-07 conversation</td><td>Restore the schedule: both-build drinks alternate, Iced-only drinks stay Iced, and an even count that started Hot starts Iced after the reset.</td></tr>
+            <tr><td>User requirement</td><td>2026-10-07 and 2026-10-08 conversations</td><td>Restore the schedule: both-build drinks alternate, Iced-only drinks stay Iced, and an even count that started Hot starts Iced after the reset; then restart the cycle on 2026-10-08 starting on Iced Cheesecake.</td></tr>
           </tbody>
         </table>
       </section>
@@ -147,8 +147,8 @@
           <thead><tr><th scope="col">Task</th><th scope="col">Surface</th><th scope="col">Status</th><th scope="col">Evidence</th></tr></thead>
           <tbody>
             <tr><td>Include recipes with an available build in the daily line</td><td><code>getRotatingRecipes</code></td><td>Complete</td><td>Recipes with Hot or Iced builds enter the featured item, queue, and rotation count; recipes with neither build remain excluded.</td></tr>
-            <tr><td>Space the Iced-only recipes apart</td><td><code>src/data/recipes.ts</code>, rotation test</td><td>Complete</td><td>Reordered and renumbered to #06, #10, #13; a test fails if they become adjacent.</td></tr>
-            <tr><td>Anchor on Biscoff</td><td><code>ROTATION_EPOCH_UTC</code></td><td>Complete</td><td>2026-10-06 resolves to Biscoff, then Matcha Caramel, then Cheesecake.</td></tr>
+            <tr><td>Space the Iced-only recipes apart</td><td><code>src/data/recipes.ts</code>, rotation test</td><td>Complete</td><td>Reordered and renumbered to #06, #10, #13, with Matcha Strawberry Cloud added as #16; a test fails if they become adjacent.</td></tr>
+            <tr><td>Restart the line on Iced Cheesecake</td><td><code>ROTATION_EPOCH_UTC</code></td><td>Complete</td><td>2026-10-08 resolves to Cheesecake, Iced, the first day of the second loop; 2026-10-09 is Caramel, Hot.</td></tr>
             <tr><td>Restore the Hot/Iced schedule</td><td><code>scheduledTemperatureForPosition</code>, <code>RecipePage.tsx</code>, <code>RecipeGrid.tsx</code>, <code>QueueStrip.tsx</code></td><td>Complete</td><td>Both-build drinks alternate, Iced-only drinks stay Iced, the starting build flips each loop; the control reads Schedule / Hot / Iced.</td></tr>
             <tr><td>Refresh at local midnight</td><td><code>useCurrentDate</code></td><td>Complete</td><td>Open tabs recalculate the recipe, queue and position without a reload.</td></tr>
           </tbody>
@@ -157,7 +157,7 @@
 
       <section id="contract" aria-labelledby="contract-title">
         <h2 id="contract-title">Rotation contract</h2>
-        <p class="section-intro">The rotation is the library in menu order, filtered to recipes with at least one Hot or Iced build. <code>daysSinceEpoch</code> counts local calendar days from the 2026-09-23 anchor and <code>queueIndexForDate</code> wraps that to a queue position, so the Coffee of the Day changes at local midnight.</p>
+        <p class="section-intro">The rotation is the library in menu order, filtered to recipes with at least one Hot or Iced build. <code>daysSinceEpoch</code> counts local calendar days from the 2026-09-22 anchor and <code>queueIndexForDate</code> wraps that to a queue position, so the Coffee of the Day changes at local midnight.</p>
         <pre>turn      = number of both-build recipes before this one in the rotation
 loop      = floor(elapsedDays / recipeCount)
 single-build recipe        → its own build (Iced-only → Iced)
@@ -165,11 +165,11 @@ both builds: (loop + turn) even → Hot · odd → Iced</pre>
         <div class="grid" style="margin-top: 16px">
           <article class="card"><h3>Six-drink example (3 and 5 are Iced-only)</h3><p>First loop: Hot, Iced, Iced, Hot, Iced, Iced. After the reset: Iced, Hot, Iced, Iced, Iced, Hot.</p></article>
           <article class="card"><h3>Reset rule</h3><p>Each loop flips the starting build. With an even number of both-build drinks, a loop that started Hot ends Iced and the next starts Iced; with an odd number the alternation continues across the reset.</p></article>
-          <article class="card"><h3>Current menu, first loop</h3><p><code>H I H I H I I H I I H I I H I</code> for #01–#15; Iced-only drinks are #06, #10, #13.</p></article>
-          <article class="card"><h3>Current menu, after the reset</h3><p><code>I H I H I I H I H I I H I I H</code>. The first loop ends Iced and the next begins Iced.</p></article>
+          <article class="card"><h3>Current menu, first loop</h3><p><code>H I H I H I I H I I H I I H I I</code> for #01–#16; Iced-only drinks are #06, #10, #13, #16.</p></article>
+          <article class="card"><h3>Current menu, after the reset</h3><p><code>I H I H I I H I H I I H I I H I</code>. The first loop ends Iced and the next begins Iced.</p></article>
         </div>
-        <p class="section-intro" style="margin-top: 16px">Dates: 2026-10-06 Biscoff (Hot), 2026-10-07 Matcha Caramel (Iced), 2026-10-08 Cheesecake (Iced, first of the new loop), 2026-10-09 Caramel (Hot), 2026-10-10 Sea Salt (Iced).</p>
-        <p class="note" style="margin-top: 16px">Iced-only drinks (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13) are kept apart in <code>src/data/recipes.ts</code>, and a test fails if they become adjacent. An empty line has queue index 0 and falls back to Hot. No API, persistence, transaction, locking, idempotency, or rollback behavior is involved.</p>
+        <p class="section-intro" style="margin-top: 16px">Dates: 2026-10-06 Matcha Caramel (Iced), 2026-10-07 Matcha Strawberry Cloud (Iced-only), 2026-10-08 Cheesecake (Iced, first of the new loop), 2026-10-09 Caramel (Hot), 2026-10-10 Sea Salt (Iced), 2026-10-11 Caramelized Patis (Hot). The loops start 2026-09-22, 2026-10-08 and 2026-10-24.</p>
+        <p class="note" style="margin-top: 16px">Iced-only drinks (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13, Matcha Strawberry Cloud #16) are kept apart in <code>src/data/recipes.ts</code>, and a test fails if they become adjacent. An empty line has queue index 0 and falls back to Hot. No API, persistence, transaction, locking, idempotency, or rollback behavior is involved.</p>
       </section>
 
       <section aria-labelledby="behavior-title">
@@ -185,10 +185,10 @@ both builds: (loop + turn) even → Hot · odd → Iced</pre>
       <section id="verification" aria-labelledby="verification-title">
         <h2 id="verification-title">Acceptance and verification</h2>
         <ul class="checklist">
-          <li>12 rotation tests passed, including the six-drink sample, the even-count reset, the odd-count continuation, and the real menu's two loop patterns.</li>
+          <li>13 rotation tests passed, including the six-drink sample, the even-count reset, the odd-count continuation, the real 16-recipe menu's two loop patterns, and the 2026-10-08 restart on Iced Cheesecake.</li>
           <li>TypeScript (<code>tsc -b</code>) and Oxlint passed with no errors or warnings.</li>
-          <li>Local dev server: <code>/recipe</code> shows Matcha Caramel (Iced) today, a queue of Cheesecake Iced, Caramel Hot, Sea Salt Iced, Caramelized Patis Hot, Matcha Iced, grid builds <code>H I H I H I I H I I H I I H I</code>, and a Schedule / Hot / Iced control, with no console errors.</li>
-          <li>Full Vitest: 22 passed and 9 failed on recipe-data and filter expectations unrelated to the rotation.</li>
+          <li>Local dev server: <code>/recipe</code> on 2026-10-08 shows Cheesecake (Iced, "#1 of 16 in the line"), a queue of Caramel Hot, Sea Salt Iced, Caramelized Patis Hot, Matcha Iced, Gula Melaka Iced, grid builds <code>I H I H I I H I H I I H I I H I</code>, and a Schedule / Hot / Iced control, with no console errors.</li>
+          <li>Full Vitest: 29 passed and 8 failed on recipe-data expectations unrelated to the rotation.</li>
         </ul>
         <p class="note">This feature has no endpoints, authentication, authorization, request/response contracts, persistence changes, or backend dependencies.</p>
       </section>

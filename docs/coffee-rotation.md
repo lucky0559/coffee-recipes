@@ -1,22 +1,22 @@
 # Brewline coffee rotation
 
 Status: Implemented; type-check, lint, and rotation tests pass; checked in the local dev server
-Last updated: 2026-10-07
-Scope: The Coffee of the Day, the recipe cards, and the upcoming queue rotate through the recipe line by date. Drinks that have both a Hot and an Iced build alternate Hot, Iced, Hot, Iced in menu order; Iced-only drinks are always Iced and do not take a turn in the alternation. Each pass through the line flips the starting build. The rotation is anchored so that 2026-10-06 is Biscoff.
+Last updated: 2026-10-08
+Scope: The Coffee of the Day, the recipe cards, and the upcoming queue rotate through the recipe line by date. Drinks that have both a Hot and an Iced build alternate Hot, Iced, Hot, Iced in menu order; Iced-only drinks are always Iced and do not take a turn in the alternation. Each pass through the line flips the starting build. The rotation is anchored so that the line restarts on Cheesecake, Iced, on 2026-10-08 (the first day of the second loop).
 
 ## Source-of-truth reconciliation
 
 | Classification | Evidence | Result |
 | --- | --- | --- |
-| Authoritative recipe data | src/data/recipes.ts | The library holds 15 recipes in menu order: 12 with both builds and three Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13), kept apart in the menu. |
-| Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The queue filters out only recipes missing both builds, then advances one recipe per local calendar day from the 2026-09-23 anchor and wraps at the 15-recipe count. 2026-10-06 is queue index 13, Biscoff. |
+| Authoritative recipe data | src/data/recipes.ts | The library holds 16 recipes in menu order: 12 with both builds and four Iced-only (Gula Melaka #06, Guava Spark Espresso #10, Calamansi Aerocano #13, Matcha Strawberry Cloud #16), kept apart in the menu. |
+| Repository-verified queue behavior | src/lib/coffeeOfTheDay.ts | The queue filters out only recipes missing both builds, then advances one recipe per local calendar day from the 2026-09-22 anchor and wraps at the 16-recipe count. 2026-10-08 is day 16, queue index 0 (Cheesecake) of the second loop. |
 | Repository-verified schedule | scheduledTemperatureForPosition / scheduledTemperatureForDate | The build for a recipe is derived from the date and the rotation order, as described below. |
 | Repository-verified UI behavior | RecipePage.tsx, RecipeGrid.tsx, RecipeCard.tsx, CoffeeOfTheDay.tsx, QueueStrip.tsx, RecipeModal.tsx | The featured panel, cards, and queue previews use the scheduled build unless the user picked Hot or Iced; cards and the modal offer only builds a recipe has. |
-| User requirement | 2026-10-07 conversation | Restore the Hot/Iced schedule where both-build drinks alternate, Iced-only drinks stay Iced, and an even count of both-build drinks that started Hot starts Iced after the reset. |
+| User requirement | 2026-10-07 and 2026-10-08 conversations | Restore the Hot/Iced schedule where both-build drinks alternate, Iced-only drinks stay Iced, and an even count of both-build drinks that started Hot starts Iced after the reset; then restart the cycle on 2026-10-08 starting on Iced Cheesecake. |
 
 ## Rotation contract
 
-The rotation is the library in menu order, filtered with `getRotatingRecipes` to recipes with at least one Hot or Iced build. `daysSinceEpoch(date)` counts local calendar days from the anchor (2026-09-23), and `queueIndexForDate(recipeCount, date)` wraps that count to a queue position, so the Coffee of the Day changes exactly at local midnight. One pass through the line (15 days) is a "loop"; the loop number is `floor(elapsedDays / recipeCount)`.
+The rotation is the library in menu order, filtered with `getRotatingRecipes` to recipes with at least one Hot or Iced build. `daysSinceEpoch(date)` counts local calendar days from the anchor (2026-09-22), and `queueIndexForDate(recipeCount, date)` wraps that count to a queue position, so the Coffee of the Day changes exactly at local midnight. One pass through the line (16 days) is a "loop"; the loop number is `floor(elapsedDays / recipeCount)`.
 
 ## Scheduled build
 
@@ -38,22 +38,24 @@ Example (six drinks; drinks 3 and 5 are Iced-only):
 | First loop | Hot | Iced | Iced | Hot | Iced | Iced |
 | After the reset | Iced | Hot | Iced | Iced | Iced | Hot |
 
-The current menu has 12 both-build drinks, so the builds in menu order (#01–#15) are:
+The current menu has 12 both-build drinks, so the builds in menu order (#01–#16) are:
 
 | Loop | Pattern |
 | --- | --- |
-| First (starts 2026-09-23) | `H I H I H I I H I I H I I H I` |
-| After the reset (starts 2026-10-08) | `I H I H I I H I H I I H I I H` |
+| First (starts 2026-09-22) | `H I H I H I I H I I H I I H I I` |
+| Second, after the reset (starts 2026-10-08) | `I H I H I I H I H I I H I I H I` |
+| Third (starts 2026-10-24) | `H I H I H I I H I I H I I H I I` |
 
-Iced-only drinks (#06, #10, #13) are Iced in both. The first loop ends on Iced and the next begins on Iced, as requested.
+Iced-only drinks (#06, #10, #13, #16) are Iced in every loop. The first loop ends on Iced and the second begins on Iced, as requested.
 
 | Local date | Coffee of the Day | Build |
 | --- | --- | --- |
-| 2026-10-06 | Biscoff | Hot |
-| 2026-10-07 | Matcha Caramel | Iced |
+| 2026-10-06 | Matcha Caramel | Iced |
+| 2026-10-07 | Matcha Strawberry Cloud | Iced (Iced-only) |
 | 2026-10-08 | Cheesecake | Iced (first of the new loop) |
 | 2026-10-09 | Caramel | Hot |
 | 2026-10-10 | Sea Salt | Iced |
+| 2026-10-11 | Caramelized Patis | Hot |
 
 Dates before the anchor remain deterministic because the helpers use floor-based division and normalize negative remainders. An empty line has queue index 0 and the schedule falls back to Hot.
 
@@ -71,6 +73,7 @@ Dates before the anchor remain deterministic because the helpers use floor-based
 - 2026-09-11 to 2026-10-05: the schedule alternated by position in the whole line (Iced-only drinks included), flipping each loop.
 - 2026-10-06: Iced-only drinks were spaced apart in the menu; the schedule was briefly removed and the anchor moved so 2026-10-06 is Biscoff.
 - 2026-10-07: schedule restored, now counting only the both-build drinks in the alternation.
+- 2026-10-08: Matcha Strawberry Cloud (#16, Iced-only) added, making the line 16 recipes; the anchor moved from 2026-09-23 to 2026-09-22 so the line restarts today on Iced Cheesecake (day 16, the first day of the second loop). Earlier dates now map to different drinks than they did before this change.
 
 ## Acceptance criteria
 
@@ -78,15 +81,15 @@ Dates before the anchor remain deterministic because the helpers use floor-based
 - [x] Each pass through the line flips the starting build, so an even count of both-build drinks that began Hot begins Iced after the reset.
 - [x] An odd count continues the alternation across the reset.
 - [x] The featured panel, cards, and queue previews use the schedule for their date; the Schedule / Hot / Iced control can override it.
-- [x] 2026-10-06 resolves to Biscoff and 2026-10-07 to Matcha Caramel.
+- [x] 2026-10-08 restarts the line on Cheesecake, Iced, and 2026-10-09 is Caramel, Hot.
 - [x] The app updates at local midnight while open.
 
 ## Verification evidence
 
-- Focused rotation tests — PASS: 12 tests, including the six-drink sample, the even-count reset, the odd-count continuation, and the real menu's two loop patterns.
+- Focused rotation tests — PASS: 13 tests, including the six-drink sample, the even-count reset, the odd-count continuation, the real 16-recipe menu's two loop patterns, and the 2026-10-08 restart on Iced Cheesecake.
 - TypeScript (`tsc -b`) and Oxlint — PASS: no errors or warnings.
-- Local dev server — PASS: `/recipe` shows Matcha Caramel (Iced) today, a queue of Cheesecake Iced, Caramel Hot, Sea Salt Iced, Caramelized Patis Hot, Matcha Iced, grid builds `H I H I H I I H I I H I I H I`, and a Schedule / Hot / Iced control, with no console errors.
-- Full Vitest — PARTIAL: 9 recipe-data and filter tests fail for reasons unrelated to the rotation (for example Matcha Spiced syrup, the 10 ml cold-foam milk rule, the Gula Melaka "Espresso/Ristretto" name, and the drink-type split).
+- Local dev server — PASS: on 2026-10-08 `/recipe` shows Cheesecake (Iced, "#1 of 16 in the line") as the Coffee of the Day, a queue of Caramel Hot, Sea Salt Iced, Caramelized Patis Hot, Matcha Iced, Gula Melaka Iced, grid builds `I H I H I I H I H I I H I I H I`, and a Schedule / Hot / Iced control, with no console errors.
+- Full Vitest — PARTIAL: 8 recipe-data tests fail for reasons unrelated to the rotation (for example Matcha Spiced syrup, the 10 ml cold-foam milk rule, and the Gula Melaka "Espresso/Ristretto" name).
 
 ## Remaining work
 
