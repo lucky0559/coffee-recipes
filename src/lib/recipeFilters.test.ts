@@ -44,6 +44,7 @@ describe("drink type filter", () => {
 
     expect(refresherIds).toEqual(["guava-spark-espresso", "calamansi-aerocano"]);
     expect(matchaIds).toEqual([
+      "strawberry-matcha",
       "matcha",
       "matcha-spiced",
       "dirty-matcha",

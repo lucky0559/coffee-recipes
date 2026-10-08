@@ -44,11 +44,12 @@ All assets are local, text-free, square WebP images in the same natural editoria
 | 11 | Biscoff | `public/recipes/biscoff-hot.webp` | `public/recipes/biscoff.webp` | 1254×1254 | 159 KB / 248 KB |
 | 12 | Matcha Caramel | `public/recipes/matcha-caramel-hot.webp` | `public/recipes/matcha-caramel.webp` | 1254×1254 | 114 KB / 107 KB |
 | 13 | Gula Melaka | — | `public/recipes/gula-melaka.webp` | 1254×1254 | — / 125 KB |
-| — | Guava Spark Espresso (current menu #10) | — | `public/recipes/guava-spark-espresso.webp` | 1254×1254 | — / not re-measured |
-| — | Calamansi Aerocano (current menu #13) | — | `public/recipes/calamansi-aerocano.webp` | 1254×1254 | — / not re-measured |
-| — | Matcha Strawberry Cloud (current menu #16) | — | `public/recipes/matcha-strawberry-cloud.webp` | 1254×1254 | — / 73 KB |
+| — | Guava Spark Espresso (current menu #11) | — | `public/recipes/guava-spark-espresso.webp` | 1254×1254 | — / not re-measured |
+| — | Calamansi Aerocano (current menu #14) | — | `public/recipes/calamansi-aerocano.webp` | 1254×1254 | — / not re-measured |
+| — | Matcha Strawberry Cloud (current menu #17) | — | `public/recipes/matcha-strawberry-cloud.webp` | 1254×1254 | — / 77 KB |
+| — | Strawberry Matcha (current menu #03) | — | `public/recipes/strawberry-matcha.webp` | 1254×1254 | — / 74 KB |
 
-The `#` column above uses the numbering from the original 13-recipe pass; the three rows added since 2026-09-23 show their current menu numbers instead. Matcha Strawberry Cloud (added 2026-10-08) uses a user-supplied 1024×1024 generated photo of the same wavy tumbler as the other iced matcha drinks, converted to a 1254×1254 WebP (quality 82), so it is slightly softer than the native 1254 px assets.
+The `#` column above uses the numbering from the original 13-recipe pass; the rows added since 2026-09-23 show their current menu numbers instead. Strawberry Matcha (added 2026-10-08, Iced-only) uses a user-supplied 1024×1024 generated photo of the shared wavy tumbler with three layers (strawberry jam at the bottom, milk, then matcha), converted to a 1254×1254 WebP (quality 82), so it is slightly softer than the native 1254 px assets. Matcha Strawberry Cloud (added 2026-10-08) uses a user-supplied 1024×1024 generated photo of the same wavy tumbler as the other iced matcha drinks, showing two layers (mixed matcha latte under a plain strawberry cold foam, no visible salt). It was replaced the same day with that two-layer version and converted to a 1254×1254 WebP (quality 82), so it is slightly softer than the native 1254 px assets.
 
 ## Implementation behavior
 

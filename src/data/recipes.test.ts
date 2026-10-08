@@ -7,6 +7,7 @@ import type { Recipe, RecipeBuild } from "../types";
 const expectedRecipeLine = [
   { id: "cheesecake", category: "Sweet" },
   { id: "caramel", category: "Sweet" },
+  { id: "strawberry-matcha", category: "Matcha" },
   { id: "sea-salt", category: "Savory" },
   { id: "caramelized-patis", category: "Savory" },
   { id: "matcha", category: "Matcha" },
@@ -30,8 +31,8 @@ function getBuilds(recipe: Recipe): RecipeBuild[] {
 }
 
 describe("recipe data", () => {
-  it("keeps the 16-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(16);
+  it("keeps the 17-item serving line ordered and uniquely numbered", () => {
+    expect(recipes).toHaveLength(17);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -66,6 +67,25 @@ describe("recipe data", () => {
     ]);
   });
 
+  it("keeps Strawberry Matcha Iced-only with its jam, milk and matcha layers", () => {
+    const strawberryMatcha = recipes.find((recipe) => recipe.id === "strawberry-matcha");
+
+    expect(strawberryMatcha?.name).toBe("Strawberry Matcha");
+    expect(strawberryMatcha?.number).toBe("03");
+    expect(strawberryMatcha?.category).toBe("Matcha");
+    expect(strawberryMatcha?.hot).toBeUndefined();
+    expect(strawberryMatcha?.iced?.ingredients).toEqual([
+      { name: "Matcha Powder", amount: "4 g" },
+      { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+      { name: "Milk", amount: "90 ml" },
+      { name: "Strawberry Jam", amount: "30 ml" },
+    ]);
+    expect(strawberryMatcha?.iced?.allergens).toEqual(["Dairy"]);
+    expect(strawberryMatcha?.iced?.substitutions).toEqual([
+      { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+    ]);
+  });
+
   it("keeps Matcha Strawberry Cloud Iced-only with its strawberry cold foam", () => {
     const cloud = recipes.find((recipe) => recipe.id === "matcha-strawberry-cloud");
 
@@ -77,7 +97,7 @@ describe("recipe data", () => {
       { name: "Milk", amount: "90 ml" },
     ]);
     expect(cloud?.iced?.note).toBe(
-      "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 25 ml, sea salt pinch",
+      "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 30 ml, sea salt pinch",
     );
     expect(cloud?.iced?.allergens).toEqual(["Dairy"]);
     expect(cloud?.iced?.substitutions).toEqual([

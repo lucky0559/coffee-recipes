@@ -2,7 +2,7 @@ import type { Recipe, RecipeBuild, Temperature } from "../types";
 
 // Anchored so the line restarts on Cheesecake (queue index 0) on 2026-10-08, the first day of its
 // second pass, which starts Iced, per house request.
-const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 22);
+const ROTATION_EPOCH_UTC = Date.UTC(2026, 8, 21);
 const MS_PER_DAY = 86_400_000;
 
 export type RotatingRecipe = Recipe & ({ hot: RecipeBuild } | { iced: RecipeBuild });

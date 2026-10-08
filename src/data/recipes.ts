@@ -62,8 +62,28 @@ export const recipes: Recipe[] = [
     }
   },
   {
-    id: "sea-salt",
+    id: "strawberry-matcha",
     number: "03",
+    name: "Strawberry Matcha",
+    category: "Matcha",
+    description:
+      "Layered iced matcha over milk and strawberry jam — earthy, creamy and sweetly fruity.",
+    iced: {
+      ingredients: [
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "90 ml" },
+        { name: "Strawberry Jam", amount: "30 ml" }
+      ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
+      ]
+    }
+  },
+  {
+    id: "sea-salt",
+    number: "04",
     name: "Sea Salt",
     category: "Savory",
     description:
@@ -98,7 +118,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "caramelized-patis",
-    number: "04",
+    number: "05",
     name: "Caramelized Patis",
     category: "Savory",
     description:
@@ -133,7 +153,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha",
-    number: "05",
+    number: "06",
     name: "Matcha",
     category: "Matcha",
     description:
@@ -163,7 +183,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "gula-melaka",
-    number: "06",
+    number: "07",
     name: "Gula Melaka",
     category: "Sweet",
     description:
@@ -184,7 +204,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "spanish",
-    number: "07",
+    number: "08",
     name: "Spanish",
     category: "Classic",
     description:
@@ -220,7 +240,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-spiced",
-    number: "08",
+    number: "09",
     name: "Matcha Spiced",
     category: "Matcha",
     description:
@@ -253,7 +273,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "kape-tibuok",
-    number: "09",
+    number: "10",
     name: "Kape Tibuok",
     category: "Classic",
     description:
@@ -288,7 +308,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "guava-spark-espresso",
-    number: "10",
+    number: "11",
     name: "Guava Spark Espresso",
     category: "Refresher",
     description:
@@ -306,7 +326,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "salted-caramel",
-    number: "11",
+    number: "12",
     name: "Salted Caramel",
     category: "Sweet",
     description:
@@ -339,7 +359,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "dirty-matcha",
-    number: "12",
+    number: "13",
     name: "Dirty Matcha",
     category: "Matcha",
     description:
@@ -372,7 +392,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "calamansi-aerocano",
-    number: "13",
+    number: "14",
     name: "Calamansi Aerocano",
     category: "Refresher",
     description:
@@ -393,7 +413,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "biscoff",
-    number: "14",
+    number: "15",
     name: "Biscoff",
     category: "Sweet",
     description:
@@ -433,7 +453,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-caramel",
-    number: "15",
+    number: "16",
     name: "Matcha Caramel",
     category: "Matcha",
     description:
@@ -466,7 +486,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-strawberry-cloud",
-    number: "16",
+    number: "17",
     name: "Matcha Strawberry Cloud",
     category: "Matcha",
     description:
@@ -477,7 +497,7 @@ export const recipes: Recipe[] = [
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "90 ml" }
       ],
-      note: "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 25 ml, sea salt pinch",
+      note: "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 30 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },

@@ -45,6 +45,9 @@ const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
   "matcha-strawberry-cloud": {
     Iced: "/recipes/matcha-strawberry-cloud.webp",
   },
+  "strawberry-matcha": {
+    Iced: "/recipes/strawberry-matcha.webp",
+  },
 };
 
 export function getRecipeImage(

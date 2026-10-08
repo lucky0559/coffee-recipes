@@ -35,6 +35,7 @@ const APP_SHELL = [
   "/recipes/matcha-caramel-hot.webp",
   "/recipes/matcha-caramel.webp",
   "/recipes/matcha-strawberry-cloud.webp",
+  "/recipes/strawberry-matcha.webp",
 ];
 
 function storeResponse(request, response) {
