@@ -91,7 +91,7 @@ export const recipes: Recipe[] = [
     hot: {
       ingredients: [
         { name: "Condensed Milk", amount: "15 ml" },
-        { name: "Sea Salt", amount: "pinch" },
+        { name: "Sea Salt", amount: "0.5 g" },
         { name: "Espresso", amount: "2 shots" }
       ],
       allergens: ["Dairy"],
@@ -108,7 +108,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt 0.5 g",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
