@@ -333,7 +333,7 @@ export const recipes: Recipe[] = [
     recommended: ["Iced"],
     hot: {
       ingredients: [
-        { name: "Sea Salt", amount: "pinch" },
+        { name: "Sea Salt", amount: "0.4g" },
         { name: "Caramel Sauce", amount: "15 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Espresso", amount: "2 shots" }
@@ -348,7 +348,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt 0.4g",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
