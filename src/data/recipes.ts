@@ -367,7 +367,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "3 g" },
         { name: "Water (for matcha powder mixture)", amount: "30 ml" },
-        { name: "Condensed Milk", amount: "20 ml" },
+        { name: "Condensed Milk", amount: "15 ml" },
         { name: "Espresso", amount: "1 shot" }
       ],
       allergens: [],
@@ -379,7 +379,7 @@ export const recipes: Recipe[] = [
         { name: "Water (for matcha powder mixture)", amount: "30 ml" },
         { name: "Milk", amount: "80 ml" },
         { name: "Espresso", amount: "1 shot" },
-        { name: "Condensed Milk", amount: "20 ml" }
+        { name: "Condensed Milk", amount: "15 ml" }
       ],
       note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
       allergens: ["Dairy"],
@@ -398,7 +398,7 @@ export const recipes: Recipe[] = [
       "A bright iced espresso refresher: calamansi and palm sugar over a double shot, crowned with a salted vanilla cold foam — citrusy, sweet and creamy.",
     iced: {
       ingredients: [
-        { name: "Calamansi Extract", amount: "10 ml" },
+        { name: "Calamansi Extract", amount: "8 ml" },
         { name: "Palm Sugar Syrup", amount: "10 ml" },
         { name: "Water", amount: "60 ml" },
         { name: "Espresso", amount: "2 shots" }
