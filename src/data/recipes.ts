@@ -496,7 +496,7 @@ export const recipes: Recipe[] = [
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "90 ml" }
       ],
-      note: "Strawberry cold foam — whipping cream 30 ml, milk 15 ml, strawberry jam 30 ml, sea salt pinch",
+      note: "Strawberry cold foam — whipping cream 30 ml, milk 5 ml, strawberry jam 30 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
