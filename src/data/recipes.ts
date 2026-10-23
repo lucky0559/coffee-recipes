@@ -460,8 +460,8 @@ export const recipes: Recipe[] = [
     recommended: ["Iced"],
     hot: {
       ingredients: [
-        { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Matcha Powder", amount: "3 g" },
+        { name: "Water (for matcha powder mixture)", amount: "30 ml" },
         { name: "Caramel Sauce", amount: "10 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" }
       ],
