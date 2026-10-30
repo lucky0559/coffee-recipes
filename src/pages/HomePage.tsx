@@ -1,12 +1,19 @@
 import { useMemo, useRef, useState } from "react";
+import { CoffeeOfTheDayPreview } from "../components/CoffeeOfTheDayPreview";
 import { Header } from "../components/Header";
 import { RecipeBackdrop } from "../components/RecipeBackdrop";
 import { RecommendedIcon } from "../components/RecommendedIcon";
 import { CATEGORY_STYLES } from "../data/categories";
 import { recipes } from "../data/recipes";
-import { getAvailableTemperature } from "../lib/coffeeOfTheDay";
+import {
+  getAvailableTemperature,
+  getCoffeeOfTheDay,
+  getRotatingRecipes,
+  scheduledTemperatureForDate,
+} from "../lib/coffeeOfTheDay";
 import { DRINK_TYPES, filterByDrinkType, type DrinkType } from "../lib/recipeFilters";
 import { RECIPE_PATH } from "../lib/recipeLinks";
+import { useCurrentDate } from "../lib/useCurrentDate";
 import { useOnlineStatus } from "../lib/useOnlineStatus";
 import type { Recipe, Temperature } from "../types";
 
@@ -101,11 +108,27 @@ export function HomePage() {
   const [drinkType, setDrinkType] = useState<DrinkType>("All");
   const visibleRecipes = useMemo(() => filterByDrinkType(recipes, drinkType), [drinkType]);
 
+  const today = useCurrentDate();
+  const rotatingRecipes = useMemo(() => getRotatingRecipes(recipes), []);
+  const coffeeOfTheDay = useMemo(
+    () => getCoffeeOfTheDay(rotatingRecipes, today),
+    [rotatingRecipes, today],
+  );
+  const scheduledTemperature = useMemo(
+    () => scheduledTemperatureForDate(rotatingRecipes, today),
+    [rotatingRecipes, today],
+  );
+
   return (
     <div className="min-h-screen bg-cream-50">
       <Header isOnline={isOnline} />
 
       <main className="mx-auto max-w-6xl px-6 pb-24 pt-10">
+        <CoffeeOfTheDayPreview
+          recipe={coffeeOfTheDay}
+          temperature={getAvailableTemperature(coffeeOfTheDay, scheduledTemperature)}
+          date={today}
+        />
         <RecommendedHint />
         <section aria-labelledby="drinks-heading" className="flex flex-col gap-3">
           <p

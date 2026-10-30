@@ -396,10 +396,10 @@ export const recipes: Recipe[] = [
     name: "Calamansi Aerocano",
     category: "Refresher",
     description:
-      "A bright iced espresso refresher: calamansi and palm sugar over a double shot, crowned with a salted vanilla cold foam — citrusy, sweet and creamy.",
+      "A bright iced espresso refresher: calamansi and palm sugar over a double shot — citrusy and sweet.",
     iced: {
       ingredients: [
-        { name: "Calamansi Extract", amount: "8 ml" },
+        { name: "Calamansi Extract", amount: "6 ml" },
         { name: "Palm Sugar Syrup", amount: "10 ml" },
         { name: "Water", amount: "60 ml" },
         { name: "Espresso", amount: "2 shots" }
