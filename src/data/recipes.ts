@@ -153,8 +153,28 @@ export const recipes: Recipe[] = [
     }
   },
   {
-    id: "matcha",
+    id: "gula-melaka",
     number: "06",
+    name: "Gula Melaka",
+    category: "Sweet",
+    description:
+      "An iced latte sweetened with gula melaka palm sugar syrup — deep, smoky caramel notes.",
+    recommended: ["Iced"],
+    iced: {
+      ingredients: [
+        { name: "Palm Sugar Syrup", amount: "30 ml" },
+        { name: "Milk", amount: "120 ml" },
+        { name: "Espresso", amount: "2 shots" }
+      ],
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
+      ]
+    }
+  },
+  {
+    id: "matcha",
+    number: "07",
     name: "Matcha",
     category: "Matcha",
     description:
@@ -179,26 +199,6 @@ export const recipes: Recipe[] = [
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
         { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
-      ]
-    }
-  },
-  {
-    id: "gula-melaka",
-    number: "07",
-    name: "Gula Melaka",
-    category: "Sweet",
-    description:
-      "An iced latte sweetened with gula melaka palm sugar syrup — deep, smoky caramel notes.",
-    recommended: ["Iced"],
-    iced: {
-      ingredients: [
-        { name: "Palm Sugar Syrup", amount: "30 ml" },
-        { name: "Milk", amount: "120 ml" },
-        { name: "Espresso", amount: "2 shots" }
-      ],
-      allergens: ["Dairy"],
-      substitutions: [
-        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] }
       ]
     }
   },
@@ -239,8 +239,30 @@ export const recipes: Recipe[] = [
     }
   },
   {
-    id: "matcha-spiced",
+    id: "cream-cheese-matcha",
     number: "09",
+    name: "Cream Cheese Matcha",
+    category: "Matcha",
+    description:
+      "Iced matcha latte under a salted cream cheese cold foam — earthy, creamy and lightly tangy.",
+    iced: {
+      ingredients: [
+        { name: "Matcha Powder", amount: "4 g" },
+        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Milk", amount: "90 ml" }
+      ],
+      note: "Cream cheese cold foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 10 ml",
+      allergens: ["Dairy"],
+      substitutions: [
+        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+        { ingredient: "Cream cheese", alternatives: ["Vegan cream cheese"] }
+      ]
+    }
+  },
+  {
+    id: "matcha-spiced",
+    number: "10",
     name: "Matcha Spiced",
     category: "Matcha",
     description:
@@ -273,7 +295,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "kape-tibuok",
-    number: "10",
+    number: "11",
     name: "Kape Tibuok",
     category: "Classic",
     description:
@@ -308,7 +330,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "guava-spark-espresso",
-    number: "11",
+    number: "12",
     name: "Guava Spark Espresso",
     category: "Refresher",
     description:
@@ -326,7 +348,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "salted-caramel",
-    number: "12",
+    number: "13",
     name: "Salted Caramel",
     category: "Sweet",
     description:
@@ -359,7 +381,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "dirty-matcha",
-    number: "13",
+    number: "14",
     name: "Dirty Matcha",
     category: "Matcha",
     description:
@@ -392,7 +414,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "calamansi-aerocano",
-    number: "14",
+    number: "15",
     name: "Calamansi Aerocano",
     category: "Refresher",
     description:
@@ -413,7 +435,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "biscoff",
-    number: "15",
+    number: "16",
     name: "Biscoff",
     category: "Sweet",
     description:
@@ -453,7 +475,7 @@ export const recipes: Recipe[] = [
   },
   {
     id: "matcha-caramel",
-    number: "16",
+    number: "17",
     name: "Matcha Caramel",
     category: "Matcha",
     description:
@@ -485,23 +507,22 @@ export const recipes: Recipe[] = [
     }
   },
   {
-    id: "matcha-strawberry-cloud",
-    number: "17",
-    name: "Matcha Strawberry Cloud",
-    category: "Matcha",
+    id: "cream-cheese-latte",
+    number: "18",
+    name: "Cream Cheese Latte",
+    category: "Sweet",
     description:
-      "Iced matcha under a strawberry jam cold foam — earthy, creamy and sweetly fruity.",
+      "Cold milk topped with a salted cream cheese espresso foam — layered, rich, creamy and lightly tangy.",
     iced: {
       ingredients: [
-        { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
-        { name: "Milk", amount: "90 ml" }
+        { name: "Milk", amount: "100 ml" }
       ],
-      note: "Strawberry cold foam — whipping cream 30 ml, milk 5 ml, strawberry jam 30 ml, sea salt pinch",
+      note: "Cream cheese espresso foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml, espresso 2 shots",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
-        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
+        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] },
+        { ingredient: "Cream cheese", alternatives: ["Vegan cream cheese"] }
       ]
     }
   }

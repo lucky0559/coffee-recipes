@@ -1,11 +1,11 @@
 # Brewline — Coffee Recipes
 
-Brewline is a static coffee recipe browser built with React, TypeScript, Vite, and Tailwind CSS. It presents a fixed recipe line, highlights one coffee of the day, supports search and saved recipes, and lets people switch between Hot and Iced builds before opening a shareable recipe detail.
+Brewline is a static coffee recipe browser built with React, TypeScript, Vite, and Tailwind CSS. It presents a fixed recipe line, highlights one drink of the day, supports search and saved recipes, and lets people switch between Hot and Iced builds before opening a shareable recipe detail.
 
 ## What is included
 
 - A categorized grid of 13 coffee and matcha recipes.
-- A deterministic Coffee of the Day queue that advances one recipe per local calendar day.
+- A deterministic Drink of the Day queue that advances one recipe per local calendar day.
 - Hot/Iced ingredient controls on the featured recipe and available recipe-card builds.
 - Search, category, saved-recipe, and allergen-aware discovery filters.
 - Device-local favorites, recently opened recipes, and a preferred build temperature.
@@ -203,7 +203,7 @@ The current line has 17 recipes: 12 with both builds and five Iced-only (Strawbe
 | Second, after the reset (starts 2026-10-08) | `I H I I H I I H I H I I H I I H I` |
 | Third (starts 2026-10-25) | `H I I H I H I I H I I H I I H I I` |
 
-| Local date | Coffee of the Day | Build |
+| Local date | Drink of the Day | Build |
 | --- | --- | --- |
 | 2026-10-06 | Matcha Caramel | Iced |
 | 2026-10-07 | Matcha Strawberry Cloud | Iced (Iced-only) |

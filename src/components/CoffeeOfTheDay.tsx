@@ -72,7 +72,7 @@ export function CoffeeOfTheDay({
       <div className="relative z-10">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <span className="inline-flex items-center gap-2 rounded-full bg-cream-50/15 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-cream-50/90">
-            Coffee of the day
+            Drink of the day
           </span>
           <span className="text-xs font-medium text-cream-50/70">{todayLabel}</span>
         </div>
