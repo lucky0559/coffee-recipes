@@ -247,8 +247,8 @@ export const recipes: Recipe[] = [
       "Matcha layered with spiced biscuit syrup for a warm, cookie-like finish.",
     hot: {
       ingredients: [
-        { name: "Matcha Powder", amount: "4 g" },
-        { name: "Water (for matcha powder mixture)", amount: "40 ml" },
+        { name: "Matcha Powder", amount: "3 g" },
+        { name: "Water (for matcha powder mixture)", amount: "30 ml" },
         { name: "Palm Syrup", amount: "5 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
