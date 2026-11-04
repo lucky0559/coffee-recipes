@@ -339,7 +339,7 @@ export const recipes: Recipe[] = [
     iced: {
       ingredients: [
         { name: "Pink Guava Syrup", amount: "25 ml" },
-        { name: "Sprite/Tonic Water", amount: "130 ml" },
+        { name: "Sprite/Tonic Water", amount: "150 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
       allergens: [],
@@ -514,9 +514,7 @@ export const recipes: Recipe[] = [
     description:
       "Cold milk topped with a salted cream cheese espresso foam — layered, rich, creamy and lightly tangy.",
     iced: {
-      ingredients: [
-        { name: "Milk", amount: "100 ml" }
-      ],
+      ingredients: [{ name: "Milk", amount: "100 ml" }],
       note: "Cream cheese espresso foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml, espresso 2 shots",
       allergens: ["Dairy"],
       substitutions: [
