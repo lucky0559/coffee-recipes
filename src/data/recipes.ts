@@ -400,7 +400,7 @@ export const recipes: Recipe[] = [
       ingredients: [
         { name: "Matcha Powder", amount: "3 g" },
         { name: "Water (for matcha powder mixture)", amount: "30 ml" },
-        { name: "Milk", amount: "80 ml" },
+        { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "1 shot" },
         { name: "Condensed Milk", amount: "15 ml" }
       ],
