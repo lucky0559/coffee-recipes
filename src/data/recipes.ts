@@ -509,13 +509,16 @@ export const recipes: Recipe[] = [
   {
     id: "cream-cheese-latte",
     number: "18",
-    name: "Cream Cheese Latte",
+    name: "Cream Cheese Americano",
     category: "Sweet",
     description:
-      "Cold milk topped with a salted cream cheese espresso foam — layered, rich, creamy and lightly tangy.",
+      "Iced americano topped with a salted cream cheese cold foam — bold, layered, creamy and lightly tangy.",
     iced: {
-      ingredients: [{ name: "Milk", amount: "100 ml" }],
-      note: "Cream cheese espresso foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml, espresso 2 shots",
+      ingredients: [
+        { name: "Water", amount: "100 ml" },
+        { name: "Espresso", amount: "2 shots" }
+      ],
+      note: "Cream cheese foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
