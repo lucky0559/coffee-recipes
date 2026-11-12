@@ -39,7 +39,7 @@ export const recipes: Recipe[] = [
       "A classic caramel latte: double espresso, buttery caramel and a glossy caramel drizzle on top.",
     hot: {
       ingredients: [
-        { name: "Caramel Sauce", amount: "15 ml" },
+        { name: "Caramel Sauce", amount: "20 ml" },
         { name: "Caramel Sauce", amount: "drizzle on top" },
         { name: "Espresso", amount: "2 shots" }
       ],
