@@ -105,7 +105,7 @@ export function CoffeeOfTheDay({
             onClick={() => setTemperature("Hot")}
             aria-pressed={displayTemperature === "Hot"}
             hidden={!recipe.hot}
-            className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
+            className={`flex min-h-8 items-center gap-1 rounded-full px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
               displayTemperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
@@ -117,7 +117,7 @@ export function CoffeeOfTheDay({
             onClick={() => setTemperature("Iced")}
             aria-pressed={displayTemperature === "Iced"}
             hidden={!recipe.iced}
-            className={`flex items-center gap-1 rounded-full px-2.5 py-1 transition ${
+            className={`flex min-h-8 items-center gap-1 rounded-full px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
               displayTemperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
@@ -152,7 +152,7 @@ export function CoffeeOfTheDay({
         <button
           type="button"
           onClick={() => onViewRecipe(displayTemperature)}
-          className="mt-6 inline-flex items-center rounded-full bg-cream-50 px-6 py-3 text-sm font-semibold text-espresso-950 shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0"
+          className="mt-6 inline-flex items-center rounded-full bg-cream-50 px-6 py-3 text-sm font-semibold text-espresso-950 shadow-lg transition hover:-translate-y-0.5 hover:shadow-xl active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 focus-visible:ring-offset-2 focus-visible:ring-offset-espresso-950 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
         >
           View full recipe
         </button>

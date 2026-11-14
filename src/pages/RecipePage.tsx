@@ -208,7 +208,7 @@ export function RecipePage() {
       </main>
 
       <footer className="border-t border-espresso-900/8 py-8 text-center text-xs text-espresso-500">
-        Brewline — one coffee at a time, in order.
+        Allergen notes list known recipe ingredients. Check packaged products before serving.
       </footer>
 
       {selected && (

@@ -1,10 +1,9 @@
-import { HomePage } from "./pages/HomePage";
 import { RecipePage } from "./pages/RecipePage";
-import { isRecipePath } from "./lib/recipeLinks";
 
+// One surface: the recipe library is the home page. The old `/recipe` path still
+// resolves here because every path renders the same page.
 function App() {
-  const pathname = typeof window === "undefined" ? "/" : window.location.pathname;
-  return isRecipePath(pathname) ? <RecipePage /> : <HomePage />;
+  return <RecipePage />;
 }
 
 export default App;

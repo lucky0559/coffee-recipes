@@ -78,7 +78,7 @@ export function RecipeGrid({
               type="button"
               onClick={() => onBuildPreferenceChange(value)}
               aria-pressed={buildPreference === value}
-              className={`rounded-full px-3 py-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow ${
+              className={`min-h-9 rounded-full px-4 py-1.5 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow ${
                 buildPreference === value ? "bg-espresso-900 text-cream-50" : "hover:bg-cream-200"
               }`}
             >
@@ -180,7 +180,7 @@ export function RecipeGrid({
               type="button"
               onClick={() => updateFilter("category", category)}
               aria-pressed={filters.category === category}
-              className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow ${
+              className={`min-h-11 rounded-full border px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-glow ${
                 filters.category === category
                   ? "border-espresso-900 bg-espresso-900 text-cream-50"
                   : "border-espresso-900/15 bg-cream-50 text-espresso-700 hover:border-espresso-900/30"

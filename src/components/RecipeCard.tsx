@@ -51,12 +51,9 @@ export function RecipeCard({
             {recipe.category}
           </span>
           {isRecommended ? (
-            <span
-              role="img"
-              aria-label="Recommended bestseller"
-              className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-cream-50/90 text-espresso-950 shadow-sm"
-            >
-              <RecommendedIcon className="h-5 w-5 object-contain" />
+            <span className="inline-flex h-7 items-center gap-1.5 rounded-full bg-cream-50/90 pl-1 pr-2.5 text-[10px] font-semibold uppercase leading-none tracking-wide text-espresso-950 shadow-sm">
+              <RecommendedIcon className="h-5 w-5 shrink-0 object-contain" />
+              House pick, {displayTemperature}
             </span>
           ) : null}
         </div>
@@ -71,7 +68,7 @@ export function RecipeCard({
             onClick={() => onToggleFavorite(recipe.id)}
             aria-pressed={isFavorite}
             aria-label={isFavorite ? `Remove ${recipe.name} from saved recipes` : `Save ${recipe.name}`}
-            className="rounded-full bg-espresso-950/45 p-2 text-cream-50/85 backdrop-blur-sm transition hover:bg-espresso-950/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 focus-visible:ring-offset-2 focus-visible:ring-offset-espresso-950"
+            className="rounded-full bg-espresso-950/45 p-2.5 text-cream-50/85 backdrop-blur-sm transition hover:bg-espresso-950/65 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 focus-visible:ring-offset-2 focus-visible:ring-offset-espresso-950"
           >
             <Heart className={`h-4 w-4 ${isFavorite ? "fill-current" : ""}`} />
           </button>
@@ -114,7 +111,7 @@ export function RecipeCard({
             onClick={() => setTemperature("Hot")}
             aria-pressed={displayTemperature === "Hot"}
             hidden={!recipe.hot}
-            className={`flex items-center gap-1 rounded-full px-2 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
+            className={`flex min-h-8 items-center gap-1 rounded-full px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
               displayTemperature === "Hot" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
@@ -126,7 +123,7 @@ export function RecipeCard({
             onClick={() => setTemperature("Iced")}
             aria-pressed={displayTemperature === "Iced"}
             hidden={!recipe.iced}
-            className={`flex items-center gap-1 rounded-full px-2 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
+            className={`flex min-h-8 items-center gap-1 rounded-full px-3 py-1 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-50 ${
               displayTemperature === "Iced" ? "bg-cream-50 text-espresso-950" : ""
             }`}
           >
