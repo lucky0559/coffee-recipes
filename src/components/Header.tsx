@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import { Heart, WifiOff } from "lucide-react";
 
 interface HeaderProps {
   isOnline: boolean;
@@ -16,7 +16,9 @@ export function Header({ isOnline, savedCount = 0, onShowSaved }: HeaderProps) {
             <span className="font-display text-lg font-semibold tracking-tight text-espresso-950">
               Brewline
             </span>
-            <span className="text-xs text-espresso-600">coffee recipes, in order</span>
+            <span className="hidden whitespace-nowrap text-xs text-espresso-600 min-[430px]:inline">
+              coffee recipes, in order
+            </span>
           </span>
         </a>
         <nav className="flex items-center gap-2" aria-label="Primary navigation">
@@ -40,13 +42,14 @@ export function Header({ isOnline, savedCount = 0, onShowSaved }: HeaderProps) {
             </>
           )}
           <span
-            className={`hidden rounded-full px-3 py-2 text-xs font-semibold sm:inline-block ${
+            className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-1.5 text-xs font-semibold sm:px-3 sm:py-2 ${
               isOnline
                 ? "bg-cream-100 text-espresso-600"
                 : "bg-amber-glow/15 text-espresso-800"
             }`}
             aria-live="polite"
           >
+            {!isOnline && <WifiOff aria-hidden="true" className="h-3.5 w-3.5" />}
             {isOnline ? "Ready offline" : "Offline mode"}
           </span>
         </nav>

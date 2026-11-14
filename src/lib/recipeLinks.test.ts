@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { getRecipeShareUrl, parseRecipeSelection } from "./recipeLinks";
+import {
+  getRecipeShareUrl,
+  isRecipePath,
+  parseRecipeSelection,
+} from "./recipeLinks";
 
 const recipes = [{ id: "sea-salt" }, { id: "biscoff" }];
 
@@ -19,5 +23,12 @@ describe("recipe links", () => {
     expect(getRecipeShareUrl("sea-salt", "Iced", "https://brewline.test", "/recipe")).toBe(
       "https://brewline.test/recipe?recipe=sea-salt&temperature=Iced",
     );
+  });
+
+  it("recognizes the recipe route", () => {
+    expect(isRecipePath("/recipe")).toBe(true);
+    expect(isRecipePath("/recipe/")).toBe(true);
+    expect(isRecipePath("/")).toBe(false);
+    expect(isRecipePath("/recipes")).toBe(false);
   });
 });
