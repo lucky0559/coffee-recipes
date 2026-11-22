@@ -338,7 +338,7 @@ export const recipes: Recipe[] = [
     recommended: ["Iced"],
     iced: {
       ingredients: [
-        { name: "Pink Guava Syrup", amount: "25 ml" },
+        { name: "Pink Guava Syrup", amount: "30 ml" },
         { name: "Sprite/Tonic Water", amount: "150 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
