@@ -28,8 +28,6 @@ const APP_SHELL = [
   "/recipes/kape-tibuok.webp",
   "/recipes/salted-caramel-hot.webp",
   "/recipes/salted-caramel.webp",
-  "/recipes/dirty-matcha-hot.webp",
-  "/recipes/dirty-matcha.webp",
   "/recipes/biscoff-hot.webp",
   "/recipes/biscoff.webp",
   "/recipes/matcha-caramel-hot.webp",

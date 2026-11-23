@@ -24,10 +24,6 @@ const RECIPE_IMAGES: Record<string, RecipeImageSet> = {
     Hot: "/recipes/salted-caramel-hot.webp",
     Iced: "/recipes/salted-caramel.webp",
   },
-  "dirty-matcha": {
-    Hot: "/recipes/dirty-matcha-hot.webp",
-    Iced: "/recipes/dirty-matcha.webp",
-  },
   biscoff: { Hot: "/recipes/biscoff-hot.webp", Iced: "/recipes/biscoff.webp" },
   "matcha-caramel": {
     Hot: "/recipes/matcha-caramel-hot.webp",

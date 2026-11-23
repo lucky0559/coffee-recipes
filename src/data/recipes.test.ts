@@ -17,7 +17,6 @@ const expectedRecipeLine = [
   { id: "kape-tibuok", category: "Classic" },
   { id: "guava-spark-espresso", category: "Refresher" },
   { id: "salted-caramel", category: "Sweet" },
-  { id: "dirty-matcha", category: "Matcha" },
   { id: "calamansi-aerocano", category: "Refresher" },
   { id: "biscoff", category: "Sweet" },
   { id: "matcha-caramel", category: "Matcha" },
@@ -32,7 +31,7 @@ function getBuilds(recipe: Recipe): RecipeBuild[] {
 
 describe("recipe data", () => {
   it("keeps the 17-item serving line ordered and uniquely numbered", () => {
-    expect(recipes).toHaveLength(17);
+    expect(recipes).toHaveLength(16);
     expect(recipes.map(({ id, category }) => ({ id, category }))).toEqual(expectedRecipeLine);
     expect(new Set(recipes.map((recipe) => recipe.id)).size).toBe(recipes.length);
     expect(new Set(recipes.map((recipe) => recipe.number)).size).toBe(recipes.length);
@@ -231,29 +230,6 @@ describe("recipe data", () => {
     );
     expect(saltedCaramel?.iced?.note).not.toContain("caramel sauce");
     expect(saltedCaramel?.iced?.note).not.toContain("caramel syrup");
-  });
-
-  it("keeps Iced Dirty Matcha mixture milk separate from the main milk", () => {
-    const dirtyMatcha = recipes.find((recipe) => recipe.id === "dirty-matcha");
-
-    expect(dirtyMatcha?.iced?.ingredients).toContainEqual({
-      name: "Milk (for matcha powder mixture)",
-      amount: "60 ml",
-    });
-    expect(dirtyMatcha?.iced?.ingredients).toContainEqual({
-      name: "Milk",
-      amount: "100 ml",
-    });
-    expect(dirtyMatcha?.iced?.ingredients).toContainEqual({
-      name: "Honey/Blue Agave",
-      amount: "15 ml",
-    });
-    expect(
-      dirtyMatcha?.iced?.ingredients.some(({ name }) => name === "Water"),
-    ).toBe(false);
-    expect(dirtyMatcha?.iced?.note).toContain(
-      "combine the matcha powder with 60 ml milk before adding 100 ml milk and honey",
-    );
   });
 
   it("maps every available recipe build to a local image", () => {

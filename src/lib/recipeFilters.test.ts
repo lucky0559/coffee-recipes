@@ -47,7 +47,6 @@ describe("drink type filter", () => {
       "strawberry-matcha",
       "matcha",
       "matcha-spiced",
-      "dirty-matcha",
       "matcha-caramel",
       "matcha-strawberry-cloud",
     ]);

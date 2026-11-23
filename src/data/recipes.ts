@@ -22,7 +22,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -53,7 +53,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -143,7 +143,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, patis 3 ml",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, patis 3 ml",
       allergens: ["Dairy", "Fish"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -230,7 +230,7 @@ export const recipes: Recipe[] = [
         { name: "Ground Cinnamon", amount: "splash on top" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -251,7 +251,7 @@ export const recipes: Recipe[] = [
         { name: "Water (for matcha powder mixture)", amount: "40 ml" },
         { name: "Milk", amount: "90 ml" }
       ],
-      note: "Cream cheese cold foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml",
+      note: "Cream cheese cold foam — whipping cream 20 ml, milk 10 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -285,7 +285,7 @@ export const recipes: Recipe[] = [
         { name: "Palm Syrup", amount: "5 ml" },
         { name: "Spiced Biscuit Syrup", amount: "10 ml" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, sea salt pinch",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, sea salt pinch",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -320,7 +320,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, 0.4 g Tibuok",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, 0.4 g Tibuok",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -371,40 +371,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 10 ml, sea salt 0.4g",
-      allergens: ["Dairy"],
-      substitutions: [
-        { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
-        { ingredient: "Whipping cream", alternatives: ["Coconut cream"] }
-      ]
-    }
-  },
-  {
-    id: "dirty-matcha",
-    number: "14",
-    name: "Dirty Matcha",
-    category: "Matcha",
-    description:
-      'Palm-sweetened matcha "dirtied" with a double shot of espresso — green tea and coffee in one cup.',
-    hot: {
-      ingredients: [
-        { name: "Matcha Powder", amount: "3 g" },
-        { name: "Water (for matcha powder mixture)", amount: "30 ml" },
-        { name: "Condensed Milk", amount: "15 ml" },
-        { name: "Espresso", amount: "1 shot" }
-      ],
-      allergens: [],
-      substitutions: []
-    },
-    iced: {
-      ingredients: [
-        { name: "Matcha Powder", amount: "3 g" },
-        { name: "Water (for matcha powder mixture)", amount: "30 ml" },
-        { name: "Milk", amount: "120 ml" },
-        { name: "Espresso", amount: "1 shot" },
-        { name: "Condensed Milk", amount: "15 ml" }
-      ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, sea salt 0.6g",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -461,7 +428,7 @@ export const recipes: Recipe[] = [
         { name: "Milk", amount: "120 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cold foam — whipping cream 30 ml, milk 15 ml, vanilla syrup 1 pump, sea salt pinch",
+      note: "Cold foam — whipping cream 20 ml, milk 10 ml, vanilla syrup 10 ml, sea salt pinch",
       allergens: ["Dairy", "Gluten"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },
@@ -518,7 +485,7 @@ export const recipes: Recipe[] = [
         { name: "Water", amount: "100 ml" },
         { name: "Espresso", amount: "2 shots" }
       ],
-      note: "Cream cheese foam — whipping cream 30 ml, milk 15 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml",
+      note: "Cream cheese foam — whipping cream 20 ml, milk 10 ml, cream cheese 20 ml, sea salt pinch, vanilla syrup 20 ml",
       allergens: ["Dairy"],
       substitutions: [
         { ingredient: "Milk", alternatives: ["Oat milk", "Soy milk"] },

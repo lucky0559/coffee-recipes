@@ -93,7 +93,6 @@ The current line is:
 | 10 | `kape-tibuok` | Kape Tibuok | Classic |
 | 11 | `guava-spark-espresso` | Guava Spark Espresso (Iced only) | Refresher |
 | 12 | `salted-caramel` | Salted Caramel | Sweet |
-| 13 | `dirty-matcha` | Dirty Matcha | Matcha |
 | 14 | `calamansi-aerocano` | Calamansi Aerocano (Iced only) | Refresher |
 | 15 | `biscoff` | Biscoff | Sweet |
 | 16 | `matcha-caramel` | Matcha Caramel | Matcha |

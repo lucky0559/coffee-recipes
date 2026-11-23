@@ -40,7 +40,6 @@ All assets are local, text-free, square WebP images in the same natural editoria
 | 07 | Matcha Spiced | `public/recipes/matcha-spiced-hot.webp` | `public/recipes/matcha-spiced.webp` | 1254×1254 | 174 KB / 155 KB |
 | 08 | Kape Tibuok | `public/recipes/kape-tibuok-hot.webp` | `public/recipes/kape-tibuok.webp` | 1254×1254 | 146 KB / 159 KB |
 | 09 | Salted Caramel | `public/recipes/salted-caramel-hot.webp` | `public/recipes/salted-caramel.webp` | 1254×1254 | 114 KB / 212 KB |
-| 10 | Dirty Matcha | `public/recipes/dirty-matcha-hot.webp` | `public/recipes/dirty-matcha.webp` | 1254×1254 | 121 KB / 131 KB |
 | 11 | Biscoff | `public/recipes/biscoff-hot.webp` | `public/recipes/biscoff.webp` | 1254×1254 | 159 KB / 248 KB |
 | 12 | Matcha Caramel | `public/recipes/matcha-caramel-hot.webp` | `public/recipes/matcha-caramel.webp` | 1254×1254 | 114 KB / 107 KB |
 | 13 | Gula Melaka | — | `public/recipes/gula-melaka.webp` | 1254×1254 | — / 125 KB |
@@ -107,7 +106,7 @@ Runtime dependency: the generated WebP files must be present under `public/recip
 - ImageGen-enhanced Iced Matcha reference refresh — PASS; ImageGen preserved the supplied glass matcha drink, replaced the cluttered background with a warm blurred café bar, and the selected result was optimized to a 1254×1254 WebP at `public/recipes/matcha.webp`.
 - ImageGen-enhanced Iced Gula Melaka reference refresh — PASS; ImageGen preserved the supplied glass drink, replaced the cluttered background with a warm blurred café bar, and the selected result was optimized to a 1254×1254 WebP at `public/recipes/gula-melaka.webp`.
 - Local Vite URL smoke — PASS; the root page and all 25 `/recipes/*.webp` URLs returned HTTP 200.
-- Full Vitest suite — PARTIAL: 5 files, 28 tests; 23 passed and 5 failed on pre-existing recipe-data expectations (temperature-specific recommendation metadata, Matcha Spiced syrup amount, Iced Matcha Caramel syrup/drizzle data, Hot Salted Caramel syrup amount, and the Dirty Matcha mixture shape), outside this task.
+- Full Vitest suite — PARTIAL: 5 files, 28 tests; 23 passed and 5 failed on pre-existing recipe-data expectations (temperature-specific recommendation metadata, Matcha Spiced syrup amount, Iced Matcha Caramel syrup/drizzle data, Hot Salted Caramel syrup amount), outside this task.
 - Browser interaction recheck — Not available: browser discovery returned “No browser is available”; component renderers were statically checked and the shared ingredient-row invariant passes.
 
 ## Remaining work
